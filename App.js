@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Provider } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -31,7 +31,11 @@ import Onboarding from './components/Onboarding';
 import PageStack from './screens/index';
 
 import DrawerScreenComponent from './drawerScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from './state/index';
 const App = () => {
   return (
     <NavigationContainer>
@@ -40,28 +44,44 @@ const App = () => {
   );
 };
 
-const RootScreen = () => {
-  const [showOnboard, setShowOnboard] = useState(true);
-  const handleOnboardFinish = () => {
-    setShowOnboard(false);
-  };
+const ReactWrapper = () => {
   return (
     <Provider store={store}>
       < PersistGate loading={null} persistor={persistor}>
         <NativeBaseProvider>
-
-
-
-          <>
-            {showOnboard && <Onboarding handleDone={handleOnboardFinish} />}
-            {!showOnboard && <App />}
-
-          </>
+          <RootScreen />
         </NativeBaseProvider>
-
       </PersistGate>
-
     </Provider>
+
+  );
+};
+const RootScreen = () => {
+  // const [showOnboard, setShowOnboard] = useState(true);
+  const onBoardState = useSelector(state => state.onBoard);
+  const dispatch = useDispatch();
+  const { setViewedOnboard } = bindActionCreators(
+    actionCreators.onBoardActionCreator,
+    dispatch,
+  );
+
+  const handleOnboardFinish = () => {
+    // setShowOnboard(false);
+    setViewedOnboard("true")
+    console.log("Handle", onBoardState.viewed)
+
+  };
+
+
+  // useEffect(() => {
+
+  // }, [])
+
+  return (
+    <>
+      {onBoardState.viewed == "false" ? <Onboarding handleDone={handleOnboardFinish} /> : <App />}
+      {/* {onBoardState.viewed == "false" && <App />} */}
+    </>
 
   );
 }
@@ -70,4 +90,4 @@ const RootScreen = () => {
 
 const styles = StyleSheet.create({});
 
-export default RootScreen;
+export default ReactWrapper;

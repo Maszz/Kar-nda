@@ -85,6 +85,8 @@ const eventsForCalendar = [
 
 const SettingStackScreen = props => {
   const events = useSelector(state => state.events);
+  const onBoard = useSelector(state => state.onBoard);
+
   const dispatch = useDispatch();
 
   const { addEvent, removeEvent, resetEventList } = bindActionCreators(
@@ -101,6 +103,10 @@ const SettingStackScreen = props => {
   const [touchY, setTouchY] = useState(0);
   const windowHeight = Dimensions.get('window').height;
   const { t } = useTranslation();
+  const { setViewedOnboard } = bindActionCreators(
+    actionCreators.onBoardActionCreator,
+    dispatch,
+  );
   const formatDate = (e) => {
 
     let temp = {}
@@ -215,6 +221,7 @@ const SettingStackScreen = props => {
             onPress={() => {
               console.log(events)
               console.log(events.events.length)
+              console.log(onBoard)
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -272,6 +279,7 @@ const SettingStackScreen = props => {
               <Text>remove persistor </Text>
             </Center>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={{ marginTop: 20 }}
             onPress={() => {
@@ -284,6 +292,8 @@ const SettingStackScreen = props => {
               // minDate.setDate(minDate.getDate() - toDay + 1)
               // let day = new Date(2022, 1, 13)
               // console.log(day > minDate && day < maxdates)
+              setViewedOnboard("false");
+              console.log("setOnboard false")
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -291,7 +301,7 @@ const SettingStackScreen = props => {
               bg="indigo.300"
               rounded="lg"
               shadow={3}>
-              <Text> log </Text>
+              <Text> reset onBoard </Text>
             </Center>
           </TouchableOpacity>
           <TouchableOpacity style={{ marginTop: 20 }} onPress={onOpen}>
