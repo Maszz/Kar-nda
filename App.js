@@ -26,7 +26,7 @@ import './IMLocalize';
 
 import { store, persistor } from './state/store';
 import { PersistGate } from 'redux-persist/integration/react'
-
+import Onboarding from './components/Onboarding';
 
 import PageStack from './screens/index';
 
@@ -34,20 +34,40 @@ import DrawerScreenComponent from './drawerScreen';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      < PersistGate loading={null} persistor={persistor}>
-        <NativeBaseProvider>
-          <NavigationContainer>
-            <DrawerScreenComponent />
-          </NavigationContainer>
-          {/* <Example /> */}
-        </NativeBaseProvider>
-        {/* <TestRedux /> */}
-      </PersistGate>
-    </Provider>
+    <NavigationContainer>
+      <DrawerScreenComponent />
+    </NavigationContainer>
   );
 };
 
+const RootScreen = () => {
+  const [showOnboard, setShowOnboard] = useState(true);
+  const handleOnboardFinish = () => {
+    setShowOnboard(false);
+  };
+  return (
+    <Provider store={store}>
+      < PersistGate loading={null} persistor={persistor}>
+        <NativeBaseProvider>
+
+
+
+          <>
+            {showOnboard && <Onboarding handleDone={handleOnboardFinish} />}
+            {!showOnboard && <App />}
+
+          </>
+        </NativeBaseProvider>
+
+      </PersistGate>
+
+    </Provider>
+
+  );
+}
+
+
+
 const styles = StyleSheet.create({});
 
-export default App;
+export default RootScreen;

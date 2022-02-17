@@ -7611,6 +7611,11 @@
   dependencies:
     "prop-types" "^15.5.10"
 
+"react-native-app-intro-slider@^4.0.4":
+  "integrity" "sha512-Zkjaol6X3BbZkHUpVDj2LjdidpS6rCgKi0fx80xgGKa0pHxBRd4swWTv2bHnnvu5k1/HXwYk0mY2TbK+2jHl5w=="
+  "resolved" "https://registry.npmjs.org/react-native-app-intro-slider/-/react-native-app-intro-slider-4.0.4.tgz"
+  "version" "4.0.4"
+
 "react-native-big-calendar@^3.0.1":
   "integrity" "sha512-sd9lb0MwQSJBaiSzuVnv6ywqEmuQ7Y8GHN5eulyjTWREalUzFXhuEk4YphCEDdddhPcQTHy564EmEbkqKbEqxA=="
   "resolved" "https://registry.npmjs.org/react-native-big-calendar/-/react-native-big-calendar-3.0.1.tgz"
@@ -7705,6 +7710,11 @@
   dependencies:
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
+
+"react-native-linear-gradient@^2.5.6":
+  "integrity" "sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg=="
+  "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
+  "version" "2.5.6"
 
 "react-native-localize@^2.1.9":
   "integrity" "sha512-n2Bi5P0cII8BrnG23Fs9PmpYcufD3JRbr1IBn3ArIA3Z3cGWg4eebv6am+CgdFC4kTPWUlVzX9fEgEMA+X8d6w=="
@@ -7804,7 +7814,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.67 || 1000.0.0", "react-native@^0.59.0||^0.60.0||^0.61.0||^0.62.0||^0.63.0||^0.64.0||^0.65.0||^0.66.0", "react-native@>= 0.30.0", "react-native@>=0.11", "react-native@>=0.33", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.58.4", "react-native@>=0.60.0", "react-native@0.67.2":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.67 || 1000.0.0", "react-native@^0.59.0||^0.60.0||^0.61.0||^0.62.0||^0.63.0||^0.64.0||^0.65.0||^0.66.0", "react-native@>= 0.30.0", "react-native@>=0.11", "react-native@>=0.33", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.58.4", "react-native@>=0.60.0", "react-native@0.67.2":
   "integrity" "sha512-grEtpOLLvtSg8Bivg0ffVRCjTkresqMt7Jdog/geF6VAYhb4RnLaaUCWvyrfyB9buf135FKnqg5BIuve/XQNXA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.67.2.tgz"
   "version" "0.67.2"

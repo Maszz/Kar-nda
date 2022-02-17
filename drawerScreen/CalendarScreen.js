@@ -20,6 +20,7 @@ import {
   ZStack,
 } from 'native-base';
 import { useSelector } from 'react-redux';
+import Onboarding from '../components/Onboarding'
 const CalendarScreen = () => {
   const events = useSelector(state => state.events);
   const formatDate = (e) => {
@@ -88,5 +89,6 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
 
 export default CalendarScreen;
