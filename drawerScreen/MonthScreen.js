@@ -16,7 +16,8 @@ import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/index';
 
-import { Center, View, Text } from 'native-base';
+import { Center, View, Text, Box } from 'native-base';
+import ActionButton from '../components/ActionButton';
 
 const SettingScreen = () => {
 
@@ -107,6 +108,9 @@ const SettingScreen = () => {
           console.log('press date header', a);
         }}
       />
+      <Box style={{}}>
+        <ActionButton />
+      </Box>
     </View >
   );
 };

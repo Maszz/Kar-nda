@@ -17,6 +17,7 @@ import { ZStack } from 'native-base';
 import { TimeTable } from '../components/Timetable';
 import { eventsForCalendar } from '../eventsManager/event';
 import { useSelector } from 'react-redux';
+import ActionButton from '../components/ActionButton';
 const EventNotes = (props) => {
   return (
     <View style={{ marginTop: 3 }}>
@@ -30,7 +31,7 @@ const EventNotes = (props) => {
     </View>
   )
 };
-const TesttingScreen = () => {
+const DayScreen = () => {
   const { events } = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([])
   const eventNotes = (
@@ -83,8 +84,9 @@ const TesttingScreen = () => {
   return (
     <View>
       <TimeTable events={passingEvent} />
+      <ActionButton />
     </View>
   );
 };
 
-export default TesttingScreen;
+export default DayScreen;

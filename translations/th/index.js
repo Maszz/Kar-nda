@@ -1,2 +1,3 @@
 import common from './common';
-export default {common};
+import month from './month';
+export default { common, month };

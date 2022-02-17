@@ -8,7 +8,6 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   useDisclose,
@@ -20,9 +19,12 @@ import {
   ZStack,
 } from 'native-base';
 import { useSelector } from 'react-redux';
-import Onboarding from '../components/Onboarding'
-const CalendarScreen = () => {
+import ActionButton from '../components/ActionButton'
+
+
+const YearScreen = () => {
   const events = useSelector(state => state.events);
+
   const formatDate = (e) => {
 
     let temp = {}
@@ -42,10 +44,10 @@ const CalendarScreen = () => {
 
       }
     }
-
     // e.events.toISOString().split('T')[0]
     return temp
   }
+
 
   const [markedDates, setMarkedDates] = useState({});
   useEffect(() => {
@@ -57,26 +59,7 @@ const CalendarScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
       <CalendarComponent markedDates={markedDates} />
-      <ActionButton buttonColor="rgba(231,76,60,1)">
-        <ActionButton.Item
-          buttonColor="#9b59b6"
-          title="New Task"
-          onPress={() => console.log('notes tapped!')}>
-          <Icon name="md-create" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-        <ActionButton.Item
-          buttonColor="#3498db"
-          title="Notifications"
-          onPress={() => { }}>
-          <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-        <ActionButton.Item
-          buttonColor="#1abc9c"
-          title="All Tasks"
-          onPress={() => { }}>
-          <Icon name="md-done-all" style={styles.actionButtonIcon} />
-        </ActionButton.Item>
-      </ActionButton>
+      <ActionButton />
     </View>
   );
 };
@@ -91,4 +74,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default CalendarScreen;
+export default YearScreen;

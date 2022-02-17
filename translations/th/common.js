@@ -8,4 +8,8 @@ export default {
   allTodoList: 'สิ่งที่ต้องทำทั้งหมด',
   timer: 'จับเวลา',
   languageSetting: 'ตั้งค่าภาษา',
+  day: 'วัน',
+  week: 'สัปดาห์',
+  month: 'เดือน',
+  year: 'ปี'
 };

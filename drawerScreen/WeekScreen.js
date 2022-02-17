@@ -9,9 +9,10 @@ import {
 } from '@react-navigation/drawer';
 import TimeTable from '@mikezzb/react-native-timetable';
 import { useSelector } from 'react-redux';
+import ActionButton from '../components/ActionButton';
 
 
-const AllEventScreen = () => {
+const WeekScreen = () => {
   const eventGroups = [
     {
       courseId: 'AIST3020',
@@ -378,7 +379,8 @@ const AllEventScreen = () => {
         }}
         eventOnPress={event => Alert.alert(`${JSON.stringify(event)}`)}
       />
+      <ActionButton />
     </View>
   );
 };
-export default AllEventScreen;
+export default WeekScreen;

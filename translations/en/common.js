@@ -8,4 +8,9 @@ export default {
   allTodoList: 'All to do list',
   timer: 'Timer',
   languageSettings: 'Language Settings',
+  day: 'Day',
+  week: 'Week',
+  month: 'Month',
+  year: 'Year',
+
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,10 +21,15 @@ const data = [
     text: 'Get started within five minutes',
     image: require('../assets/images/Onboard3.png'),
   },
+  {
+    title: 'Spend more time doing the things you love wowza',
+    text: 'Get started within five minutes',
+    image: require('../assets/images/Onboard3.png'),
+  },
 ];
 
 const Onboarding = (props) => {
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <View style={styles.slide}>
         <Image source={item.image} style={styles.image} />
@@ -51,8 +56,8 @@ const Onboarding = (props) => {
       <LinearGradient
         colors={['#A5C8FF', '#23286B']}
         style={styles.linearGradient}
-        start={{x: 0, y: 0.5}}
-        end={{x: 1, y: 0.5}}
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
         style={styles.doneButtonWrapper}>
         <Text style={styles.doneButtonText}>Done</Text>
       </LinearGradient>
@@ -69,13 +74,20 @@ const Onboarding = (props) => {
       </View>
     );
   };
+  const renderSkipButton = () => {
+    return (
+      <View style={styles.leftTextWrapper}>
+        <Text style={styles.leftText}>Skip</Text>
+      </View>
+    );
+  };
 
   const handleDone = () => {
     props.handleDone();
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <StatusBar translucent backgroundColor="transparent" />
       <AppIntroSlider
         keyExtractor={keyExtractor}
@@ -86,7 +98,9 @@ const Onboarding = (props) => {
         renderDoneButton={renderDoneButton}
         renderNextButton={renderNextButton}
         renderPrevButton={renderPrevButton}
-        showPrevButton
+        renderSkipButton={renderSkipButton}
+        showPrevButton={true}
+        showSkipButton={true}
         onDone={handleDone}
       />
     </View>
