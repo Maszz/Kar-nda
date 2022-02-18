@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 
 import { Provider } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,9 +8,10 @@ import {
   StyleSheet,
   useColorScheme,
   Text,
-  View,
+  Dimensions
 } from 'react-native';
 import {
+  View,
   NativeBaseProvider,
   Box,
   ZStack,
@@ -20,6 +21,7 @@ import {
   Heading,
   useTheme,
 } from 'native-base';
+import LottieView from 'lottie-react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import './IMLocalize';
@@ -56,6 +58,7 @@ const ReactWrapper = () => {
 
   );
 };
+
 const RootScreen = () => {
   // const [showOnboard, setShowOnboard] = useState(true);
   const onBoardState = useSelector(state => state.onBoard);
@@ -64,6 +67,23 @@ const RootScreen = () => {
     actionCreators.onBoardActionCreator,
     dispatch,
   );
+  const AnimationComponent = (
+    <View style={{ backgroundColor: "white" }
+    }>
+      <LottieView
+        source={require('./assets/lf30_editor_1h2rmbkj.json')}
+        onAnimationFinish={() => {
+          setAnimation(true)
+        }}
+        autoPlay={true}
+        loop={false}
+        speed={1}
+
+      />
+    </View >
+  )
+
+  const [animation, setAnimation] = useState(false)
 
   const handleOnboardFinish = () => {
     // setShowOnboard(false);
@@ -72,15 +92,24 @@ const RootScreen = () => {
 
   };
 
-
-  // useEffect(() => {
-
-  // }, [])
-
   return (
     <>
-      {onBoardState.viewed == "false" ? <Onboarding handleDone={handleOnboardFinish} /> : <App />}
-      {/* {onBoardState.viewed == "false" && <App />} */}
+      {!animation ? (<View style={{
+        backgroundColor: "white",
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+      }}>
+        <LottieView
+          source={require('./assets/lf30_editor_1h2rmbkj.json')}
+          onAnimationFinish={() => {
+            setAnimation(true)
+          }}
+          autoPlay={true}
+          loop={false}
+          speed={1}
+        />
+      </View>) : onBoardState.viewed == "false" ? <Onboarding handleDone={handleOnboardFinish} /> : <App />}
+
     </>
 
   );

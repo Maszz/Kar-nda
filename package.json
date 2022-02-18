@@ -22,6 +22,8 @@
     "@reduxjs/toolkit": "^1.7.1",
     "firebase": "^9.6.5",
     "i18next": "^21.6.11",
+    "lottie-ios": "^3.2.3",
+    "lottie-react-native": "^5.0.1",
     "native-base": "^3.3.4",
     "react": "17.0.2",
     "react-i18next": "^11.15.4",
