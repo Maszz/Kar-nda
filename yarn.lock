@@ -720,7 +720,7 @@
     "pirates" "^4.0.0"
     "source-map-support" "^0.5.16"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.14.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.7", "@babel/runtime@^7.6.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.14.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.7", "@babel/runtime@^7.4.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   "integrity" "sha512-9E9FJowqAsytyOY6LG+1KuueckRL+aQW+mKvXRXnuFGyRAyepJPmEo9vgMfXUA6O9u3IeEdv9MAkppFcaQwogQ=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.7.tgz"
   "version" "7.16.7"
@@ -4522,7 +4522,7 @@
   dependencies:
     "bser" "2.1.1"
 
-"fbjs@^0.8.9":
+"fbjs@^0.8.4", "fbjs@^0.8.9":
   "integrity" "sha512-EQaWFK+fEPSoibjNy8IxUtaFOMXcWsY0JaVrQoZR9zC8N2Ygf9iDITPWjUTVIax95b6I742JFLqASHfsag/vKA=="
   "resolved" "https://registry.npmjs.org/fbjs/-/fbjs-0.8.18.tgz"
   "version" "0.8.18"
@@ -7475,7 +7475,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@*", "prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.1", "prop-types@^15.6.2", "prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -7558,6 +7558,14 @@
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
   "version" "1.2.1"
 
+"react-addons-shallow-compare@15.6.2":
+  "integrity" "sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8="
+  "resolved" "https://registry.npmjs.org/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz"
+  "version" "15.6.2"
+  dependencies:
+    "fbjs" "^0.8.4"
+    "object-assign" "^4.1.0"
+
 "react-devtools-core@4.19.1":
   "integrity" "sha512-2wJiGffPWK0KggBjVwnTaAk+Z3MSxKInHmdzPTrBh1mAarexsa93Kw+WMX88+XjN+TtYgAiLe9xeTqcO5FfJTw=="
   "resolved" "https://registry.npmjs.org/react-devtools-core/-/react-devtools-core-4.19.1.tgz"
@@ -7629,6 +7637,14 @@
     "calendarize" "^1.1.1"
     "dayjs" "^1.10.7"
     "merge-anything" "4.0.2"
+
+"react-native-calendar-slider-carousel@^1.1.0":
+  "integrity" "sha512-3MNtD9yf1tmRjqeI/1/F38FqVtHJQaPKI6MsQcGufKq+RAO2W6RNAw5lmW+ts/gTwEBKqTsD1ZuqsKgnEJN13A=="
+  "resolved" "https://registry.npmjs.org/react-native-calendar-slider-carousel/-/react-native-calendar-slider-carousel-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "@babel/runtime" "^7.4.5"
+    "moment" "^2.24.0"
 
 "react-native-calendar-strip@^2.2.5":
   "integrity" "sha512-3DmHIJX+Uu9Nv2wNTViPOGBY7rvODaHl7xaaxuqDFTN4sCxeM+1ref8k5RE1PgyZ3Wqs4Z8XJoEyORQIc++VMA=="
@@ -7804,6 +7820,14 @@
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   "version" "0.3.1"
 
+"react-native-snap-carousel@^3.9.1":
+  "integrity" "sha512-xWEGusacIgK1YaDXLi7Gao2+ISLoGPVEBR8fcMf4tOOJQufutlNwkoLu0l6B8Qgsrre0nTxoVZikRgGRDWlLaQ=="
+  "resolved" "https://registry.npmjs.org/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz"
+  "version" "3.9.1"
+  dependencies:
+    "prop-types" "^15.6.1"
+    "react-addons-shallow-compare" "15.6.2"
+
 "react-native-svg@^12.1.1", "react-native-svg@12.1.0":
   "integrity" "sha512-NIAJ8jCnXGCqGWXkkJ1GTzO4a3Md5at5sagYV8Vh4MXYnL4z5Rh428Wahjhh+LIjx40EE5xM5YtwyJBqOIba2Q=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-12.1.1.tgz"
@@ -7909,7 +7933,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.2"
 
-"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^16.8.3 || ^17", "react@^16.8.3||^17.0.0", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.0", "react@>= 15.2.1", "react@>= 16.8.0", "react@>=16.3.0", "react@>=16.6.3", "react@>=16.8.6", "react@17.0.2":
+"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^16.8.3 || ^17", "react@^16.8.3||^17.0.0", "react@^16.9.0 || ^17.0.0 || 18.0.0-beta", "react@^17.0.0", "react@>= 15.2.1", "react@>= 16.8.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.6.3", "react@>=16.8.6", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

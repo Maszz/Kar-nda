@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { Dimensions, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Calendar } from 'react-native-big-calendar';
 import {
@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
-import { ZStack } from 'native-base';
+import { ZStack, Container } from 'native-base';
 import { TimeTable } from '../components/Timetable';
 import { eventsForCalendar } from '../eventsManager/event';
 import { useSelector } from 'react-redux';
@@ -64,25 +64,14 @@ const DayScreen = () => {
         tempObj["children"] = <EventNotes subHeader="subHeader" description="descripotion" />
         console.log(tempObj)
         tempList.push(tempObj);
-
-
       }
-
     }
-
     setPassingEvent(tempList)
-
-
   }, [events]);
-  let datesWhitelist = [
-    {
-      start: moment(),
-      end: moment().add(3, 'days'), // total 4 days enabled
-    },
-  ];
+
   let datesBlacklist = [moment().add(1, 'days')]; // 1 day disabled
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <TimeTable events={passingEvent} />
       <ActionButton />
     </View>

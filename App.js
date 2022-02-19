@@ -100,7 +100,7 @@ const RootScreen = () => {
         height: Dimensions.get('window').height,
       }}>
         <LottieView
-          source={require('./assets/lf30_editor_1h2rmbkj.json')}
+          source={require('./assets/welcome.json')}
           onAnimationFinish={() => {
             setAnimation(true)
           }}

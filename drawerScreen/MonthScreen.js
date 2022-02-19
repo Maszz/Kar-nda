@@ -77,12 +77,12 @@ const SettingScreen = () => {
   }, [events, currentDate]);
 
   return (
-    <View padding={3} >
-      {/* <Center style={{ marginBottom: 10 }}>
+    <View style={{ flex: 1, justifyContent: 'center' }} >
+      <Center style={{ marginBottom: 10 }}>
         <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
         </Text>
-      </Center> */}
+      </Center>
 
       <Calendar
         events={passingEvent}
@@ -108,9 +108,7 @@ const SettingScreen = () => {
           console.log('press date header', a);
         }}
       />
-      <Box style={{}}>
-        <ActionButton />
-      </Box>
+      <ActionButton />
     </View >
   );
 };

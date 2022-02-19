@@ -27,6 +27,8 @@ import MonthScreen from './MonthScreen'
 import WeekScreen from './WeekScreen'
 import YearScreen from './YearScreen'
 import { useTranslation } from 'react-i18next';
+import BriefLayout from './briefOne'
+import Agendar from './Agendar'
 const Tab = createMaterialTopTabNavigator();
 
 
@@ -47,6 +49,10 @@ const HomeScreen = () => {
             <Tab.Screen name="WeekScreen" component={WeekScreen} options={{ title: `${t("common:week")}` }} />
             <Tab.Screen name="MonthScreen" component={MonthScreen} options={{ title: `${t("common:month")}` }} />
             <Tab.Screen name="YearScreen" component={YearScreen} options={{ title: `${t("common:year")}` }} />
+            <Tab.Screen name="testScreen" component={Agendar} options={{ title: `${t("common:test")}` }} />
+            <Tab.Screen name="Brief" component={BriefLayout} options={{ title: `${t("common:test")}` }} />
+
+
         </Tab.Navigator>
     );
 }
