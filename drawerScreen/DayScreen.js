@@ -22,29 +22,16 @@ const EventNotes = (props) => {
   return (
     <View style={{ marginTop: 3 }}>
       <Text style={{ fontSize: 10, color: 'white' }}>
-        {props.subHeader}{' '}
+        {props.description}
       </Text>
-      <Text style={{ fontSize: 10, color: 'white' }}>
-        {' '}
-        {props.description}{' '}
-      </Text>
+
     </View>
   )
 };
 const DayScreen = () => {
   const { events } = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([])
-  const eventNotes = (
-    <View style={{ marginTop: 3 }}>
-      <Text style={{ fontSize: 10, color: 'white' }}>
-        Phone number: 555-123-4567{' '}
-      </Text>
-      <Text style={{ fontSize: 10, color: 'white' }}>
-        {' '}
-        Arrive 15 minutes early{' '}
-      </Text>
-    </View>
-  );
+
   useEffect(() => {
     let tempList = [];
     console.log("TestScreenLog: ", events)
@@ -54,13 +41,14 @@ const DayScreen = () => {
         Object.assign(tempObj, event);
         tempObj["start"] = new Date(event.start)
         tempObj["end"] = new Date(event.end)
-        tempObj["children"] = <EventNotes subHeader="subHeader" description="descripotion" />
-        console.log(tempObj)
+        tempObj["children"] = <EventNotes description={event.description} subHeader="subHeader" />
         tempList.push(tempObj);
       }
       else {
         let tempObj = {}
         Object.assign(tempObj, event);
+        tempObj["start"] = event.start
+        tempObj["end"] = event.end
         tempObj["children"] = <EventNotes subHeader="subHeader" description="descripotion" />
         console.log(tempObj)
         tempList.push(tempObj);

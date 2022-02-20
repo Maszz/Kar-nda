@@ -45,41 +45,54 @@ const EventNotes = (props) => {
 const eventsForCalendar = [
   {
     title: 'Meeting',
-    start: new Date(2022, 1, 11, 10, 0),
-    end: new Date(2022, 1, 11, 10, 30),
+    start: new Date(2022, 1, 11, 10, 0).toISOString(),
+    end: new Date(2022, 1, 11, 10, 30).toISOString(),
+    description: ' is simply dummy text of the printing and typesetting'
   },
   {
     title: 'Coffee break',
-    start: new Date(2022, 1, 14, 15, 45),
-    end: new Date(2022, 1, 14, 16, 30),
+    start: new Date(2022, 1, 14, 15, 45).toISOString(),
+    end: new Date(2022, 1, 14, 16, 30).toISOString(),
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
   {
     title: "Doctor's ",
-    start: dayjs().set('hour', 13).set('minute', 0).toDate(),
-    end: dayjs().set('hour', 14).set('minute', 15).toDate(),
+    start: dayjs().set('hour', 13).set('minute', 0).toDate().toISOString(),
+    end: dayjs().set('hour', 14).set('minute', 15).toDate().toISOString(),
     children: <EventNotes subHeader="subHeader" description="descripotion" />,
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
   {
     title: "Doctor's ",
-    start: new Date(2022, 1, 13, 15, 45),
-    end: new Date(2022, 1, 13, 16, 45),
+    start: new Date(2022, 1, 13, 15, 45).toISOString(),
+    end: new Date(2022, 1, 13, 16, 45).toISOString(),
     children: <EventNotes subHeader="subHeader" description="descripotion" />,
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
   {
     title: "Doctor's ",
-    start: new Date(2022, 1, 20, 15, 45),
-    end: new Date(2022, 1, 20, 16, 45),
+    start: new Date(2022, 1, 20, 15, 45).toISOString(),
+    end: new Date(2022, 1, 20, 16, 45).toISOString(),
     children: <EventNotes subHeader="subHeader" description="descripotion" />,
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
   {
     title: 'Meeting',
-    start: new Date(2022, 0, 11, 10, 0),
-    end: new Date(2022, 0, 11, 10, 30),
+    start: new Date(2022, 0, 11, 10, 0).toISOString(),
+    end: new Date(2022, 0, 11, 10, 30).toISOString(),
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
   {
     title: 'Coffee break',
-    start: new Date(2022, 0, 14, 15, 45),
-    end: new Date(2022, 0, 14, 16, 30),
+    start: new Date(2022, 0, 14, 15, 45).toISOString(),
+    end: new Date(2022, 0, 14, 16, 30).toISOString(),
+    description: ' is simply dummy text of the printing and typesetting'
+
   },
 ];
 

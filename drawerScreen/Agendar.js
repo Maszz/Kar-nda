@@ -29,7 +29,8 @@ const AgendaComponents = () => {
                 onPress={() => Alert.alert(reservation.name)}
             >
                 <Text style={{ fontSize, color }}>{reservation.name}</Text>
-            </TouchableOpacity>
+                <Text style={{ fontSize: 13, color: "black" }}>{reservation.description}</Text>
+            </TouchableOpacity >
         );
     }
     const loadItems = (day) => {
@@ -80,7 +81,7 @@ const AgendaComponents = () => {
         for (const item of eventsState.events) {
             const day = item.start.split('T')[0]
             const name = item.title
-            tempObj[day] = [{ name: name }]
+            tempObj[day] = [{ name: name, description: item.description }]
 
         }
         console.log(tempObj)

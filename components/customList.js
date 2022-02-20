@@ -55,13 +55,15 @@ const ListFormat = props => {
       {props.items.map((item, index) => {
         if (props.items.length - 1 > index) {
           return (
-            <Box>
+            <Box >
               <TouchableOpacity
                 onPress={() => props.navigation.navigate(item.place)}>
                 <ListItem
                   settingName={item.listName}
                   key={index}
                   icon={item.icon}
+                  keyExtractor={(item, index) => item.listName}
+
                 />
               </TouchableOpacity>
 
@@ -70,13 +72,14 @@ const ListFormat = props => {
           );
         } else {
           return (
-            <Box>
+            <Box >
               <TouchableOpacity
                 onPress={() => props.navigation.navigate(item.place)}>
                 <ListItem
                   settingName={item.listName}
                   key={index}
                   icon={item.icon}
+                  keyExtractor={(item, index) => item.listName}
                 />
               </TouchableOpacity>
             </Box>

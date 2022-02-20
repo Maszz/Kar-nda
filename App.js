@@ -61,6 +61,8 @@ const ReactWrapper = () => {
 
 const RootScreen = () => {
   // const [showOnboard, setShowOnboard] = useState(true);
+  const isHermes = () => !!global.HermesInternal;
+  console.log(isHermes())
   const onBoardState = useSelector(state => state.onBoard);
   const dispatch = useDispatch();
   const { setViewedOnboard } = bindActionCreators(

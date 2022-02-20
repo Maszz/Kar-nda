@@ -7,7 +7,7 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 const ActionButtonComponent = () => {
     return (
-        <ActionButton buttonColor="rgba(231,76,60,1)">
+        <ActionButton buttonColor="rgba(231,76,60,1)" style={{ marginBottom: 10 }}>
             <ActionButton.Item
                 buttonColor="#9b59b6"
                 title="New Task"
