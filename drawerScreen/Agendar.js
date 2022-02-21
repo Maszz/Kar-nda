@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/';
-
+import moment from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
 
 const AgendaComponents = () => {
@@ -78,13 +79,20 @@ const AgendaComponents = () => {
         //     [new Date(Date.now()).toISOString().split('T')[0]]: []
         // })
         const tempObj = {}
+        const timeZone = RNLocalize.getTimeZone()
+        const localeTime = moment(new Date(Date.now()).toISOString()).tz(timeZone
+        ).format().split('T')[0];
+        // localeTime.tz('Asia/Bangkok')
+        console.log("this is locale day ", localeTime)
+        tempObj[localeTime] = []
         for (const item of eventsState.events) {
-            const day = item.start.split('T')[0]
+            const day = moment(item.start).tz(timeZone
+            ).format().split('T')[0]
             const name = item.title
             tempObj[day] = [{ name: name, description: item.description }]
 
         }
-        console.log(tempObj)
+        console.log("thisis tempobj", tempObj)
         setItemCard(tempObj)
     }, [eventsState])
 

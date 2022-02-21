@@ -32,16 +32,12 @@ const BriefLayout = props => {
 
         for (const event of eventsState.events) {
             const currentDate = new Date(Date.now()).toISOString().split('T')[0]
-            if (currentDate == event.start) {
-                const tempObj = {}
-                tempObj["title"] = event.title
-                tempObj["startTime"] = event.start.split('T')[0]
-                tempObj["endTime"] = event.end.split('T')[0]
-                tempArr.push(tempObj)
+            if (currentDate == event.start.split('T')[0]) {
+                tempArr.push(event)
             }
 
         }
-
+        console.log("THis is temp arr ", tempArr)
         setEventCard(tempArr)
     }, [eventsState])
     return (
@@ -70,7 +66,6 @@ const BriefLayout = props => {
                         }
                     }
                     setEventCard(tempArr)
-                    console.log(tempArr)
                 }}
                 highlightDateNameStyle={{ color: 'white' }}
                 highlightDateNumberStyle={{ color: 'white' }}
@@ -87,9 +82,20 @@ const BriefLayout = props => {
                 <Box style={{ backgroundColor: 'white' }} width={Dimensions.get('window').width - 50} height={0.5} />
                 <ScrollView height={166} style={{ marginTop: 20 }} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
+                    {eventCard.length === 0 && (<Box width={Dimensions.get('window').width - 50} height={75} border="1" borderRadius="2xl" style={{ backgroundColor: '#7CC2FF', marginBottom: 15 }}>
+                        <VStack style={{ padding: 10 }}>
+                            <Text style={{ fontWeight: 'bold', color: "white", fontSize: 18 }}>
+                                To day no Event for You
+                            </Text>
+                            <Text style={{ color: 'white', fontSize: 13 }}>
+                                use This for relex your self
+                            </Text>
+                        </VStack>
+                    </Box>)}
+
                     {eventCard.map((item, i) => {
                         return (
-                            <TouchableOpacity keyExtractor={(item, index) => item.title}>
+                            <TouchableOpacity keyExtractor={(item, index) => `${index}`}>
                                 <Box width={Dimensions.get('window').width - 50} height={75} border="1" borderRadius="2xl" style={{ backgroundColor: '#7CC2FF', marginBottom: 15 }}>
                                     <VStack style={{ padding: 10 }}>
                                         <Text style={{ fontWeight: 'bold', color: "white", fontSize: 18 }}>
@@ -101,10 +107,8 @@ const BriefLayout = props => {
                                     </VStack>
                                 </Box>
                             </TouchableOpacity>
-
                         )
                     })}
-
                 </ScrollView>
                 <Text style={{ color: 'white', marginTop: 10 }}>List To do</Text>
                 <Box style={{ backgroundColor: 'white', marginBottom: 20 }} width={Dimensions.get('window').width - 50} height={0.5} />
@@ -113,40 +117,32 @@ const BriefLayout = props => {
                     </Box>
                 </TouchableOpacity>
                 <VStack>
-
                     <Text style={{ color: 'white' }}>Dairy</Text>
                     <Box style={{ backgroundColor: 'white', marginBottom: 20 }} width={Dimensions.get('window').width - 50} height={0.5} />
-
-
                     <TouchableOpacity>
                         <Box width={Dimensions.get('window').width - 50} height={75} border="1" borderRadius="2xl" style={{ backgroundColor: '#7CC2FF', marginBottom: 20 }}>
                         </Box>
                     </TouchableOpacity>
-
-
                 </VStack>
-
-
-
             </VStack>
             <ActionButton buttonColor="rgba(231,76,60,1)" style={{ marginBottom: 10 }}>
                 <ActionButton.Item
                     buttonColor="#9b59b6"
                     title="New Task"
                     onPress={() => console.log('notes tapped!')}>
-                    <Icon name="md-create" style={styles.actionButtonIcon} />
+                    <Icon name="create-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item
                     buttonColor="#3498db"
                     title="Notifications"
                     onPress={() => { }}>
-                    <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+                    <Icon name="notifications-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item
                     buttonColor="#1abc9c"
                     title="All Tasks"
                     onPress={() => { }}>
-                    <Icon name="md-done-all" style={styles.actionButtonIcon} />
+                    <Icon name="checkmark-done-outline" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>
         </View >

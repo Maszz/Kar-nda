@@ -24,6 +24,8 @@
     "i18next": "^21.6.11",
     "lottie-ios": "^3.2.3",
     "lottie-react-native": "^5.0.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.34",
     "native-base": "^3.3.4",
     "react": "17.0.2",
     "react-i18next": "^11.15.4",
