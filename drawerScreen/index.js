@@ -14,7 +14,6 @@ import {useSelector} from 'react-redux';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';
 import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 const CustomDrawerContent = props => {
   return (
