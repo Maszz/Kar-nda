@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect} from 'react';
 
-import {
-  Box,
-  View,
-  Center,
-  Button,
-  VStack,
-  Text,
-  Pressable,
-  FlatList,
-  Actionsheet,
-  useDisclose,
-  Spacer,
-} from 'native-base';
-import { TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import {View, Button} from 'native-base';
+import {TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import ListComp from '../../components/listComponent';
-import { ListBox, Line, ListItem } from '../../components/customList';
+import {ListBox, Line, ListItem} from '../../components/customList';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { settingScreenItem } from '../../Constant/index';
+import {settingScreenItem} from '../../Constant/index';
 import PushNotification from 'react-native-push-notification';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 const SettingStackScreen2 = props => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   const createChannels = () => {
     PushNotification.createChannel({
@@ -35,7 +23,7 @@ const SettingStackScreen2 = props => {
       channelId: 'test-channel',
       title: 'Clicked',
       message: 'payload',
-      userInfo: { Test: 'TEst' },
+      userInfo: {Test: 'TEst'},
     });
   };
 
@@ -53,23 +41,24 @@ const SettingStackScreen2 = props => {
     console.log('create channel');
   }, []);
   return (
-    <View space={4} style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+    <View
+      space={4}
+      style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
       <Button
-        style={{ marginTop: 20 }}
+        style={{marginTop: 20}}
         onPress={() => {
           props.navigation.navigate('Language');
         }}>
         {t('common:languageSetting')}
       </Button>
       <Button
-        style={{ marginTop: 20 }}
+        style={{marginTop: 20}}
         onPress={() => {
           handleNotification();
           console.log('wow');
         }}>
         Notification
       </Button>
-
     </View>
   );
 };

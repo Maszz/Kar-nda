@@ -51,9 +51,9 @@ const AgendaComponents = () => {
             Object.keys(items).forEach(key => {
                 newItems[key] = items[key];
             });
-            // setItemCard(
-            //     newItems
-            // );
+            setItemCard(
+                newItems
+            );
         }, 1000);
     }
     const renderEmptyDate = () => {
@@ -69,20 +69,15 @@ const AgendaComponents = () => {
     }
 
     const timeToString = (time) => {
-        const date = new Date(time);
-        return date.toISOString().split('T')[0];
+        const date = moment(time)
+        return date.tz(RNLocalize.getTimeZone()).format().split('T')[0];
     }
 
     useEffect(() => {
-        // setItemCard({ '2022-02-15': [{ name: "wowza", height: 50 }, { name: "wowza", height: 50 }, { name: "wowza", height: 50 }], '2022-02-16': [{ name: "wowza", height: 100 }] })
-        // setItemCard({
-        //     [new Date(Date.now()).toISOString().split('T')[0]]: []
-        // })
         const tempObj = {}
         const timeZone = RNLocalize.getTimeZone()
         const localeTime = moment(new Date(Date.now()).toISOString()).tz(timeZone
         ).format().split('T')[0];
-        // localeTime.tz('Asia/Bangkok')
         console.log("this is locale day ", localeTime)
         tempObj[localeTime] = []
         for (const item of eventsState.events) {
@@ -100,7 +95,7 @@ const AgendaComponents = () => {
         <Agenda
             items={itemsCard}
             loadItemsForMonth={loadItems}
-            selected={new Date(Date.now())}
+            selected={moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0]}
             renderItem={renderItem}
             renderEmptyDate={renderEmptyDate}
             rowHasChanged={rowHasChanged}

@@ -26,7 +26,6 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from '../../state/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { eventsForCalendar } from '../../eventsManager/event'
-import dayjs from 'dayjs';
 
 
 const EventNotes = (props) => {
@@ -56,14 +55,14 @@ const eventsForCalendar = [
     description: ' is simply dummy text of the printing and typesetting'
 
   },
-  {
-    title: "Doctor's ",
-    start: dayjs().set('hour', 13).set('minute', 0).toDate().toISOString(),
-    end: dayjs().set('hour', 14).set('minute', 15).toDate().toISOString(),
-    children: <EventNotes subHeader="subHeader" description="descripotion" />,
-    description: ' is simply dummy text of the printing and typesetting'
+  // {
+  //   title: "Doctor's ",
+  //   start: dayjs().set('hour', 13).set('minute', 0).toDate().toISOString(),
+  //   end: dayjs().set('hour', 14).set('minute', 15).toDate().toISOString(),
+  //   children: <EventNotes subHeader="subHeader" description="descripotion" />,
+  //   description: ' is simply dummy text of the printing and typesetting'
 
-  },
+  // },
   {
     title: "Doctor's ",
     start: new Date(2022, 1, 13, 15, 45).toISOString(),
@@ -91,6 +90,13 @@ const eventsForCalendar = [
     title: 'Coffee break',
     start: new Date(2022, 0, 14, 15, 45).toISOString(),
     end: new Date(2022, 0, 14, 16, 30).toISOString(),
+    description: ' is simply dummy text of the printing and typesetting'
+
+  },
+  {
+    title: 'Coffee break',
+    start: new Date(2022, 1, 22, 15, 45).toISOString(),
+    end: new Date(2022, 1, 22, 16, 30).toISOString(),
     description: ' is simply dummy text of the printing and typesetting'
 
   },

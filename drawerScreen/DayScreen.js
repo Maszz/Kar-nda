@@ -12,12 +12,14 @@ import Modal from '../components/Modal';
 import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import CalendarStrip from 'react-native-calendar-strip';
-import moment from 'moment';
 import { ZStack, Container } from 'native-base';
 import { TimeTable } from '../components/Timetable';
 import { eventsForCalendar } from '../eventsManager/event';
 import { useSelector } from 'react-redux';
 import ActionButton from '../components/ActionButton';
+import moment from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
+
 const EventNotes = (props) => {
   return (
     <View style={{ marginTop: 3 }}>
@@ -34,16 +36,19 @@ const DayScreen = () => {
 
   useEffect(() => {
     let tempList = [];
+    const timeZone = RNLocalize.getTimeZone()
+
     console.log("TestScreenLog: ", events)
     for (const event of events) {
       if (typeof event.start == 'string') {
         let tempObj = {}
         Object.assign(tempObj, event);
-        tempObj["start"] = new Date(event.start)
-        tempObj["end"] = new Date(event.end)
+        tempObj["start"] = moment(event.start).tz(timeZone).format()
+        tempObj["end"] = moment(event.end).tz(timeZone).format()
         tempObj["children"] = <EventNotes description={event.description} subHeader="subHeader" />
         tempList.push(tempObj);
       }
+
       else {
         let tempObj = {}
         Object.assign(tempObj, event);
@@ -54,6 +59,7 @@ const DayScreen = () => {
         tempList.push(tempObj);
       }
     }
+
     setPassingEvent(tempList)
   }, [events]);
 

@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import {useTranslation} from 'react-i18next';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTranslation } from 'react-i18next';
 
 const LANGUAGES = [
-  {code: 'en', label: 'english'},
-  {code: 'th', label: 'thai'},
+  { code: 'en', label: 'english' },
+  { code: 'th', label: 'thai' },
 ];
 const Selector = () => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const selectedLanguageCode = i18n.language;
 
   const setLanguage = code => {

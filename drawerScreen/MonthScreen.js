@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Dimensions } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { Calendar } from 'react-native-big-calendar';
 import {
   createDrawerNavigator,
@@ -9,15 +8,15 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Modal from '../components/Modal';
-import dayjs from 'dayjs';
 import MonthNameComponent from '../components/MonthName';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index';
 
 import { Center, View, Text, Box } from 'native-base';
 import ActionButton from '../components/ActionButton';
+import moment from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
 const SettingScreen = () => {
 
@@ -47,6 +46,8 @@ const SettingScreen = () => {
 
   useEffect(() => {
     let tempList = [];
+    const timeZone = RNLocalize.getTimeZone()
+
     console.log(events)
 
     for (const event of events) {
@@ -56,17 +57,11 @@ const SettingScreen = () => {
         tempObj["start"] = new Date(event.start)
         tempObj["end"] = new Date(event.end)
         tempList.push(tempObj);
-
-
       }
       else {
         console.log("IN else")
-
         tempList.push(event);
-
-
       }
-
     }
     console.log("final templist", tempList)
     setPassingEvent(tempList)
@@ -98,7 +93,7 @@ const SettingScreen = () => {
         showAllDayEventCell={false}
         onChangeDate={a => {
           console.log(a);
-          if (!(currentDate.getMonth() === a[0].getMonth())) {
+          if ((currentDate.getMonth() !== a[0].getMonth())) {
             setCurrentDate(a[0]);
           }
 

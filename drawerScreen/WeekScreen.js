@@ -10,6 +10,8 @@ import {
 import TimeTable from '@mikezzb/react-native-timetable';
 import { useSelector } from 'react-redux';
 import ActionButton from '../components/ActionButton';
+import moment from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
 
 const WeekScreen = () => {
@@ -309,6 +311,8 @@ const WeekScreen = () => {
   const [eventCard, setEventCard] = useState([])
   const formatData = (eventsState) => {
     tempEventList = []
+    const timeZone = RNLocalize.getTimeZone()
+
     let toDay = new Date(Date.now()).getDay() + 1
     let maxdates = new Date(Date.now())
     maxdates.setDate(maxdates.getDate() + (7 - toDay + 1))
@@ -322,21 +326,22 @@ const WeekScreen = () => {
       let tempObj = {}
       if (day > minDate && day < maxdates) {
 
-      }
-      if (typeof event.start == "string") {
-        let eventStartDate = new Date(event.start)
-        if (eventStartDate > minDate && eventStartDate < maxdates) {
-          if (new Date(event.start).getDay() > 0) {
-            tempObj["courseId"] = event.title
-            console.log(event.start)
-            tempObj["startTime"] = new Date(event.start).getHours() + ":" + (new Date(event.start).getMinutes() == "0" ? "00" : `${new Date(event.start).getMinutes()}`)
-            tempObj["endTime"] = new Date(event.end).getHours() + ":" + (new Date(event.end).getMinutes() == "0" ? "00" : `${new Date(event.end).getMinutes()}`)
-            tempObj["location"] = "subtitle"
-            tempObj["day"] = new Date(event.start).getDay() == 0 ? 7 : new Date(event.start).getDay()
-            tempObj["color"] = 'rgba(50,144,144,1)'
-            tempEventList.push(tempObj)
-          }
 
+        if (typeof event.start == "string") {
+          let eventStartDate = new Date(event.start)
+          if (eventStartDate > minDate && eventStartDate < maxdates) {
+            if (new Date(event.start).getDay() > 0) {
+              tempObj["courseId"] = event.title
+              console.log(event.start)
+              tempObj["startTime"] = moment(event.start).tz(timeZone).hour() + ":" + (new Date(event.start).getMinutes() == "0" ? "00" : `${new Date(event.start).getMinutes()}`)
+              tempObj["endTime"] = moment(event.end).tz(timeZone).hour() + ":" + (new Date(event.end).getMinutes() == "0" ? "00" : `${new Date(event.end).getMinutes()}`)
+              tempObj["location"] = "subtitle"
+              tempObj["day"] = new Date(event.start).getDay() == 0 ? 7 : new Date(event.start).getDay()
+              tempObj["color"] = 'rgba(50,144,144,1)'
+              tempEventList.push(tempObj)
+            }
+
+          }
         }
 
       }
@@ -372,7 +377,7 @@ const WeekScreen = () => {
         // eventGroups={eventGroups}
         events={eventCard}
         configs={{
-          startHour: 6,
+          startHour: 0,
           endHour: 24,
           numOfDays: 7,
           numOfDaysPerPage: 4,
