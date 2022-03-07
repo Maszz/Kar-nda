@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Dimensions } from 'react-native';
-import { Calendar } from 'react-native-big-calendar';
+import React, {useState, useEffect} from 'react';
+import {Dimensions} from 'react-native';
+import {Calendar} from 'react-native-big-calendar';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -9,26 +9,25 @@ import {
 } from '@react-navigation/drawer';
 import Modal from '../components/Modal';
 import MonthNameComponent from '../components/MonthName';
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import { actionCreators } from '../state/index';
+import {useDispatch, useSelector} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../state/index';
 
-import { Center, View, Text, Box } from 'native-base';
+import {Center, View, Text, Box} from 'native-base';
 import ActionButton from '../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 
 const SettingScreen = () => {
-
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   const monthCalendarState = useSelector(state => state.monthCalendar);
   const dispatch = useDispatch();
-  const { onSwipeMonthChange } = bindActionCreators(
+  const {onSwipeMonthChange} = bindActionCreators(
     actionCreators.monthCalendarActionCreator,
     dispatch,
   );
-  const { events } = useSelector(state => state.events);
-  const [passingEvent, setPassingEvent] = useState([])
+  const {events} = useSelector(state => state.events);
+  const [passingEvent, setPassingEvent] = useState([]);
   const monthNames = [
     'January',
     'Febuary',
@@ -46,35 +45,36 @@ const SettingScreen = () => {
 
   useEffect(() => {
     let tempList = [];
-    const timeZone = RNLocalize.getTimeZone()
+    const timeZone = RNLocalize.getTimeZone();
 
-    console.log(events)
+    console.log(events);
 
     for (const event of events) {
       if (typeof event.start == 'string') {
-        let tempObj = {}
+        let tempObj = {};
         Object.assign(tempObj, event);
-        tempObj["start"] = new Date(event.start)
-        tempObj["end"] = new Date(event.end)
+        tempObj['start'] = new Date(event.start);
+        tempObj['end'] = new Date(event.end);
         tempList.push(tempObj);
-      }
-      else {
-        console.log("IN else")
+      } else {
+        console.log('IN else');
         tempList.push(event);
       }
     }
-    console.log("final templist", tempList)
-    setPassingEvent(tempList)
-    console.log("This is Passing Event", passingEvent)
+    console.log('final templist', tempList);
+    setPassingEvent(tempList);
+    console.log('This is Passing Event', passingEvent);
 
-    onSwipeMonthChange(monthNames[currentDate.getMonth()], currentDate.getFullYear())
-
+    onSwipeMonthChange(
+      monthNames[currentDate.getMonth()],
+      currentDate.getFullYear(),
+    );
   }, [events, currentDate]);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }} >
-      <Center style={{ marginBottom: 10 }}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      <Center style={{marginBottom: 10}}>
+        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
         </Text>
       </Center>
@@ -93,7 +93,7 @@ const SettingScreen = () => {
         showAllDayEventCell={false}
         onChangeDate={a => {
           console.log(a);
-          if ((currentDate.getMonth() !== a[0].getMonth())) {
+          if (currentDate.getMonth() !== a[0].getMonth()) {
             setCurrentDate(a[0]);
           }
 
@@ -104,7 +104,7 @@ const SettingScreen = () => {
         }}
       />
       <ActionButton />
-    </View >
+    </View>
   );
 };
 
