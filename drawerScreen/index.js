@@ -1,19 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {ZStack} from 'native-base';
 import DebugScreen from './DebugScreen';
-import TimerScreen from './TimerScreen';
 import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';
-import ActionButton from 'react-native-action-button';
 
 const CustomDrawerContent = props => {
   return (
@@ -26,10 +22,17 @@ const CustomDrawerContent = props => {
 
 const Drawer = createDrawerNavigator();
 
+/**
+ * Main Navigation of the App create routing to another ScreenComponent.
+ * @navigationType `DrawerNavigator`
+ *
+ * @Component
+ * `Drawer.Navigator`,
+ * `Drawer.Screen`
+ */
 const DrawerScreenComponent = () => {
   const {t} = useTranslation();
-  const settingDrawer = useSelector(state => state.settingDrawer);
-  const monthCalendarState = useSelector(state => state.monthCalendar);
+
   const [currentDate, setCurrentDate] = useState({day: 0, month: 0, year: 0});
   const month = [
     'january',
@@ -69,11 +72,11 @@ const DrawerScreenComponent = () => {
           )} ${currentDate.year}`,
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Timer"
         component={TimerScreen}
         options={{title: `${t('common:timer')}`}}
-      />
+      /> */}
 
       {/* <Drawer.Screen
         name="All to do list "
@@ -96,10 +99,6 @@ const DrawerScreenComponent = () => {
         component={SettingScreen}
         options={{headerShown: false, title: `${t('common:setting')}`}}
       />
-
-      {/* <Drawer.Screen name="Test" component={TestScreen} />
-      <Drawer.Screen name="Test2" component={TestScreen2} options={{ title: "tet", headerTitle: monthCalendarState.month + ' ' + monthCalendarState.year }}
-      /> */}
     </Drawer.Navigator>
   );
 };

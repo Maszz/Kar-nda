@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Alert} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -8,11 +8,10 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import TimeTable from '@mikezzb/react-native-timetable';
-import { useSelector } from 'react-redux';
-import ActionButton from '../components/ActionButton';
+import {useSelector} from 'react-redux';
+import ActionButton from '../../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
-
 
 const WeekScreen = () => {
   const eventGroups = [
@@ -306,73 +305,86 @@ const WeekScreen = () => {
     endTime: '19:15',
     location: 'Home',
     color: 'rgba(211,124,177,1)',
-  }
-  const { events } = useSelector(state => state.events);
-  const [eventCard, setEventCard] = useState([])
-  const formatData = (eventsState) => {
-    tempEventList = []
-    const timeZone = RNLocalize.getTimeZone()
+  };
+  const {events} = useSelector(state => state.events);
+  const [eventCard, setEventCard] = useState([]);
+  const formatData = eventsState => {
+    tempEventList = [];
+    const timeZone = RNLocalize.getTimeZone();
 
-    let toDay = new Date(Date.now()).getDay() + 1
-    let maxdates = new Date(Date.now())
-    maxdates.setDate(maxdates.getDate() + (7 - toDay + 1))
-    let minDate = new Date(Date.now())
-    minDate.setDate(minDate.getDate() - toDay + 1)
-    let day = new Date(2022, 1, 13)
-    console.log(day > minDate && day < maxdates)
+    let toDay = new Date(Date.now()).getDay() + 1;
+    let maxdates = new Date(Date.now());
+    maxdates.setDate(maxdates.getDate() + (7 - toDay + 1));
+    let minDate = new Date(Date.now());
+    minDate.setDate(minDate.getDate() - toDay + 1);
+    let day = new Date(2022, 1, 13);
+    console.log(day > minDate && day < maxdates);
 
     for (const event of eventsState) {
-
-      let tempObj = {}
+      let tempObj = {};
       if (day > minDate && day < maxdates) {
-
-
-        if (typeof event.start == "string") {
-          let eventStartDate = new Date(event.start)
+        if (typeof event.start == 'string') {
+          let eventStartDate = new Date(event.start);
           if (eventStartDate > minDate && eventStartDate < maxdates) {
             if (new Date(event.start).getDay() > 0) {
-              tempObj["courseId"] = event.title
-              console.log(event.start)
-              tempObj["startTime"] = moment(event.start).tz(timeZone).hour() + ":" + (new Date(event.start).getMinutes() == "0" ? "00" : `${new Date(event.start).getMinutes()}`)
-              tempObj["endTime"] = moment(event.end).tz(timeZone).hour() + ":" + (new Date(event.end).getMinutes() == "0" ? "00" : `${new Date(event.end).getMinutes()}`)
-              tempObj["location"] = "subtitle"
-              tempObj["day"] = new Date(event.start).getDay() == 0 ? 7 : new Date(event.start).getDay()
-              tempObj["color"] = 'rgba(50,144,144,1)'
-              tempEventList.push(tempObj)
+              tempObj['courseId'] = event.title;
+              console.log(event.start);
+              tempObj['startTime'] =
+                moment(event.start).tz(timeZone).hour() +
+                ':' +
+                (new Date(event.start).getMinutes() == '0'
+                  ? '00'
+                  : `${new Date(event.start).getMinutes()}`);
+              tempObj['endTime'] =
+                moment(event.end).tz(timeZone).hour() +
+                ':' +
+                (new Date(event.end).getMinutes() == '0'
+                  ? '00'
+                  : `${new Date(event.end).getMinutes()}`);
+              tempObj['location'] = 'subtitle';
+              tempObj['day'] =
+                new Date(event.start).getDay() == 0
+                  ? 7
+                  : new Date(event.start).getDay();
+              tempObj['color'] = 'rgba(50,144,144,1)';
+              tempEventList.push(tempObj);
             }
-
           }
         }
-
-      }
-      else {
+      } else {
         if (event.start > minDate && event.start < maxdates) {
+          tempObj['courseId'] = event.title;
+          tempObj['startTime'] =
+            event.start.getHours() +
+            ':' +
+            (new Date(event.start).getMinutes() == '0'
+              ? '00'
+              : `${new Date(event.start).getMinutes()}`);
+          tempObj['endTime'] =
+            event.end.getHours() +
+            ':' +
+            (new Date(event.end).getMinutes() == '0'
+              ? '00'
+              : `${new Date(event.end).getMinutes()}`);
+          tempObj['location'] = 'subtitle';
+          tempObj['day'] =
+            new Date(event.start).getDay() == 0
+              ? 7
+              : new Date(event.start).getDay();
+          tempObj['color'] = 'rgba(50,144,144,1)';
 
-          tempObj["courseId"] = event.title
-          tempObj["startTime"] = event.start.getHours() + ":" + (new Date(event.start).getMinutes() == "0" ? "00" : `${new Date(event.start).getMinutes()}`)
-          tempObj["endTime"] = event.end.getHours() + ":" + (new Date(event.end).getMinutes() == "0" ? "00" : `${new Date(event.end).getMinutes()}`)
-          tempObj["location"] = "subtitle"
-          tempObj["day"] = new Date(event.start).getDay() == 0 ? 7 : new Date(event.start).getDay()
-          tempObj["color"] = 'rgba(50,144,144,1)'
-
-          tempEventList.push(tempObj)
-
+          tempEventList.push(tempObj);
         }
-
       }
-
-
-
     }
-    console.log(tempEventList)
-    return tempEventList
-
-  }
+    console.log(tempEventList);
+    return tempEventList;
+  };
   useEffect(() => {
-    setEventCard(formatData(events))
-  }, [events])
+    setEventCard(formatData(events));
+  }, [events]);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <TimeTable
         // eventGroups={eventGroups}
         events={eventCard}

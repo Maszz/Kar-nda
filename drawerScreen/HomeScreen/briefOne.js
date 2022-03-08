@@ -18,7 +18,7 @@ import ActionButton from 'react-native-action-button';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {actionCreators} from '../state/index';
+import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 
 const BriefLayout = props => {
