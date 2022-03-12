@@ -17,6 +17,7 @@ import {Center, View, Text, Box} from 'native-base';
 import ActionButton from '../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
+import {color} from 'native-base/lib/typescript/theme/styled-system';
 
 const SettingScreen = () => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
@@ -72,13 +73,13 @@ const SettingScreen = () => {
   }, [events, currentDate]);
 
   return (
-    <View style={{flex: 1, justifyContent: 'center'}}>
-      <Center style={{marginBottom: 10}}>
-        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+    <View
+      style={{flex: 1, justifyContent: 'center', backgroundColor: '#1F2937'}}>
+      <Center style={{marginBottom: 10, backgroundColor: '#1F2937'}}>
+        <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
         </Text>
       </Center>
-
       <Calendar
         events={passingEvent}
         height={Dimensions.get('window').height - 130}
@@ -102,6 +103,19 @@ const SettingScreen = () => {
         onPressDateHeader={a => {
           console.log('press date header', a);
         }}
+        headerContainerStyle={{
+          backgroundColor: '#1F2937',
+          paddingLeft: 0,
+          borderColor: 'gray',
+        }}
+        bodyContainerStyle={{
+          backgroundColor: '#1F2937',
+          borderColor: 'rgba(255,255,255,0)',
+        }}
+        calendarCellTextStyle={{color: 'white'}}
+        calendarCellStyle={{borderColor: 'gray'}}
+        // dayHeaderHighlightColor="#ffff"
+        // weekDayHeaderHighlightColor="#ffff"
       />
       <ActionButton />
     </View>

@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-import { View } from 'react-native';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {View} from 'react-native';
 // import Modal from './Modal';
-import { Modal, Center, Button, FormControl, Input, Text } from 'native-base';
-import { Dimensions } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../state/index';
+import {Modal, Center, Button, FormControl, Input, Text} from 'native-base';
+import {Dimensions} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../state/index';
 import CalendarModal from './Modal';
-const calendarComponent = ({ markedDates }) => {
+import {background} from 'native-base/lib/typescript/theme/styled-system';
+const calendarComponent = ({markedDates}) => {
   const [globalMarkedDates, setGlobalMarkedDates] = useState(markedDates);
   const [calendarSelector, setcalendarSelector] = useState('a');
   const [prevSelected, setPrevSelected] = useState('');
 
   const dispatch = useDispatch();
 
-  const { onCalendarDayPress } = bindActionCreators(
+  const {onCalendarDayPress} = bindActionCreators(
     actionCreators.calendarModalActionCreator,
     dispatch,
   );
@@ -30,7 +31,7 @@ const calendarComponent = ({ markedDates }) => {
   const onChangeSelectedDate = day => {
     let newGlobalMarkedDates = {};
     Object.assign(newGlobalMarkedDates, globalMarkedDates);
-    newGlobalMarkedDates[[day['dateString']]] = { selected: true };
+    newGlobalMarkedDates[[day['dateString']]] = {selected: true};
     setGlobalMarkedDates(newGlobalMarkedDates);
   };
 
@@ -48,7 +49,7 @@ const calendarComponent = ({ markedDates }) => {
   }, [prevSelected]);
 
   return (
-    <View>
+    <View style={{backgroundColor: '#00000'}}>
       <CalendarList
         // Callback which gets executed when visible months change in scroll view. Default = undefined
         onVisibleMonthsChange={months => {
@@ -74,6 +75,35 @@ const calendarComponent = ({ markedDates }) => {
           }
         }}
         markedDates={markedDates}
+        theme={{
+          backgroundColor: '#1F2937',
+          calendarBackground: '#1F2937',
+          textSectionTitleColor: '#b6c1cd',
+          textSectionTitleDisabledColor: '#d9e1e8',
+          selectedDayBackgroundColor: '#00adf5',
+          selectedDayTextColor: '#ffffff',
+          todayTextColor: '#00adf5',
+          dayTextColor: 'white',
+          textDisabledColor: '#d9e1e8',
+          dotColor: '#00adf5',
+          selectedDotColor: '#ffffff',
+          disabledArrowColor: '#d9e1e8',
+          monthTextColor: 'white',
+          indicatorColor: 'blue',
+          // textDayFontFamily: 'monospace',
+          // textMonthFontFamily: 'monospace',
+          // textDayHeaderFontFamily: 'monospace',
+          textDayFontWeight: '300',
+          textMonthFontWeight: 'bold',
+          textDayHeaderFontWeight: '300',
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 16,
+          agendaDayTextColor: 'yellow',
+          agendaDayNumColor: 'green',
+          agendaTodayColor: 'red',
+          agendaKnobColor: 'blue',
+        }}
       />
       <CalendarModal />
     </View>

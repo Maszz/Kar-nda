@@ -43,7 +43,12 @@ const SettingStackScreen2 = props => {
   return (
     <View
       space={4}
-      style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        backgroundColor: '#1F2937',
+      }}>
       <Button
         style={{marginTop: 20}}
         onPress={() => {
