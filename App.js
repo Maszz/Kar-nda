@@ -15,6 +15,10 @@ import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from './state/index';
 
+/**
+ * the Main screen of app Wrapped from navigation container.
+ * @Navigator `DrawerScreenComponent`
+ */
 const App = () => {
   return (
     <NavigationContainer>
@@ -23,6 +27,14 @@ const App = () => {
   );
 };
 
+/**
+ * Root of the project Wrapped service from Lib.
+ * @wrapped `Provider` from redux.
+ * @wrapped `PersistGate` from redux persist.
+ * @wrapped `NativeBaseProvider` from nativebase
+ * @app `RootScreen`
+ * @returns `ReactDOM`
+ */
 const ReactWrapper = () => {
   return (
     <Provider store={store}>
@@ -35,8 +47,13 @@ const ReactWrapper = () => {
   );
 };
 
+/**
+ * Entry point of the application This Component rendered welcome Animation and decide to render `OnboardScreen` or `App`
+ * @warning OnboardScreen Launch only app launch first time.
+ * @logic if `animation` finish launch then check value in asynceStorage `OnboardScreen` islaunch if launch already then render App ,Else render `OnboardScreen`  then render `App`
+ * @returns
+ */
 const RootScreen = () => {
-  // const [showOnboard, setShowOnboard] = useState(true);
   const isHermes = () => !!global.HermesInternal;
   console.log(isHermes());
   const onBoardState = useSelector(state => state.onBoard);
@@ -45,20 +62,6 @@ const RootScreen = () => {
     actionCreators.onBoardActionCreator,
     dispatch,
   );
-  const AnimationComponent = (
-    <View style={{backgroundColor: 'white'}}>
-      <LottieView
-        source={require('./assets/lf30_editor_1h2rmbkj.json')}
-        onAnimationFinish={() => {
-          setAnimation(true);
-        }}
-        autoPlay={true}
-        loop={false}
-        speed={1}
-      />
-    </View>
-  );
-
   const [animation, setAnimation] = useState(false);
 
   const handleOnboardFinish = () => {
