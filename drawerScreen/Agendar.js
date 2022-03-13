@@ -117,7 +117,7 @@ const AgendaComponents = () => {
       //    '2017-05-24': {startingDay: true, color: 'gray'},
       //    '2017-05-25': {color: 'gray'},
       //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-      //   monthFormat={'yyyy'}
+      // monthFormat={'yyyy'}
       // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
       // hideExtraDays={false}
       showOnlySelectedDayItems={true}
