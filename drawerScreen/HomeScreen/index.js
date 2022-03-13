@@ -1,4 +1,4 @@
-import CalendarComponent from '../components/Carendar';
+import CalendarComponent from '../../components/Carendar';
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';

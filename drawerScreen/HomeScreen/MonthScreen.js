@@ -7,14 +7,14 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import Modal from '../components/Modal';
-import MonthNameComponent from '../components/MonthName';
+import Modal from '../../components/Modal';
+import MonthNameComponent from '../../components/MonthName';
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {actionCreators} from '../state/index';
+import {actionCreators} from '../../state/index';
 
 import {Center, View, Text, Box} from 'native-base';
-import ActionButton from '../components/ActionButton';
+import ActionButton from '../../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
