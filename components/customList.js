@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Dimensions } from 'react-native';
+import {StyleSheet, ScrollView, Dimensions} from 'react-native';
 import {
   VStack,
   HStack,
@@ -13,12 +13,12 @@ import {
   Center,
   Divider,
 } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import ListComp from './listComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 const ListBox = props => {
   return (
-    <Center style={{ marginTop: 20 }}>
+    <Center style={{marginTop: 20}}>
       <Box
         w={
           Dimensions.get('window').width -
@@ -55,15 +55,13 @@ const ListFormat = props => {
       {props.items.map((item, index) => {
         if (props.items.length - 1 > index) {
           return (
-            <Box >
+            <Box key={index}>
               <TouchableOpacity
                 onPress={() => props.navigation.navigate(item.place)}>
                 <ListItem
                   settingName={item.listName}
-                  key={index}
                   icon={item.icon}
                   keyExtractor={(item, index) => item.listName}
-
                 />
               </TouchableOpacity>
 
@@ -72,7 +70,7 @@ const ListFormat = props => {
           );
         } else {
           return (
-            <Box >
+            <Box>
               <TouchableOpacity
                 onPress={() => props.navigation.navigate(item.place)}>
                 <ListItem
@@ -94,7 +92,7 @@ const Line = () => {
 
   return (
     <Box
-      style={{ marginLeft: 50 }}
+      style={{marginLeft: 50}}
       w={(90 / 100) * windowWidth - (25 / 100) * windowWidth}
       h={0.35}
       backgroundColor="#a3a3a3"
@@ -103,7 +101,7 @@ const Line = () => {
 };
 const ListItem = props => {
   return (
-    <Box style={{ marginTop: 3, marginBottom: 3 }}>
+    <Box style={{marginTop: 3, marginBottom: 3}}>
       <HStack space={4} justifyContent="space-between">
         {props.icon}
         <VStack justifyContent="center">
@@ -123,4 +121,4 @@ const ListItem = props => {
     </Box>
   );
 };
-export { ListBox, Line, ListItem };
+export {ListBox, Line, ListItem};
