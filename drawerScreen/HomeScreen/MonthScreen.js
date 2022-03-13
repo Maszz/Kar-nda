@@ -73,16 +73,15 @@ const SettingScreen = () => {
   }, [events, currentDate]);
 
   return (
-    <View
-      style={{flex: 1, justifyContent: 'center', backgroundColor: '#1F2937'}}>
-      <Center style={{marginBottom: 10, backgroundColor: '#1F2937'}}>
+    <View style={{flex: 1, backgroundColor: '#1F2937'}}>
+      <Center style={{marginVertical: 10, backgroundColor: '#1F2937'}}>
         <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
         </Text>
       </Center>
       <Calendar
         events={passingEvent}
-        height={Dimensions.get('window').height - 130}
+        height={Dimensions.get('window').height - 300}
         onPressEvent={e => {
           console.log('click event', e);
         }}
@@ -91,7 +90,7 @@ const SettingScreen = () => {
         swipeEnabled={true}
         showTime={false}
         isRTL={false}
-        showAllDayEventCell={false}
+        showAllDayEventCell={true}
         onChangeDate={a => {
           console.log(a);
           if (currentDate.getMonth() !== a[0].getMonth()) {

@@ -120,7 +120,7 @@ const DayScreen = props => {
 
           {eventCard.map((item, i) => {
             return (
-              <TouchableOpacity keyExtractor={(item, index) => `${index}`}>
+              <TouchableOpacity key={i} keyExtractor={(item, i) => `${index}`}>
                 <Box
                   width={Dimensions.get('window').width - 50}
                   height={75}

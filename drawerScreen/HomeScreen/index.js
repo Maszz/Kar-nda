@@ -27,6 +27,7 @@ import YearScreen from './YearScreen';
 import {useTranslation} from 'react-i18next';
 import BriefLayout from './DayScreen';
 import Agendar from './Agendar';
+import MonthNew from './MonthScreenNew';
 const Tab = createMaterialTopTabNavigator();
 
 const styles = StyleSheet.create({
@@ -76,12 +77,12 @@ const HomeScreen = () => {
         component={YearScreen}
         options={{title: `${t('common:year')}`}}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="testScreen"
-        component={Agendar}
+        component={MonthNew}
         options={{title: `${t('common:test')}`}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Brief"
         component={Day}
         options={{title: `${t('common:test')}`}}
