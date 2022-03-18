@@ -77,11 +77,11 @@ const HomeScreen = () => {
         component={YearScreen}
         options={{title: `${t('common:year')}`}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="testScreen"
         component={MonthNew}
         options={{title: `${t('common:test')}`}}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Brief"
         component={Day}
