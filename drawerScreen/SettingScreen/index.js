@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Selector from './LanguageSelectorScreen';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SettingStackScreen from './SettingStackScreen';
 import {useTranslation} from 'react-i18next';
 import {
@@ -12,7 +12,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {Button, IconButton} from 'native-base';
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
