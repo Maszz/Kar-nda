@@ -20,6 +20,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 import ActionButton from '../../components/ActionButton';
+
 const DayScreen = props => {
   const [eventCard, setEventCard] = useState([]);
   const eventsState = useSelector(state => state.events);

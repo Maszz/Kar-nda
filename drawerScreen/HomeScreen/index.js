@@ -20,13 +20,15 @@ import YearScreen from './YearScreen';
 import {useTranslation} from 'react-i18next';
 import DayScreen from './DayScreen';
 import Agendar from './Agendar';
-import Diary from '../../components/Diary';
-const Tab = createMaterialTopTabNavigator();
-const Stack = createNativeStackNavigator();
+import Diary from '../../stackScreens/Diary';
+import AddEventScreen from '../../stackScreens/AddEventsScreen';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 
+const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
 const styles = StyleSheet.create({
   actionButtonIcon: {
     fontSize: 20,
@@ -43,7 +45,15 @@ const StackScreen = () => {
         name="DairyScreen"
         component={Diary}
         options={{
-          presentation: 'formSheet',
+          presentation: 'modal',
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name="AddEventScreen"
+        component={AddEventScreen}
+        options={{
+          presentation: 'modal',
           headerShown: true,
         }}
       />

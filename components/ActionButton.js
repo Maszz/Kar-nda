@@ -22,13 +22,13 @@ const ActionButtonComponent = props => {
       <ActionButton buttonColor="#7CC2FF" style={{marginBottom: 10}}>
         <ActionButton.Item
           buttonColor="#9b59b6"
-          title="New Task"
-          onPress={() => console.log('notes tapped!')}>
+          title="To do Task"
+          onPress={() => openModal()}>
           <Icon name="create-outline" style={styles.actionButtonIcon} />
         </ActionButton.Item>
         <ActionButton.Item
           buttonColor="#3498db"
-          title="Notifications"
+          title="Dairy"
           onPress={() => {
             navigationState.navigation.navigate('DairyScreen');
           }}>
@@ -36,9 +36,9 @@ const ActionButtonComponent = props => {
         </ActionButton.Item>
         <ActionButton.Item
           buttonColor="#1abc9c"
-          title="All Tasks"
+          title="All Events"
           onPress={() => {
-            openModal();
+            navigationState.navigation.navigate('AddEventScreen');
           }}>
           <Icon name="checkmark-done-outline" style={styles.actionButtonIcon} />
         </ActionButton.Item>
