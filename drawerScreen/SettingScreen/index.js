@@ -14,11 +14,11 @@ import {
 import {Button, IconButton} from 'native-base';
 const Stack = createStackNavigator();
 
-const test = () => props.navigation.navigate('AddEvent');
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingScreen = props => {
   const {t} = useTranslation();
+  const test = () => props.navigation.navigate('Calendar');
 
   return (
     <Stack.Navigator>

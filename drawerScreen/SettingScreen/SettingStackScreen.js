@@ -9,7 +9,7 @@ import {settingScreenItem} from '../../Constant/index';
 import PushNotification from 'react-native-push-notification';
 import {useTranslation} from 'react-i18next';
 
-const SettingStackScreen2 = props => {
+const SettingStackScreen = props => {
   const {t} = useTranslation();
 
   const createChannels = () => {
@@ -60,11 +60,10 @@ const SettingStackScreen2 = props => {
         style={{marginTop: 20}}
         onPress={() => {
           handleNotification();
-          console.log('wow');
         }}>
         Notification
       </Button>
     </View>
   );
 };
-export default SettingStackScreen2;
+export default SettingStackScreen;

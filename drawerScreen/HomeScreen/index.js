@@ -42,7 +42,10 @@ const StackScreen = () => {
       <Stack.Screen
         name="DairyScreen"
         component={Diary}
-        options={{presentation: 'formSheet'}}
+        options={{
+          presentation: 'formSheet',
+          headerShown: true,
+        }}
       />
     </Stack.Navigator>
   );

@@ -29,8 +29,6 @@ const Drawer = createDrawerNavigator();
 
 const DrawerScreenComponent = () => {
   const {t} = useTranslation();
-  const settingDrawer = useSelector(state => state.settingDrawer);
-  const monthCalendarState = useSelector(state => state.monthCalendar);
   const [currentDate, setCurrentDate] = useState({day: 0, month: 0, year: 0});
   const month = [
     'january',

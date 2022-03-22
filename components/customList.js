@@ -70,12 +70,11 @@ const ListFormat = props => {
           );
         } else {
           return (
-            <Box>
+            <Box key={index}>
               <TouchableOpacity
                 onPress={() => props.navigation.navigate(item.place)}>
                 <ListItem
                   settingName={item.listName}
-                  key={index}
                   icon={item.icon}
                   keyExtractor={(item, index) => item.listName}
                 />
