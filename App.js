@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from './state/index';
+import {SSRProvider} from '@react-aria/ssr';
 
 /**
  * the Main screen of app Wrapped from navigation container.
@@ -39,9 +40,11 @@ const ReactWrapper = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NativeBaseProvider>
-          <RootScreen />
-        </NativeBaseProvider>
+        <SSRProvider>
+          <NativeBaseProvider>
+            <RootScreen />
+          </NativeBaseProvider>
+        </SSRProvider>
       </PersistGate>
     </Provider>
   );

@@ -14,13 +14,12 @@ import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 import {ZStack, Box, VStack, Divider, Text, Container} from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
-import ActionButton from 'react-native-action-button';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
-import ActionButtomComp from '../../components/ActionButton';
+import ActionButton from '../../components/ActionButton';
 const DayScreen = props => {
   const [eventCard, setEventCard] = useState([]);
   const eventsState = useSelector(state => state.events);
@@ -178,7 +177,8 @@ const DayScreen = props => {
           </TouchableOpacity>
         </VStack>
       </VStack>
-      <ActionButtomComp />
+
+      <ActionButton />
     </View>
   );
 };

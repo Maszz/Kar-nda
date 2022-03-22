@@ -53,7 +53,6 @@ const DayScreen = () => {
   return (
     <View style={{flex: 1}}>
       <TimeTable events={passingEvent} />
-      <ActionButton />
     </View>
   );
 };

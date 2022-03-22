@@ -6,6 +6,7 @@ import monthCalendarReducer from './monthCalendarReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
 import onBoardReducer from './onBoardReducer';
+import StackNavigationReducer from './stackNavigationReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   calendarModal: calendarModalReducer,
   events: persistReducer(persistConfig, eventsReducer),
   onBoard: persistReducer(persistConfigOnboard, onBoardReducer),
+  StackNavigation: StackNavigationReducer,
 
   monthCalendar: monthCalendarReducer,
 });

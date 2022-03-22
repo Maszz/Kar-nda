@@ -18,8 +18,19 @@ import ActionButton from '../../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Diary from '../../components/Diary';
+const Stack = createNativeStackNavigator();
 
-const SettingScreen = () => {
+function HomeWrapper() {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MonthScreens" component={MonthScreen} />
+      <Stack.Screen name="Dairy" component={Diary} />
+    </Stack.Navigator>
+  );
+}
+const MonthScreen = props => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   const monthCalendarState = useSelector(state => state.monthCalendar);
   const dispatch = useDispatch();
@@ -116,9 +127,9 @@ const SettingScreen = () => {
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />
-      <ActionButton />
+      <ActionButton navigation={props.navigation} />
     </View>
   );
 };
 
-export default SettingScreen;
+export default HomeWrapper;

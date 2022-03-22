@@ -4,29 +4,48 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import ActionButton from 'react-native-action-button';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import AddEventModal from './AddEventModal';
+import {Container, Box} from 'native-base';
+import AddEventModal2 from './AddEventModal2';
+import {useDispatch, useSelector} from 'react-redux';
+const ActionButtonComponent = props => {
+  const navigationState = useSelector(state => state.StackNavigation);
 
-const ActionButtonComponent = () => {
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const openModal = () => {
+    setShowModal(true);
+  };
   return (
-    <ActionButton buttonColor="#7CC2FF" style={{marginBottom: 10}}>
-      <ActionButton.Item
-        buttonColor="#9b59b6"
-        title="New Task"
-        onPress={() => console.log('notes tapped!')}>
-        <Icon name="create-outline" style={styles.actionButtonIcon} />
-      </ActionButton.Item>
-      <ActionButton.Item
-        buttonColor="#3498db"
-        title="Notifications"
-        onPress={() => {}}>
-        <Icon name="notifications-outline" style={styles.actionButtonIcon} />
-      </ActionButton.Item>
-      <ActionButton.Item
-        buttonColor="#1abc9c"
-        title="All Tasks"
-        onPress={() => {}}>
-        <Icon name="checkmark-done-outline" style={styles.actionButtonIcon} />
-      </ActionButton.Item>
-    </ActionButton>
+    <>
+      <ActionButton buttonColor="#7CC2FF" style={{marginBottom: 10}}>
+        <ActionButton.Item
+          buttonColor="#9b59b6"
+          title="New Task"
+          onPress={() => console.log('notes tapped!')}>
+          <Icon name="create-outline" style={styles.actionButtonIcon} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          buttonColor="#3498db"
+          title="Notifications"
+          onPress={() => {
+            navigationState.navigation.navigate('DairyScreen');
+          }}>
+          <Icon name="notifications-outline" style={styles.actionButtonIcon} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          buttonColor="#1abc9c"
+          title="All Tasks"
+          onPress={() => {
+            openModal();
+          }}>
+          <Icon name="checkmark-done-outline" style={styles.actionButtonIcon} />
+        </ActionButton.Item>
+      </ActionButton>
+      <AddEventModal showModal={showModal} closeModal={closeModal} />
+    </>
   );
 };
 const styles = StyleSheet.create({

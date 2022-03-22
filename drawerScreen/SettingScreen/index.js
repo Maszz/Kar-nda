@@ -13,6 +13,8 @@ import {
 } from '@react-navigation/drawer';
 import {Button, IconButton} from 'native-base';
 const Stack = createStackNavigator();
+
+const test = () => props.navigation.navigate('AddEvent');
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingScreen = props => {
@@ -31,9 +33,7 @@ const SettingScreen = props => {
           headerTintColor: '#ffff',
           headerLeft: () => {
             return (
-              <Button
-                variant="unstyled"
-                onPress={() => props.navigation.navigate('Calendar')}>
+              <Button variant="unstyled" onPress={() => test()}>
                 <Icon name="menu" size={20} color="rgb(82,78,183)" />
               </Button>
             );
