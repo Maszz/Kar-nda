@@ -6,7 +6,6 @@ import ActionButton from 'react-native-action-button';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import AddEventModal from './AddEventModal';
 import {Container, Box} from 'native-base';
-import AddEventModal2 from './AddEventModal2';
 import {useDispatch, useSelector} from 'react-redux';
 const ActionButtonComponent = props => {
   const navigationState = useSelector(state => state.StackNavigation);
