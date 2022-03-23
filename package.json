@@ -24,6 +24,7 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@reduxjs/toolkit": "^1.7.1",
+    "@sentry/react-native": "^3.3.5",
     "firebase": "^9.6.5",
     "i18next": "^21.6.11",
     "lottie-ios": "^3.2.3",

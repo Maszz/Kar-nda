@@ -89,7 +89,13 @@ const AgendaComponents = () => {
     for (const item of eventsState.events) {
       const day = moment(item.start).tz(timeZone).format().split('T')[0];
       const name = item.title;
-      tempObj[day] = [{name: name, description: item.description}];
+      if (!tempObj.hasOwnProperty(day)) {
+        console.log('incase own');
+        tempObj[day] = [];
+      }
+      const tempdata = {name: name, description: item.description};
+      // tempObj[day] = [tempdata];
+      tempObj[day].push(tempdata);
     }
     console.log('thisis tempobj', tempObj);
     setItemCard(tempObj);

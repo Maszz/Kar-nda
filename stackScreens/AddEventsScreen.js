@@ -68,7 +68,6 @@ const AddtitleScreen = ({navigation}) => {
       <Box w="90%">
         <FormControl>
           <VStack mx="4">
-            {/* <FormControl.Label>Password</FormControl.Label> */}
             <Input
               // defaultValue="12345"
               placeholder="Add Activity"
@@ -85,13 +84,7 @@ const AddtitleScreen = ({navigation}) => {
                 });
               }}
             />
-            {/* <FormControl.HelperText>
-              Must be atleast 6 characters.
-            </FormControl.HelperText>
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}>
-              Atleast 6 characters are required.
-            </FormControl.ErrorMessage> */}
+
             <VStack style={{marginTop: 20}}>
               <Box style={{marginVertical: 5}}>
                 <HStack style={{alignItems: 'space-between'}}>
@@ -217,7 +210,8 @@ const AddtitleScreen = ({navigation}) => {
       </Button>
       <Button
         onPress={() => {
-          // navigation.goBack();
+          navigation.goBack();
+
           validation();
         }}>
         Submit
