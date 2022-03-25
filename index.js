@@ -17,10 +17,12 @@ GoogleSignin.configure({
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
+
 PushNotification.configure({
   onNotification: function (notification) {
     console.log('Notification :', notification);
   },
   requestPermissions: Platform.OS === 'ios',
 });
+
 AppRegistry.registerComponent(appName, () => App);

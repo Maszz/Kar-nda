@@ -117,7 +117,6 @@ const MonthScreen = props => {
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />
-      <ActionButton navigation={props.navigation} />
     </View>
   );
 };

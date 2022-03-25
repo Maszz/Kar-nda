@@ -26,6 +26,7 @@ import AddEventScreen from '../../stackScreens/AddEventsScreen';
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
+import ActionButton from '../../components/ActionButton';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -121,6 +122,7 @@ const HomeScreen = ({navigation}) => {
         options={{title: `${t('common:test')}`}}
       /> */}
       </Tab.Navigator>
+      <ActionButton />
     </>
   );
 };

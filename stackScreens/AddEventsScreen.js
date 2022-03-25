@@ -14,6 +14,7 @@ import {
   VStack,
   Spacer,
 } from 'native-base';
+import {Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -41,26 +42,27 @@ const AddtitleScreen = ({navigation}) => {
     console.log(formData.start.getTime(), formData.end.getTime());
     if (formData.start.getTime() > formData.end.getTime()) {
       console.log('error date');
-    }
-    if (formData.title === '') {
+      Alert.alert('InvalidDate', 'Please Insert collect date.');
+    } else if (formData.title === '') {
+      console.log('Invalid', 'Event empty');
+    } else if (formData.description === '') {
       console.log('error');
+      console.log('Invalid', 'no Event description');
+    } else {
+      const formmatedDate = formData.date.toISOString().split('T')[0];
+      const formmatedStartTime = formData.start.toISOString().split('T')[1];
+      const formmatedEndTime = formData.end.toISOString().split('T')[1];
+      const formattedStart = `${formmatedDate}T${formmatedStartTime}`;
+      const formattedend = `${formmatedDate}T${formmatedEndTime}`;
+      console.log(formattedStart, formattedend);
+      const state = {
+        title: formData.title,
+        description: formData.description,
+        start: formattedStart,
+        end: formattedend,
+      };
+      addEvent(state);
     }
-    if (formData.description === '') {
-      console.log('error');
-    }
-    const formmatedDate = formData.date.toISOString().split('T')[0];
-    const formmatedStartTime = formData.start.toISOString().split('T')[1];
-    const formmatedEndTime = formData.end.toISOString().split('T')[1];
-    const formattedStart = `${formmatedDate}T${formmatedStartTime}`;
-    const formattedend = `${formmatedDate}T${formmatedEndTime}`;
-    console.log(formattedStart, formattedend);
-    const state = {
-      title: formData.title,
-      description: formData.description,
-      start: formattedStart,
-      end: formattedend,
-    };
-    addEvent(state);
   };
   return (
     <View
@@ -209,8 +211,8 @@ const AddtitleScreen = ({navigation}) => {
         Go back
       </Button>
       <Button
-        onPress={() => {
-          navigation.goBack();
+        onPress={async () => {
+          await navigation.goBack();
 
           validation();
         }}>

@@ -18,7 +18,9 @@ import ActionButton from '../../components/ActionButton';
 const AgendaComponents = () => {
   const [itemsCard, setItemCard] = useState({});
   const eventsState = useSelector(state => state.events);
-
+  const [selectedDate, setSelectedDate] = useState(
+    moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0],
+  );
   const dispatch = useDispatch();
 
   const {addEvent} = bindActionCreators(
@@ -106,13 +108,15 @@ const AgendaComponents = () => {
       <Agenda
         items={itemsCard}
         loadItemsForMonth={loadItems}
-        selected={
-          moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0]
-        }
+        selected={selectedDate}
         renderItem={renderItem}
         renderEmptyDate={renderEmptyDate}
         rowHasChanged={rowHasChanged}
-        showClosingKnob={true}
+        showClosingKnob={false}
+        onDayPress={day => {
+          console.log('day pressed', day);
+          setSelectedDate(day.dateString);
+        }}
         // renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
 
         // markingType={'period'}
@@ -155,7 +159,6 @@ const AgendaComponents = () => {
           textDayHeaderFontSize: 16,
         }}
       />
-      <ActionButton />
     </View>
   );
 };

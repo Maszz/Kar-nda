@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import {Provider} from 'react-redux';
 import {StyleSheet, Dimensions} from 'react-native';
 import {View, NativeBaseProvider} from 'native-base';
 import LottieView from 'lottie-react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import './IMLocalize';
 import {store, persistor} from './state/store';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -15,14 +18,36 @@ import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from './state/index';
 import {SSRProvider} from '@react-aria/ssr';
+import analytics from '@react-native-firebase/analytics';
 
 /**
  * the Main screen of app Wrapped from navigation container.
  * @Navigator `DrawerScreenComponent`
  */
 const App = () => {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef.getCurrentRoute().name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.getCurrentRoute().name;
+
+        if (previousRouteName !== currentRouteName) {
+          await analytics().logScreenView({
+            screen_name: currentRouteName,
+            screen_class: currentRouteName,
+          });
+        }
+
+        // Save the current route name for later comparison
+        routeNameRef.current = currentRouteName;
+      }}>
       <DrawerScreenComponent />
     </NavigationContainer>
   );

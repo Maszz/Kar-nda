@@ -58,7 +58,6 @@ const YearScreen = () => {
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
       <CalendarComponent markedDates={markedDates} />
-      <ActionButton />
     </View>
   );
 };

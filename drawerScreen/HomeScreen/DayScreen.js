@@ -178,8 +178,6 @@ const DayScreen = props => {
           </TouchableOpacity>
         </VStack>
       </VStack>
-
-      <ActionButton />
     </View>
   );
 };
