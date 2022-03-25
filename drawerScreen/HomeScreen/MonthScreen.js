@@ -44,7 +44,9 @@ const MonthScreen = props => {
     'November',
     'December',
   ];
-
+  const [touchY, setTouchY] = useState(0);
+  const windowHeight = Dimensions.get('window').height;
+  const [viewHeight, setViewHeight] = useState(0);
   useEffect(() => {
     let tempList = [];
     const timeZone = RNLocalize.getTimeZone();
@@ -74,7 +76,29 @@ const MonthScreen = props => {
   }, [events, currentDate]);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#1F2937'}}>
+    <View
+      style={{flex: 1, backgroundColor: '#1F2937'}}
+      onTouchStart={e => {
+        if (windowHeight - viewHeight > e.nativeEvent.pageY) {
+          setTouchY(e.nativeEvent.pageY);
+        }
+      }}
+      onTouchEnd={e => {
+        if (touchY - e.nativeEvent.pageY > 40 && touchY != 0) {
+          setTouchY(0);
+          console.log('Swiped up');
+          currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+        if (e.nativeEvent.pageY - touchY > 40 && touchY != 0) {
+          setTouchY(0);
+          console.log('Swiped Down');
+          currentDate.setMonth(currentDate.getMonth() - 1);
+        }
+      }}
+      onLayout={event => {
+        var {height} = event.nativeEvent.layout;
+        setViewHeight(height);
+      }}>
       <Center style={{marginVertical: 10, backgroundColor: '#1F2937'}}>
         <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
@@ -86,20 +110,21 @@ const MonthScreen = props => {
         onPressEvent={e => {
           console.log('click event', e);
         }}
+        // activeDate={new Date()}
         date={currentDate}
         mode="month"
-        swipeEnabled={true}
+        swipeEnabled={false}
         showTime={false}
         isRTL={false}
         showAllDayEventCell={true}
-        onChangeDate={a => {
-          console.log(a);
-          if (currentDate.getMonth() !== a[0].getMonth()) {
-            setCurrentDate(a[0]);
-          }
+        // onChangeDate={a => {
+        //   console.log(a);
+        //   if (currentDate.getMonth() !== a[0].getMonth()) {
+        //     setCurrentDate(a[0]);
+        //   }
 
-          console.log(currentDate);
-        }}
+        //   console.log(currentDate);
+        // }}
         onPressDateHeader={a => {
           console.log('press date header', a);
         }}

@@ -76,7 +76,7 @@ const HomeScreen = ({navigation}) => {
     <>
       <Tab.Navigator
         screenOptions={{
-          swipeEnabled: false,
+          swipeEnabled: true,
           // tabBarContentContainerStyle: {backgroundColor: '#1F2937'},
           // tabBarLabelStyle: {color: '#6B7280'},
           tabBarIndicatorStyle: {backgroundColor: '#4AA9FF', height: 3},
