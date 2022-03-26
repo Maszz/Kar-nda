@@ -19,13 +19,7 @@ import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
-import ActionButton from '../../components/ActionButton';
-import {
-  actions,
-  getContentCSS,
-  RichEditor,
-  RichToolbar,
-} from 'react-native-pell-rich-editor';
+
 const DayScreen = props => {
   const navigationState = useSelector(state => state.StackNavigation);
   const [dateToDay, setDateToDay] = useState(new Date());
