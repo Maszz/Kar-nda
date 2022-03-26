@@ -46,7 +46,7 @@ const AgendaComponents = () => {
     const items = itemsCard || {};
 
     setTimeout(() => {
-      for (let i = -20; i < 50; i++) {
+      for (let i = -5; i < 5; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = timeToString(time);
 
@@ -86,20 +86,17 @@ const AgendaComponents = () => {
       .tz(timeZone)
       .format()
       .split('T')[0];
-    console.log('this is locale day ', localeTime);
     tempObj[localeTime] = [];
     for (const item of eventsState.events) {
       const day = moment(item.start).tz(timeZone).format().split('T')[0];
       const name = item.title;
       if (!tempObj.hasOwnProperty(day)) {
-        console.log('incase own');
         tempObj[day] = [];
       }
       const tempdata = {name: name, description: item.description};
       // tempObj[day] = [tempdata];
       tempObj[day].push(tempdata);
     }
-    console.log('thisis tempobj', tempObj);
     setItemCard(tempObj);
   }, [eventsState]);
 

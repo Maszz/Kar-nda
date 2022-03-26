@@ -11,6 +11,7 @@ import {
   HStack,
   Stagger,
   ZStack,
+  Button,
 } from 'native-base';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -47,7 +48,7 @@ const StackScreen = () => {
         component={Diary}
         options={{
           presentation: 'modal',
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -55,7 +56,7 @@ const StackScreen = () => {
         component={AddEventScreen}
         options={{
           presentation: 'modal',
-          headerShown: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

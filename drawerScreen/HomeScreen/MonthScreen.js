@@ -79,20 +79,23 @@ const MonthScreen = props => {
     <View
       style={{flex: 1, backgroundColor: '#1F2937'}}
       onTouchStart={e => {
-        if (windowHeight - viewHeight > e.nativeEvent.pageY) {
+        if (windowHeight - viewHeight < e.nativeEvent.pageY) {
           setTouchY(e.nativeEvent.pageY);
+          console.log(touchY);
         }
       }}
       onTouchEnd={e => {
-        if (touchY - e.nativeEvent.pageY > 40 && touchY != 0) {
+        if (touchY - e.nativeEvent.pageY > 50 && touchY != 0) {
           setTouchY(0);
           console.log('Swiped up');
-          currentDate.setMonth(currentDate.getMonth() + 1);
+          const newDate = currentDate.setMonth(currentDate.getMonth() + 1);
+          setCurrentDate(new Date(newDate));
         }
-        if (e.nativeEvent.pageY - touchY > 40 && touchY != 0) {
+        if (e.nativeEvent.pageY - touchY > 50 && touchY != 0) {
           setTouchY(0);
           console.log('Swiped Down');
-          currentDate.setMonth(currentDate.getMonth() - 1);
+          const newDate = currentDate.setMonth(currentDate.getMonth() - 1);
+          setCurrentDate(new Date(newDate));
         }
       }}
       onLayout={event => {
