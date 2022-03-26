@@ -23,7 +23,7 @@ import DayScreen from './DayScreen';
 import Agendar from './Agendar';
 import Diary from '../../stackScreens/Diary';
 import AddEventScreen from '../../stackScreens/AddEventsScreen';
-
+import DairyModal from '../../stackScreens/DairyModal';
 import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
@@ -54,6 +54,14 @@ const StackScreen = () => {
       <Stack.Screen
         name="AddEventScreen"
         component={AddEventScreen}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="DairyModal"
+        component={DairyModal}
         options={{
           presentation: 'modal',
           headerShown: false,

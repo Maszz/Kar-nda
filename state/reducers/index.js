@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
 import onBoardReducer from './onBoardReducer';
 import StackNavigationReducer from './stackNavigationReducer';
+import dayUserMemoReducer from './dayUserMemoReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -16,6 +17,11 @@ const persistConfigOnboard = {
   key: 'onBoard',
   storage: AsyncStorage,
   whilelist: ['viewed'],
+};
+const persistConfigDayUserConfig = {
+  key: 'dayUserMemo',
+  storage: AsyncStorage,
+  whilelist: ['dairy', 'todo'],
 };
 
 /**
@@ -29,7 +35,7 @@ const reducers = combineReducers({
   events: persistReducer(persistConfig, eventsReducer),
   onBoard: persistReducer(persistConfigOnboard, onBoardReducer),
   StackNavigation: StackNavigationReducer,
-
+  dayUserMemo: persistReducer(persistConfigDayUserConfig, dayUserMemoReducer),
   monthCalendar: monthCalendarReducer,
 });
 

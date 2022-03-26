@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   actions,
   getContentCSS,
@@ -28,12 +28,17 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import moment from 'moment';
+import {useDispatch, useSelector} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../state/index';
+import * as RNLocalize from 'react-native-localize';
+
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        console.log('sda');
       }}>
       {children}
     </TouchableWithoutFeedback>
@@ -41,26 +46,102 @@ const DissmissKeyboard = ({children}) => {
 };
 
 function Diary({navigation}) {
+  const [dateToDay, setDateToDay] = useState(new Date());
+  const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+  const dispatch = useDispatch();
+  const {addDairy} = bindActionCreators(
+    actionCreators.dayUserMemoActionCreator,
+    dispatch,
+  );
+  const dayUserMemoState = useSelector(state => state.dayUserMemo);
+
   const richText = useRef();
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // const dairyDTO = {title:"",dairyText:""}
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  useEffect(() => {
+    const timeZone = RNLocalize.getTimeZone();
+    const currentDate = moment(new Date(Date.now()))
+      .tz(timeZone)
+      .format()
+      .split('T')[0];
+    const dairyKeys = Object.keys(dayUserMemoState.dairy);
+    for (const key of dairyKeys) {
+      if (key == currentDate) {
+        setDairy(dayUserMemoState.dairy[key]);
+        break;
+      }
+    }
+  }, [dayUserMemoState]);
   return (
     <DissmissKeyboard>
-      <ScrollView style={{backgroundColor: '#1F2937'}}>
+      <ScrollView
+        style={{backgroundColor: '#1F2937'}}
+        showsHorizontalScrollIndicator={false}>
         <VStack>
           <Box style={{alignSelf: 'flex-end', padding: 15}}>
+            {/* <Button
+              variant="unstyled"
+              onPress={() => {
+                console.log(dayUserMemoState);
+              }}>
+              <Text style={{color: 'white'}}>logs</Text>
+            </Button> */}
             <Button
               variant="unstyled"
               onPress={() => {
-                console.log('Save');
+                const dairyDTO = {
+                  title: dairy.title,
+                  dairyText: dairy.dairyText,
+                };
+                console.log(dairyDTO);
+                addDairy(dairyDTO);
+                navigation.goBack();
               }}>
-              <Text style={{color: 'white'}}> Save</Text>
+              <Text style={{color: 'white'}}>Save</Text>
             </Button>
           </Box>
           <Box
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Input variant="unstyled" placeholder="Title The days" size="2xl" />
+            <Input
+              caretHidden={false}
+              selectionColor="white"
+              color="white"
+              variant="unstyled"
+              placeholder="Title The days"
+              value={dairy.title}
+              onChangeText={text => {
+                setDairy({
+                  title: text,
+                  dairyText: dairy.dairyText,
+                });
+                // setTitle(text);
+                console.log(dairy);
+              }}
+              size="2xl"
+            />
 
             <Divider width="60%" />
-            <Text>Time / Day / Year</Text>
+            <Box style={{marginBottom: 10, marginTop: 10}}>
+              <Text style={{color: 'white'}}>
+                {`${days[dateToDay.getDay()]} ${dateToDay.getDate()} ${
+                  months[dateToDay.getMonth()]
+                } ${dateToDay.getFullYear()}`}
+              </Text>
+            </Box>
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
               style={{flex: 1}}>
@@ -90,11 +171,19 @@ function Diary({navigation}) {
               />
               <Box borderWidth={2} borderColor="white">
                 <RichEditor
-                  editorStyle={{backgroundColor: '#1F2937'}}
+                  editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
                   ref={richText}
                   onChange={descriptionText => {
-                    console.log('descriptionText:', descriptionText);
+                    // console.log('descriptionText:', descriptionText);
+                    setDairy({
+                      title: dairy.title,
+                      dairyText: descriptionText,
+                    });
+                    // setDairyText(descriptionText);
+                    // console.log(dairyText);
+                    console.log(dairy);
                   }}
+                  initialContentHTML={dairy.dairyText}
                   initialHeight={500}
                 />
               </Box>

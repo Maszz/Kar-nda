@@ -20,20 +20,50 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 import ActionButton from '../../components/ActionButton';
-
+import {
+  actions,
+  getContentCSS,
+  RichEditor,
+  RichToolbar,
+} from 'react-native-pell-rich-editor';
 const DayScreen = props => {
+  const navigationState = useSelector(state => state.StackNavigation);
+  const [dateToDay, setDateToDay] = useState(new Date());
   const [eventCard, setEventCard] = useState([]);
   const eventsState = useSelector(state => state.events);
-
+  const dayUserMemoState = useSelector(state => state.dayUserMemo);
+  const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   useEffect(() => {
     const tempArr = [];
     const timeZone = RNLocalize.getTimeZone();
+    const currentDate = moment(new Date(Date.now()))
+      .tz(timeZone)
+      .format()
+      .split('T')[0];
+    const dairyKeys = Object.keys(dayUserMemoState.dairy);
+    for (const key of dairyKeys) {
+      if (key == currentDate) {
+        setDairy(dayUserMemoState.dairy[key]);
+        break;
+      }
+    }
 
     for (const event of eventsState.events) {
-      const currentDate = moment(new Date(Date.now()))
-        .tz(timeZone)
-        .format()
-        .split('T')[0];
       if (
         currentDate == moment(event.start).tz(timeZone).format().split('T')[0]
       ) {
@@ -42,7 +72,7 @@ const DayScreen = props => {
     }
     console.log('THis is temp arr ', tempArr);
     setEventCard(tempArr);
-  }, [eventsState]);
+  }, [eventsState, dayUserMemoState]);
   return (
     <View style={{backgroundColor: '#1F2937', flex: 1}}>
       <CalendarStrip
@@ -168,13 +198,29 @@ const DayScreen = props => {
             width={Dimensions.get('window').width - 50}
             height={0.5}
           />
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigationState.navigation.navigate('DairyModal');
+            }}>
             <Box
               width={Dimensions.get('window').width - 50}
               height={75}
               border="1"
               borderRadius="2xl"
-              style={{backgroundColor: '#7CC2FF', marginBottom: 20}}></Box>
+              style={{
+                backgroundColor: '#7CC2FF',
+                marginBottom: 20,
+                padding: 10,
+              }}>
+              <VStack>
+                <Text style={{color: 'white'}}>{dairy.title}</Text>
+                <Text style={{color: 'white'}}>
+                  {`${days[dateToDay.getDay()]} ${dateToDay.getDate()} ${
+                    months[dateToDay.getMonth()]
+                  } ${dateToDay.getFullYear()}`}
+                </Text>
+              </VStack>
+            </Box>
           </TouchableOpacity>
         </VStack>
       </VStack>

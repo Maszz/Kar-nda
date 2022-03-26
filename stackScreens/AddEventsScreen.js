@@ -68,21 +68,37 @@ const AddtitleScreen = ({navigation}) => {
   };
   return (
     <DissmissKeyboard>
-      <ScrollView style={{backgroundColor: '#1F2937'}}>
+      <ScrollView
+        style={{backgroundColor: '#1F2937'}}
+        showsHorizontalScrollIndicator={false}>
         <VStack width="100%" style={{alignItems: 'center'}}>
           <Box style={{alignSelf: 'flex-end', padding: 15}}>
             <Button
               variant="unstyled"
               onPress={() => {
                 console.log('Save');
+                if (formData.start.getTime() > formData.end.getTime()) {
+                  console.log('error date');
+                  Alert.alert('InvalidDate', 'Please Insert collect date.');
+                } else if (
+                  formData.title === '' ||
+                  formData.description === ''
+                ) {
+                  console.log('Invalid', 'Event empty');
+                  Alert.alert('Empty Field', `Don't let field be empty.`);
+                } else {
+                  submitEvent();
+                  navigation.goBack();
+                }
               }}>
-              <Text style={{color: 'white'}}> Save</Text>
+              <Text style={{color: 'white'}}>Save</Text>
             </Button>
           </Box>
           <Box w="90%">
             <FormControl>
               <VStack mx="4">
                 <Input
+                  color="white"
                   placeholder="Add Activity"
                   variant="underlined"
                   size="2xl"
@@ -219,7 +235,7 @@ const AddtitleScreen = ({navigation}) => {
               </Stack>
             </FormControl>
           </Box>
-          <Text>Hello world</Text>
+          {/* <Text>Hello world</Text>
           <Button
             onPress={() => {
               navigation.goBack();
@@ -240,7 +256,7 @@ const AddtitleScreen = ({navigation}) => {
               }
             }}>
             Submit
-          </Button>
+          </Button> */}
         </VStack>
       </ScrollView>
     </DissmissKeyboard>
