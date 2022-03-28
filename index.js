@@ -8,7 +8,10 @@ import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
 import PushNotification from 'react-native-push-notification';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import LogRocket from '@logrocket/react-native';
+import analytics from '@react-native-firebase/analytics';
 
+LogRocket.init('gphuw1/rn-calendarproject-karenda');
 GoogleSignin.configure({
   webClientId:
     '358505907509-gibbr7tbcgd1i71r0gpo4g3ukblj2q1b.apps.googleusercontent.com',

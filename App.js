@@ -19,6 +19,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from './state/index';
 import {SSRProvider} from '@react-aria/ssr';
 import analytics from '@react-native-firebase/analytics';
+import LogRocket from '@logrocket/react-native';
 
 /**
  * the Main screen of app Wrapped from navigation container.
@@ -44,7 +45,6 @@ const App = () => {
             screen_class: currentRouteName,
           });
         }
-
         // Save the current route name for later comparison
         routeNameRef.current = currentRouteName;
       }}>
@@ -62,6 +62,13 @@ const App = () => {
  * @returns `ReactDOM`
  */
 const ReactWrapper = () => {
+  LogRocket.getSessionURL(function (sessionURL) {
+    analytics().logEvent('send', {
+      hitType: 'event',
+      eventCategory: 'LogRocket',
+      eventAction: sessionURL,
+    });
+  });
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

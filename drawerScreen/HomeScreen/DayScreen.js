@@ -22,11 +22,20 @@ import * as RNLocalize from 'react-native-localize';
 
 const DayScreen = props => {
   const navigationState = useSelector(state => state.StackNavigation);
-  const [dateToDay, setDateToDay] = useState(new Date());
   const [eventCard, setEventCard] = useState([]);
+  const timeZone = RNLocalize.getTimeZone();
+  const [selectedDate, setSelectedDate] = useState(
+    moment(new Date(Date.now())).tz(timeZone),
+  );
+  const [isMounted, setIsMounted] = useState(false);
   const eventsState = useSelector(state => state.events);
   const dayUserMemoState = useSelector(state => state.dayUserMemo);
-  const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+  // const [dairys, setDairys] = useState({});
+  const [selectedDairy, setSelectedDairy] = useState({
+    title: '',
+    dairyText: '',
+    date: '',
+  });
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',
@@ -43,20 +52,13 @@ const DayScreen = props => {
     'December',
   ];
   useEffect(() => {
-    const tempArr = [];
     const timeZone = RNLocalize.getTimeZone();
     const currentDate = moment(new Date(Date.now()))
       .tz(timeZone)
       .format()
       .split('T')[0];
-    const dairyKeys = Object.keys(dayUserMemoState.dairy);
-    for (const key of dairyKeys) {
-      if (key == currentDate) {
-        setDairy(dayUserMemoState.dairy[key]);
-        break;
-      }
-    }
-
+    // if (!isMounted) {
+    const tempArr = [];
     for (const event of eventsState.events) {
       if (
         currentDate == moment(event.start).tz(timeZone).format().split('T')[0]
@@ -66,6 +68,17 @@ const DayScreen = props => {
     }
     console.log('THis is temp arr ', tempArr);
     setEventCard(tempArr);
+
+    // setDairys(dayUserMemoState.dairy);
+
+    const dairyKeys = Object.keys(dayUserMemoState.dairy);
+    for (const key of dairyKeys) {
+      if (key == selectedDate.toISOString().split('T')[0]) {
+        setSelectedDairy(dayUserMemoState.dairy[key]);
+        break;
+      }
+      setSelectedDairy({title: '', dairyText: '', date: ''});
+    }
   }, [eventsState, dayUserMemoState]);
   return (
     <View style={{backgroundColor: '#1F2937', flex: 1}}>
@@ -89,7 +102,6 @@ const DayScreen = props => {
         }}
         onDateSelected={e => {
           let tempArr = [];
-          const timeZone = RNLocalize.getTimeZone();
           for (const event of eventsState.events) {
             if (
               moment(e).tz(timeZone).format().split('T')[0] ==
@@ -99,6 +111,18 @@ const DayScreen = props => {
             }
           }
           setEventCard(tempArr);
+          const date = moment(e).tz(timeZone);
+          setSelectedDate(date);
+
+          // set dairy.
+          const dairyKeys = Object.keys(dayUserMemoState.dairy);
+          for (const key of dairyKeys) {
+            if (key == date.toISOString().split('T')[0]) {
+              setSelectedDairy(dayUserMemoState.dairy[key]);
+              break;
+            }
+            setSelectedDairy({title: '', dairyText: '', date: ''});
+          }
         }}
         highlightDateNameStyle={{color: 'white'}}
         highlightDateNumberStyle={{color: 'white'}}
@@ -194,7 +218,9 @@ const DayScreen = props => {
           />
           <TouchableOpacity
             onPress={() => {
-              navigationState.navigation.navigate('DairyModal');
+              navigationState.navigation.navigate('DairyModal', {
+                date: selectedDate.toISOString().split('T')[0],
+              });
             }}>
             <Box
               width={Dimensions.get('window').width - 50}
@@ -207,11 +233,15 @@ const DayScreen = props => {
                 padding: 10,
               }}>
               <VStack>
-                <Text style={{color: 'white'}}>{dairy.title}</Text>
                 <Text style={{color: 'white'}}>
-                  {`${days[dateToDay.getDay()]} ${dateToDay.getDate()} ${
-                    months[dateToDay.getMonth()]
-                  } ${dateToDay.getFullYear()}`}
+                  {selectedDairy.title == ''
+                    ? `To day you don't wrote dairy yet.`
+                    : `${selectedDairy.title}`}
+                </Text>
+                <Text style={{color: 'white'}}>
+                  {`${days[selectedDate.day()]} ${selectedDate.date()} ${
+                    months[selectedDate.month()]
+                  } ${selectedDate.year()}`}
                 </Text>
               </VStack>
             </Box>

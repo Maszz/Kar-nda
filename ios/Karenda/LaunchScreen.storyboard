@@ -31,7 +31,7 @@
                                 <color key="textColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gg 2" translatesAutoresizingMaskIntoConstraints="NO" id="bbn-7v-U5x">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2222" translatesAutoresizingMaskIntoConstraints="NO" id="bbn-7v-U5x">
                                 <rect key="frame" x="-119" y="0.0" width="679" height="956"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -47,7 +47,7 @@
     </scenes>
     <color key="tintColor" systemColor="systemPurpleColor"/>
     <resources>
-        <image name="gg 2" width="1242" height="2688"/>
+        <image name="2222" width="1242" height="2688"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

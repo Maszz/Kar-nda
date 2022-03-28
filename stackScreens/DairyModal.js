@@ -45,8 +45,7 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-function DiaryModal({navigation}) {
-  const [dateToDay, setDateToDay] = useState(new Date());
+function DiaryModal({navigation, route}) {
   const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
   const dispatch = useDispatch();
   const {addDairy} = bindActionCreators(
@@ -54,6 +53,8 @@ function DiaryModal({navigation}) {
     dispatch,
   );
   const dayUserMemoState = useSelector(state => state.dayUserMemo);
+  const {date} = route.params;
+  const [dateToDay, setDateToDay] = useState(new Date(date));
 
   const richText = useRef();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -73,11 +74,7 @@ function DiaryModal({navigation}) {
     'December',
   ];
   useEffect(() => {
-    const timeZone = RNLocalize.getTimeZone();
-    const currentDate = moment(new Date(Date.now()))
-      .tz(timeZone)
-      .format()
-      .split('T')[0];
+    const currentDate = date;
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
       if (key == currentDate) {

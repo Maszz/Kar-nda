@@ -11,6 +11,7 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
+    "@logrocket/react-native": "^1.2.0",
     "@mikezzb/react-native-timetable": "^0.2.3",
     "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/datetimepicker": "^6.1.0",
