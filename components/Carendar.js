@@ -10,21 +10,17 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import CalendarModal from './Modal';
 import {background} from 'native-base/lib/typescript/theme/styled-system';
-import {useSelector, connect} from 'react-redux';
-import moment from 'moment';
-import * as RNLocalize from 'react-native-localize';
-
-const calendarComponent = ({markedDates, tabNavi, setSelectedDate}) => {
+const calendarComponent = ({markedDates}) => {
   const [globalMarkedDates, setGlobalMarkedDates] = useState(markedDates);
   const [calendarSelector, setcalendarSelector] = useState('a');
   const [prevSelected, setPrevSelected] = useState('');
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const {setSelectedDate} = bindActionCreators(
-  //   actionCreators.selectedDateActionCreator,
-  //   dispatch,
-  // );
+  const {onCalendarDayPress} = bindActionCreators(
+    actionCreators.calendarModalActionCreator,
+    dispatch,
+  );
 
   /**
    * `onChangeSelectedDate` and `OndeSelectedDates` active when user `onPress` day from CalendarList
@@ -69,18 +65,11 @@ const calendarComponent = ({markedDates, tabNavi, setSelectedDate}) => {
         showScrollIndicator={true}
         onDayPress={day => {
           setPrevSelected(calendarSelector);
-          console.log(day);
+
+          setcalendarSelector([day['dateString']]);
           // setVisible(true);
           // setShowModal(true);
-          // onCalendarDayPress(true);
-          const date = moment(new Date(day['dateString'])).tz(
-            RNLocalize.getTimeZone(),
-          );
-
-          setSelectedDate(date);
-          console.log(date);
-          tabNavi.navigate('DayScreen');
-
+          onCalendarDayPress(true);
           if (prevSelected != calendarSelector) {
             onChangeSelectedDate(day);
           }
@@ -121,7 +110,4 @@ const calendarComponent = ({markedDates, tabNavi, setSelectedDate}) => {
   );
 };
 
-const mapDispatchToProps = {
-  setSelectedDate: actionCreators.selectedDateActionCreator.setSelectedDate,
-};
-export default connect(null, mapDispatchToProps)(calendarComponent);
+export default calendarComponent;
