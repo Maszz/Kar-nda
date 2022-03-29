@@ -28,7 +28,7 @@ const DayScreen = ({
   setSelectedDate,
   navigationState,
   eventsState,
-  dayUserMemoState,
+  // dayUserMemoState,
 }) => {
   // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
@@ -38,7 +38,7 @@ const DayScreen = ({
 
   const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
   // const eventsState = useSelector(state => state.events);
-  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
+  const dayUserMemoState = useSelector(state => state.dayUserMemo);
   // const {setSelectedDate} = bindActionCreators(
   //   actionCreators.selectedDateActionCreator,
   //   dispatch,
@@ -297,7 +297,7 @@ const mapStateToProps = function (state) {
     selectedDateState: state.selectedDate.selectedDateState,
     navigationState: state.StackNavigation,
     eventsState: state.events,
-    dayUserMemoState: state.dayUserMemo,
+    // dayUserMemoState: state.dayUserMemo,
   };
 };
 const mapDispatchToProps = {
