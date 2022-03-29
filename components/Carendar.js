@@ -5,20 +5,22 @@ import {View} from 'react-native';
 // import Modal from './Modal';
 import {Modal, Center, Button, FormControl, Input, Text} from 'native-base';
 import {Dimensions} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import CalendarModal from './Modal';
 import {background} from 'native-base/lib/typescript/theme/styled-system';
-const calendarComponent = ({markedDates}) => {
+import moment from 'moment';
+import * as RNLocalize from 'react-native-localize';
+const calendarComponent = ({markedDates, tabNavi}) => {
   const [globalMarkedDates, setGlobalMarkedDates] = useState(markedDates);
   const [calendarSelector, setcalendarSelector] = useState('a');
   const [prevSelected, setPrevSelected] = useState('');
 
   const dispatch = useDispatch();
 
-  const {onCalendarDayPress} = bindActionCreators(
-    actionCreators.calendarModalActionCreator,
+  const {setSelectedDate} = bindActionCreators(
+    actionCreators.selectedDateActionCreator,
     dispatch,
   );
 
@@ -69,7 +71,13 @@ const calendarComponent = ({markedDates}) => {
           setcalendarSelector([day['dateString']]);
           // setVisible(true);
           // setShowModal(true);
-          onCalendarDayPress(true);
+          // onCalendarDayPress(true);
+          const date = moment(new Date(day['dateString'])).tz(
+            RNLocalize.getTimeZone(),
+          );
+
+          setSelectedDate(date);
+          tabNavi.navigate('DayScreen');
           if (prevSelected != calendarSelector) {
             onChangeSelectedDate(day);
           }
