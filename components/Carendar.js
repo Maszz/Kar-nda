@@ -18,7 +18,6 @@ const calendarComponent = ({markedDates, tabNavi}) => {
   const [prevSelected, setPrevSelected] = useState('');
 
   const dispatch = useDispatch();
-
   const {setSelectedDate} = bindActionCreators(
     actionCreators.selectedDateActionCreator,
     dispatch,
@@ -77,6 +76,7 @@ const calendarComponent = ({markedDates, tabNavi}) => {
           );
 
           setSelectedDate(date);
+
           tabNavi.navigate('DayScreen');
           if (prevSelected != calendarSelector) {
             onChangeSelectedDate(day);
