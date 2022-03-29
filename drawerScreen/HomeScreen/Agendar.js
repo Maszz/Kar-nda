@@ -7,26 +7,20 @@ import {
   AgendaSchedule,
 } from 'react-native-calendars';
 import {Divider} from 'native-base';
-import {useSelector} from 'react-redux';
+import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
-import ActionButton from '../../components/ActionButton';
 
-const AgendaComponents = () => {
+const AgendaComponents = ({eventsState}) => {
   const [itemsCard, setItemCard] = useState({});
-  const eventsState = useSelector(state => state.events);
+  // const eventsState = useSelector(state => state.events);
   const [selectedDate, setSelectedDate] = useState(
     moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0],
   );
-  const dispatch = useDispatch();
 
-  const {addEvent} = bindActionCreators(
-    actionCreators.eventsActionCreator,
-    dispatch,
-  );
   const renderItem = (reservation, isFirst) => {
     const fontSize = isFirst ? 16 : 14;
     const color = isFirst ? 'black' : '#43515c';
@@ -110,12 +104,13 @@ const AgendaComponents = () => {
         renderEmptyDate={renderEmptyDate}
         rowHasChanged={rowHasChanged}
         showClosingKnob={false}
+        hideKnob={false}
         onDayPress={day => {
           console.log('day pressed', day);
-          setSelectedDate(day.dateString);
-        }}
-        // renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
 
+          setSelectedDate(day['dateString']); // เเก้
+        }}
+        // renderDay={(day, item) => <Text>{day ? day.day : 'item'}</Text>}
         // markingType={'period'}
         // markedDates={{
         //    '2017-05-08': {textColor: '#43515c'},
@@ -274,5 +269,9 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
 });
-
-export default AgendaComponents;
+const mapStateToProps = function (state) {
+  return {
+    eventsState: state.events,
+  };
+};
+export default connect(mapStateToProps)(AgendaComponents);

@@ -15,7 +15,7 @@ import {
   Spacer,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
@@ -34,14 +34,14 @@ const DissmissKeyboard = ({children}) => {
 };
 import CalendarPicker from 'react-native-calendar-picker';
 import DateSelector from '../components/dateSelector';
-const AddtitleScreen = ({navigation}) => {
-  const events = useSelector(state => state.events);
-  const dispatch = useDispatch();
+const AddtitleScreen = ({navigation, addEvent, events}) => {
+  // const events = useSelector(state => state.events);
+  // const dispatch = useDispatch();
 
-  const {addEvent, removeEvent, resetEventList} = bindActionCreators(
-    actionCreators.eventsActionCreator,
-    dispatch,
-  );
+  // const {addEvent, removeEvent, resetEventList} = bindActionCreators(
+  //   actionCreators.eventsActionCreator,
+  //   dispatch,
+  // );
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -219,6 +219,8 @@ const AddtitleScreen = ({navigation}) => {
               /> */}
                 <TextArea
                   h={20}
+                  color="white"
+                  style={{color: 'white'}}
                   placeholder="Desicribe your title."
                   w="100%"
                   maxW="300"
@@ -230,6 +232,7 @@ const AddtitleScreen = ({navigation}) => {
                       title: formData.title,
                       description: text,
                     });
+                    console.log(formData);
                   }}
                 />
               </Stack>
@@ -262,5 +265,13 @@ const AddtitleScreen = ({navigation}) => {
     </DissmissKeyboard>
   );
 };
-
-export default AddtitleScreen;
+const mapStateToProps = function (state) {
+  return {
+    events: state.events,
+    navigationState: state.StackNavigation,
+  };
+};
+const mapDispatchToProps = {
+  addEvent: actionCreators.eventsActionCreator.addEvent,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AddtitleScreen);

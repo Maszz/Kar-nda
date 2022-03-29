@@ -4,6 +4,7 @@ import * as onBoardActionCreator from './onBoardActionCreator';
 import * as monthCalendarActionCreator from './monthCalendarActionCreator';
 import * as stackNavigationActionCreator from './stackNavigationActionCreator';
 import * as dayUserMemoActionCreator from './dayUserMemoActionCreator';
+import * as selectedDateActionCreator from './selectedDateActionCreator';
 /**
  * Export all reducer for module base import.
  */
@@ -14,4 +15,5 @@ export {
   onBoardActionCreator,
   stackNavigationActionCreator,
   dayUserMemoActionCreator,
+  selectedDateActionCreator,
 };

@@ -29,7 +29,7 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
@@ -45,14 +45,10 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-function DiaryModal({navigation, route}) {
+function DiaryModal({navigation, route, dayUserMemoState}) {
   const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
-  const dispatch = useDispatch();
-  const {addDairy} = bindActionCreators(
-    actionCreators.dayUserMemoActionCreator,
-    dispatch,
-  );
-  const dayUserMemoState = useSelector(state => state.dayUserMemo);
+
+  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   const {date} = route.params;
   const [dateToDay, setDateToDay] = useState(new Date(date));
 
@@ -125,5 +121,10 @@ function DiaryModal({navigation, route}) {
     </DissmissKeyboard>
   );
 }
+const mapStateToProps = function (state) {
+  return {
+    dayUserMemoState: state.dayUserMemo,
+  };
+};
 
-export default DiaryModal;
+export default connect(mapStateToProps)(DiaryModal);

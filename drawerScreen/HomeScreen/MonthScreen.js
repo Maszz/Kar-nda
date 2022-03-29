@@ -9,7 +9,7 @@ import {
 } from '@react-navigation/drawer';
 import Modal from '../../components/Modal';
 import MonthNameComponent from '../../components/MonthName';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 
@@ -20,15 +20,15 @@ import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const MonthScreen = props => {
+const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
-  const monthCalendarState = useSelector(state => state.monthCalendar);
-  const dispatch = useDispatch();
-  const {onSwipeMonthChange} = bindActionCreators(
-    actionCreators.monthCalendarActionCreator,
-    dispatch,
-  );
-  const {events} = useSelector(state => state.events);
+  // const monthCalendarState = useSelector(state => state.monthCalendar);
+  // const dispatch = useDispatch();
+  // const {onSwipeMonthChange} = bindActionCreators(
+  //   actionCreators.monthCalendarActionCreator,
+  //   dispatch,
+  // );
+  // const {events} = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([]);
   const monthNames = [
     'January',
@@ -149,4 +149,15 @@ const MonthScreen = props => {
   );
 };
 
-export default MonthScreen;
+const mapStateToProps = function (state) {
+  return {
+    monthCalendarState: state.monthCalendar,
+    events: state.events.events,
+  };
+};
+const mapDispatchToProps = {
+  onSwipeMonthChange:
+    actionCreators.monthCalendarActionCreator.onSwipeMonthChange,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MonthScreen);

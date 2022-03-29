@@ -14,23 +14,35 @@ import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 import {ZStack, Box, VStack, Divider, Text, Container} from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
+import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
-const DayScreen = props => {
-  const navigationState = useSelector(state => state.StackNavigation);
+const DayScreen = ({
+  navigation,
+  route,
+  selectedDateState,
+  setSelectedDate,
+  navigationState,
+  eventsState,
+  // dayUserMemoState,
+}) => {
+  // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
   const timeZone = RNLocalize.getTimeZone();
-  const [selectedDate, setSelectedDate] = useState(
-    moment(new Date(Date.now())).tz(timeZone),
-  );
-  const [isMounted, setIsMounted] = useState(false);
-  const eventsState = useSelector(state => state.events);
+  // const {selectedDateState} = useSelector(state => state.selectedDate);
+  const dispatch = useDispatch();
+
+  const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
+  // const eventsState = useSelector(state => state.events);
   const dayUserMemoState = useSelector(state => state.dayUserMemo);
-  // const [dairys, setDairys] = useState({});
+  // const {setSelectedDate} = bindActionCreators(
+  //   actionCreators.selectedDateActionCreator,
+  //   dispatch,
+  // );
   const [selectedDairy, setSelectedDairy] = useState({
     title: '',
     dairyText: '',
@@ -51,13 +63,34 @@ const DayScreen = props => {
     'November',
     'December',
   ];
+  const isFocused = useIsFocused();
+  if (!isFocused) {
+    setSelectedDate(selectedDateLocal);
+  }
+  useFocusEffect(
+    React.useCallback(() => {
+      setSelectedDateLocal(selectedDateState);
+      const dairyKeys = Object.keys(dayUserMemoState.dairy);
+      for (const key of dairyKeys) {
+        if (key == selectedDateState.toISOString().split('T')[0]) {
+          setSelectedDairy(dayUserMemoState.dairy[key]);
+          break;
+        }
+        setSelectedDairy({title: '', dairyText: '', date: ''});
+      }
+
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [selectedDateState]),
+  );
+
   useEffect(() => {
-    const timeZone = RNLocalize.getTimeZone();
     const currentDate = moment(new Date(Date.now()))
       .tz(timeZone)
       .format()
       .split('T')[0];
-    // if (!isMounted) {
     const tempArr = [];
     for (const event of eventsState.events) {
       if (
@@ -69,22 +102,21 @@ const DayScreen = props => {
     console.log('THis is temp arr ', tempArr);
     setEventCard(tempArr);
 
-    // setDairys(dayUserMemoState.dairy);
-
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
-      if (key == selectedDate.toISOString().split('T')[0]) {
+      if (key == selectedDateState.toISOString().split('T')[0]) {
         setSelectedDairy(dayUserMemoState.dairy[key]);
         break;
       }
       setSelectedDairy({title: '', dairyText: '', date: ''});
     }
   }, [eventsState, dayUserMemoState]);
+
   return (
     <View style={{backgroundColor: '#1F2937', flex: 1}}>
       <CalendarStrip
         scrollable
-        selectedDate={moment(Date.now()).tz(RNLocalize.getTimeZone())}
+        selectedDate={selectedDateLocal}
         calendarAnimation={{type: 'sequence', duration: 30}}
         style={{height: 50, paddingHorizontal: 5, marginTop: 25}}
         daySelectionAnimation={{
@@ -112,7 +144,7 @@ const DayScreen = props => {
           }
           setEventCard(tempArr);
           const date = moment(e).tz(timeZone);
-          setSelectedDate(date);
+          setSelectedDateLocal(date);
 
           // set dairy.
           const dairyKeys = Object.keys(dayUserMemoState.dairy);
@@ -218,8 +250,9 @@ const DayScreen = props => {
           />
           <TouchableOpacity
             onPress={() => {
+              console.log(selectedDateLocal.toISOString().split('T')[0]);
               navigationState.navigation.navigate('DairyModal', {
-                date: selectedDate.toISOString().split('T')[0],
+                date: selectedDateLocal.toISOString().split('T')[0],
               });
             }}>
             <Box
@@ -239,9 +272,11 @@ const DayScreen = props => {
                     : `${selectedDairy.title}`}
                 </Text>
                 <Text style={{color: 'white'}}>
-                  {`${days[selectedDate.day()]} ${selectedDate.date()} ${
-                    months[selectedDate.month()]
-                  } ${selectedDate.year()}`}
+                  {`${
+                    days[selectedDateLocal.day()]
+                  } ${selectedDateLocal.date()} ${
+                    months[selectedDateLocal.month()]
+                  } ${selectedDateLocal.year()}`}
                 </Text>
               </VStack>
             </Box>
@@ -257,5 +292,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#1F2937',
   },
 });
-
-export default DayScreen;
+const mapStateToProps = function (state) {
+  return {
+    selectedDateState: state.selectedDate.selectedDateState,
+    navigationState: state.StackNavigation,
+    eventsState: state.events,
+    // dayUserMemoState: state.dayUserMemo,
+  };
+};
+const mapDispatchToProps = {
+  setSelectedDate: actionCreators.selectedDateActionCreator.setSelectedDate,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DayScreen);

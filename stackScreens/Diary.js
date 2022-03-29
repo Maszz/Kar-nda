@@ -29,7 +29,7 @@ import {
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
@@ -45,15 +45,15 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-function Diary({navigation}) {
+function Diary({navigation, addDairy, dayUserMemoState}) {
   const [dateToDay, setDateToDay] = useState(new Date());
   const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
-  const dispatch = useDispatch();
-  const {addDairy} = bindActionCreators(
-    actionCreators.dayUserMemoActionCreator,
-    dispatch,
-  );
-  const dayUserMemoState = useSelector(state => state.dayUserMemo);
+  // const dispatch = useDispatch();
+  // const {addDairy} = bindActionCreators(
+  //   actionCreators.dayUserMemoActionCreator,
+  //   dispatch,
+  // );
+  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
 
   const richText = useRef();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -210,5 +210,12 @@ function Diary({navigation}) {
     </DissmissKeyboard>
   );
 }
-
-export default Diary;
+const mapStateToProps = function (state) {
+  return {
+    dayUserMemoState: state.dayUserMemo,
+  };
+};
+const mapDispatchToProps = {
+  addDairy: actionCreators.dayUserMemoActionCreator.addDairy,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Diary);

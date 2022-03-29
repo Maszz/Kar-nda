@@ -8,6 +8,7 @@ import {persistStore, persistReducer} from 'redux-persist';
 import onBoardReducer from './onBoardReducer';
 import StackNavigationReducer from './stackNavigationReducer';
 import dayUserMemoReducer from './dayUserMemoReducer';
+import selectedDateReducer from './selectedDateReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -37,6 +38,7 @@ const reducers = combineReducers({
   StackNavigation: StackNavigationReducer,
   dayUserMemo: persistReducer(persistConfigDayUserConfig, dayUserMemoReducer),
   monthCalendar: monthCalendarReducer,
+  selectedDate: selectedDateReducer,
 });
 
 export default reducers;

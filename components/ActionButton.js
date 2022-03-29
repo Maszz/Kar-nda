@@ -6,9 +6,9 @@ import ActionButton from 'react-native-action-button';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import AddEventModal from './AddEventModal';
 import {Container, Box} from 'native-base';
-import {useDispatch, useSelector} from 'react-redux';
-const ActionButtonComponent = props => {
-  const navigationState = useSelector(state => state.StackNavigation);
+import {useDispatch, useSelector, connect} from 'react-redux';
+const ActionButtonComponent = ({navigationState}) => {
+  // const navigationState = useSelector(state => state.StackNavigation);
 
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => {
@@ -55,4 +55,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ActionButtonComponent;
+const mapStateToProps = function (state) {
+  return {
+    navigationState: state.StackNavigation,
+  };
+};
+
+export default connect(mapStateToProps)(ActionButtonComponent);

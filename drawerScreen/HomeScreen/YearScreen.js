@@ -18,13 +18,13 @@ import {
   Stagger,
   ZStack,
 } from 'native-base';
-import {useSelector} from 'react-redux';
+import {useSelector, connect} from 'react-redux';
 import ActionButton from '../../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 
-const YearScreen = () => {
-  const events = useSelector(state => state.events);
+const YearScreen = ({navigation, events}) => {
+  // const events = useSelector(state => state.events);
 
   const formatDate = e => {
     const timeZone = RNLocalize.getTimeZone();
@@ -57,7 +57,7 @@ const YearScreen = () => {
 
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
-      <CalendarComponent markedDates={markedDates} />
+      <CalendarComponent markedDates={markedDates} tabNavi={navigation} />
     </View>
   );
 };
@@ -70,4 +70,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default YearScreen;
+const mapStateToProps = function (state) {
+  return {
+    events: state.events,
+  };
+};
+
+export default connect(mapStateToProps)(YearScreen);
