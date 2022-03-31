@@ -36,9 +36,7 @@ const DayScreen = ({
   // const {selectedDateState} = useSelector(state => state.selectedDate);
   // const dispatch = useDispatch();
 
-  const [selectedDateLocal, setSelectedDateLocal] = useState(
-    moment(new Date()).tz(timeZone),
-  );
+  const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
   // const eventsState = useSelector(state => state.events);
   const dayUserMemoState = useSelector(state => state.dayUserMemo);
   // const {setSelectedDate} = bindActionCreators(
@@ -91,10 +89,7 @@ const DayScreen = ({
   );
 
   useEffect(() => {
-    const currentDate = moment(new Date(Date.now()))
-      .tz(timeZone)
-      .format()
-      .split('T')[0];
+    const currentDate = selectedDateState.format().split('T')[0];
     const tempArr = [];
     for (const event of eventsState.events) {
       if (
@@ -119,7 +114,7 @@ const DayScreen = ({
       }
       setSelectedDairy({title: '', dairyText: '', date: ''});
     }
-  }, [eventsState, dayUserMemoState]);
+  }, [eventsState, dayUserMemoState, selectedDateState]);
 
   return (
     <View style={{backgroundColor: '#1F2937', flex: 1}}>

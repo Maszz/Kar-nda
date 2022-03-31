@@ -90,7 +90,7 @@ const EventModal = ({navigation, route, eventsState}) => {
       description: event.description,
     };
     setSelectedEvent(selectedEventDTO);
-  }, []);
+  }, [date, index]);
   return (
     <View style={{backgroundColor: '#1F2937'}} height="100%">
       <VStack style={{paddingHorizontal: 50}}>
