@@ -116,8 +116,10 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#1F2937'}}>
       <Agenda
-        // maxToRenderPerBatch={40}
+        maxToRenderPerBatch={30}
         initialNumToRender={20}
+        pastScrollRange={12}
+        futureScrollRange={12}
         items={itemsCard}
         loadItemsForMonth={loadItems}
         selected={selectedDate}
