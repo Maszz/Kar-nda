@@ -3,6 +3,7 @@
 #import <Firebase.h>
 
 #import "AppDelegate.h"
+#import <LogRocket/LogRocket-Swift.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -38,7 +39,8 @@ static void InitializeFlipper(UIApplication *application) {
 
 {
   [FIRApp configure];
-
+  LROConfiguration *configuration = [[LROConfiguration alloc] initWithAppID:@"gphuw1/rn-calendarproject-karenda"];
+[LROSDK initializeWithConfiguration:configuration];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

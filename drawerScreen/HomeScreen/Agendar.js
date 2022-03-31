@@ -116,8 +116,12 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#1F2937'}}>
       <Agenda
-        maxToRenderPerBatch={30}
-        initialNumToRender={20}
+        // maxToRenderPerBatch={30}
+        // maxToRenderPerBatch={5}
+        windowSize={12}
+        initialNumToRender={12}
+        // updateCellsBatchingPeriod={30}
+        removeClippedSubviews={true}
         pastScrollRange={12}
         futureScrollRange={12}
         items={itemsCard}

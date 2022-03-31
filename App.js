@@ -62,13 +62,22 @@ const App = () => {
  * @returns `ReactDOM`
  */
 const ReactWrapper = () => {
-  LogRocket.getSessionURL(function (sessionURL) {
-    analytics().logEvent('send', {
-      hitType: 'event',
-      eventCategory: 'LogRocket',
-      eventAction: sessionURL,
+  useEffect(() => {
+    LogRocket.init('gphuw1/rn-calendarproject-karenda');
+    LogRocket.getSessionURL(function (sessionURL) {
+      analytics().logEvent('send', {
+        hitType: 'event',
+        eventCategory: 'LogRocket',
+        eventAction: sessionURL,
+      });
     });
-  });
+    LogRocket.identify('TestUUid', {
+      name: 'Debug Mobile',
+      email: 'Debuggg',
+      // Add your own custom user variables here, ie:
+      subscriptionType: 'Debug',
+    });
+  }, []);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

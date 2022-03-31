@@ -588,6 +588,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (~> 0.9.0)
   - libevent (~> 2.1.12)
+  - LogRocket (= 1.2.0)
   - "logrocket-react-native (from `../node_modules/@logrocket/react-native`)"
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
@@ -879,6 +880,6 @@ SPEC CHECKSUMS:
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4de81d8d3f322620459394bfbd731db340dd7844
+PODFILE CHECKSUM: 06adcae0fca90290e6f6e55a7344200016f649c6
 
 COCOAPODS: 1.11.3

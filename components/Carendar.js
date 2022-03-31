@@ -56,6 +56,10 @@ const calendarComponent = ({markedDates, tabNavi}) => {
         onVisibleMonthsChange={months => {
           console.log('now these months are visible', months);
         }}
+        windowSize={12}
+        initialNumToRender={12}
+        // updateCellsBatchingPeriod={30}
+        removeClippedSubviews={true}
         // Max amount of months allowed to scroll to the past. Default = 50
         pastScrollRange={12}
         // Max amount of months allowed to scroll to the future. Default = 50
