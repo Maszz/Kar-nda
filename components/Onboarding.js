@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, Image } from 'react-native';
+import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
@@ -28,8 +28,8 @@ const data = [
   },
 ];
 
-const Onboarding = (props) => {
-  const renderItem = ({ item }) => {
+const Onboarding = props => {
+  const renderItem = ({item}) => {
     return (
       <View style={styles.slide}>
         <Image source={item.image} style={styles.image} />
@@ -41,7 +41,7 @@ const Onboarding = (props) => {
     );
   };
 
-  const keyExtractor = (item) => item.title;
+  const keyExtractor = item => item.title;
 
   const renderNextButton = () => {
     return (
@@ -56,9 +56,10 @@ const Onboarding = (props) => {
       <LinearGradient
         colors={['#A5C8FF', '#23286B']}
         style={styles.linearGradient}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-        style={styles.doneButtonWrapper}>
+        start={{x: 0, y: 0.5}}
+        end={{x: 1, y: 0.5}}
+        // style={styles.doneButtonWrapper}
+      >
         <Text style={styles.doneButtonText}>Done</Text>
       </LinearGradient>
       // <View style={styles.doneButtonWrapper}>
@@ -87,7 +88,7 @@ const Onboarding = (props) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <StatusBar translucent backgroundColor="transparent" />
       <AppIntroSlider
         keyExtractor={keyExtractor}
