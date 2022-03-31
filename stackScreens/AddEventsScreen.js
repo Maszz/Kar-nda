@@ -68,8 +68,8 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
   };
   return (
     <DissmissKeyboard>
-      <ScrollView
-        style={{backgroundColor: '#1F2937'}}
+      <View
+        style={{backgroundColor: '#1F2937', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
         <VStack width="100%" style={{alignItems: 'center'}}>
           <Box style={{alignSelf: 'flex-end', padding: 15}}>
@@ -261,7 +261,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
             Submit
           </Button> */}
         </VStack>
-      </ScrollView>
+      </View>
     </DissmissKeyboard>
   );
 };

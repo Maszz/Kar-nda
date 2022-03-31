@@ -83,7 +83,7 @@ const DayScreen = ({
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
-    }, [selectedDateState]),
+    }, [selectedDateState, dayUserMemoState]),
   );
 
   useEffect(() => {
@@ -100,7 +100,11 @@ const DayScreen = ({
       }
     }
     console.log('THis is temp arr ', tempArr);
-    setEventCard(tempArr);
+    const sortedArr = tempArr.sort(
+      (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+    );
+    console.log(sortedArr);
+    setEventCard(sortedArr);
 
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
@@ -200,7 +204,15 @@ const DayScreen = ({
 
           {eventCard.map((item, i) => {
             return (
-              <TouchableOpacity key={i} keyExtractor={(item, i) => `${index}`}>
+              <TouchableOpacity
+                key={i}
+                keyExtractor={(item, i) => `${i}`}
+                onPress={() => {
+                  navigationState.navigation.navigate('EventModal', {
+                    date: selectedDateLocal.toISOString().split('T')[0],
+                    index: i,
+                  });
+                }}>
                 <Box
                   width={Dimensions.get('window').width - 50}
                   height={75}

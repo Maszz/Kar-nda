@@ -28,6 +28,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import ActionButton from '../../components/ActionButton';
+import EventModal from '../../stackScreens/eventModal';
+import AnimatedLoader from 'react-native-animated-loader';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,6 +64,14 @@ const StackScreen = () => {
       <Stack.Screen
         name="DairyModal"
         component={DairyModal}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EventModal"
+        component={EventModal}
         options={{
           presentation: 'modal',
           headerShown: false,
@@ -131,6 +141,7 @@ const HomeScreen = ({navigation}) => {
         options={{title: `${t('common:test')}`}}
       /> */}
       </Tab.Navigator>
+
       <ActionButton />
     </>
   );

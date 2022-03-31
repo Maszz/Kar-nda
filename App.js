@@ -125,7 +125,9 @@ const RootScreen = () => {
       ) : onBoardState.viewed == 'false' ? (
         <Onboarding handleDone={handleOnboardFinish} />
       ) : (
-        <App />
+        <>
+          <App />
+        </>
       )}
     </>
   );

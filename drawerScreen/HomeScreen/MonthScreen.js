@@ -19,7 +19,6 @@ import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   // const monthCalendarState = useSelector(state => state.monthCalendar);
@@ -50,7 +49,6 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   useEffect(() => {
     let tempList = [];
     const timeZone = RNLocalize.getTimeZone();
-
     console.log(events);
 
     for (const event of events) {

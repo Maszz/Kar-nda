@@ -6,7 +6,7 @@ import {
   AgendaEntry,
   AgendaSchedule,
 } from 'react-native-calendars';
-import {Divider} from 'native-base';
+import {Divider, Skeleton} from 'native-base';
 import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -14,13 +14,12 @@ import {actionCreators} from '../../state';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 
-const AgendaComponents = ({eventsState}) => {
+const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});
   // const eventsState = useSelector(state => state.events);
   const [selectedDate, setSelectedDate] = useState(
     moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0],
   );
-
   const renderItem = (reservation, isFirst) => {
     const fontSize = isFirst ? 16 : 14;
     const color = isFirst ? 'black' : '#43515c';
@@ -28,7 +27,12 @@ const AgendaComponents = ({eventsState}) => {
     return (
       <TouchableOpacity
         style={[styles.item, {height: 70}]}
-        onPress={() => Alert.alert(reservation.name)}>
+        onPress={() => {
+          navigationState.navigation.navigate('EventModal', {
+            date: selectedDate,
+            index: reservation.index,
+          });
+        }}>
         <Text style={{fontSize, color}}>{reservation.name}</Text>
         <Text style={{fontSize: 13, color: 'black'}}>
           {reservation.description}
@@ -53,6 +57,8 @@ const AgendaComponents = ({eventsState}) => {
       Object.keys(items).forEach(key => {
         newItems[key] = items[key];
       });
+      console.log(newItems);
+
       setItemCard(newItems);
     }, 1000);
   };
@@ -87,16 +93,31 @@ const AgendaComponents = ({eventsState}) => {
       if (!tempObj.hasOwnProperty(day)) {
         tempObj[day] = [];
       }
-      const tempdata = {name: name, description: item.description};
+      const tempdata = {
+        name: name,
+        description: item.description,
+        start: item.start,
+      };
       // tempObj[day] = [tempdata];
       tempObj[day].push(tempdata);
     }
+    Object.keys(tempObj).forEach(key => {
+      tempObj[key] = tempObj[key].sort(
+        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+      );
+      tempObj[key].forEach((item, i) => {
+        item.index = i;
+      });
+    });
     setItemCard(tempObj);
+    console.log(tempObj);
   }, [eventsState]);
 
   return (
     <View style={{flex: 1, backgroundColor: '#1F2937'}}>
       <Agenda
+        // maxToRenderPerBatch={40}
+        initialNumToRender={20}
         items={itemsCard}
         loadItemsForMonth={loadItems}
         selected={selectedDate}
@@ -272,6 +293,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = function (state) {
   return {
     eventsState: state.events,
+    navigationState: state.StackNavigation,
   };
 };
 export default connect(mapStateToProps)(AgendaComponents);

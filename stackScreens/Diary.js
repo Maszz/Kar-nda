@@ -89,7 +89,7 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
   return (
     <DissmissKeyboard>
       <ScrollView
-        style={{backgroundColor: '#1F2937'}}
+        style={{backgroundColor: '#1F2937', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
         <VStack>
           <Box style={{alignSelf: 'flex-end', padding: 15}}>
@@ -102,6 +102,7 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
             </Button> */}
             <Button
               variant="unstyled"
+              colorScheme="#d3d3d3"
               onPress={() => {
                 const dairyDTO = {
                   title: dairy.title,
