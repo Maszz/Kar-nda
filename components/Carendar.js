@@ -74,7 +74,7 @@ const calendarComponent = ({markedDates, tabNavi}) => {
           const date = moment(new Date(day['dateString'])).tz(
             RNLocalize.getTimeZone(),
           );
-
+          console.log('Year :', date);
           setSelectedDate(date);
 
           tabNavi.navigate('DayScreen');

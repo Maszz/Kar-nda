@@ -36,7 +36,9 @@ const DayScreen = ({
   // const {selectedDateState} = useSelector(state => state.selectedDate);
   // const dispatch = useDispatch();
 
-  const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
+  const [selectedDateLocal, setSelectedDateLocal] = useState(
+    moment(new Date()).tz(timeZone),
+  );
   // const eventsState = useSelector(state => state.events);
   const dayUserMemoState = useSelector(state => state.dayUserMemo);
   // const {setSelectedDate} = bindActionCreators(
@@ -65,11 +67,13 @@ const DayScreen = ({
   ];
   const isFocused = useIsFocused();
   if (!isFocused) {
+    console.log('Defocus Effect');
     setSelectedDate(selectedDateLocal);
   }
   useFocusEffect(
     React.useCallback(() => {
       setSelectedDateLocal(selectedDateState);
+      console.log('Focus Effect');
       const dairyKeys = Object.keys(dayUserMemoState.dairy);
       for (const key of dairyKeys) {
         if (key == selectedDateState.toISOString().split('T')[0]) {
@@ -94,7 +98,8 @@ const DayScreen = ({
     const tempArr = [];
     for (const event of eventsState.events) {
       if (
-        currentDate == moment(event.start).tz(timeZone).format().split('T')[0]
+        currentDate ==
+        moment(new Date(event.start)).tz(timeZone).format().split('T')[0]
       ) {
         tempArr.push(event);
       }
@@ -208,8 +213,12 @@ const DayScreen = ({
                 key={i}
                 keyExtractor={(item, i) => `${i}`}
                 onPress={() => {
+                  console.log(
+                    'IN Modal',
+                    selectedDateLocal.format().split('T')[0],
+                  );
                   navigationState.navigation.navigate('EventModal', {
-                    date: selectedDateLocal.toISOString().split('T')[0],
+                    date: selectedDateLocal.format().split('T')[0],
                     index: i,
                   });
                 }}>

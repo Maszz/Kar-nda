@@ -11,6 +11,7 @@ const reducer = createReducer(initialState, builder => {
   builder
     .addCase('onChangeSelectedDate', (state, action) => {
       state.selectedDateState = action.payload;
+      console.log('State :', action.payload);
     })
 
     .addDefaultCase((state, action) => {

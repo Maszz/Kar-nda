@@ -27,8 +27,6 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Client} from '@googlemaps/google-maps-services-js';
-
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
 import {useDispatch, useSelector, connect} from 'react-redux';
@@ -69,9 +67,12 @@ const EventModal = ({navigation, route, eventsState}) => {
   useEffect(() => {
     const currentDate = date;
     const tempArr = [];
+    console.log(eventsState.events);
+    console.log('params :', route.params);
     for (const event of eventsState.events) {
       if (
-        currentDate == moment(event.start).tz(timeZone).format().split('T')[0]
+        currentDate ==
+        moment(new Date(event.start)).tz(timeZone).format().split('T')[0]
       ) {
         tempArr.push(event);
       }
@@ -81,6 +82,7 @@ const EventModal = ({navigation, route, eventsState}) => {
       (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
     );
     const event = sortedArr[index];
+    console.log(event);
     const selectedEventDTO = {
       start: moment(new Date(event.start)).tz(RNLocalize.getTimeZone()),
       end: moment(new Date(event.end)).tz(RNLocalize.getTimeZone()),
