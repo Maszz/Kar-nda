@@ -6,7 +6,7 @@ import {
   AgendaEntry,
   AgendaSchedule,
 } from 'react-native-calendars';
-import {Divider, Skeleton} from 'native-base';
+import {Divider, Skeleton, VStack, Box, HStack, Spacer} from 'native-base';
 import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -33,10 +33,22 @@ const AgendaComponents = ({eventsState, navigationState}) => {
             index: reservation.index,
           });
         }}>
-        <Text style={{fontSize, color}}>{reservation.name}</Text>
-        <Text style={{fontSize: 13, color: 'black'}}>
-          {reservation.description}
-        </Text>
+        <VStack>
+          <Text style={{fontSize, color}}>{reservation.name}</Text>
+          <Text style={{fontSize: 13, color: 'black'}}>
+            {reservation.description}
+          </Text>
+          <Box>
+            <HStack space={4} style={{justifyContent: 'space-between'}}>
+              <Spacer />
+              <Box style={{justifyContent: 'flex-end'}}>
+                {`${reservation.start.format(
+                  'h:mm a',
+                )} - ${reservation.end.format('h:mm a')}`}
+              </Box>
+            </HStack>
+          </Box>
+        </VStack>
       </TouchableOpacity>
     );
   };
@@ -96,14 +108,15 @@ const AgendaComponents = ({eventsState, navigationState}) => {
       const tempdata = {
         name: name,
         description: item.description,
-        start: item.start,
+        start: moment(new Date(item.start)).tz(timeZone),
+        end: moment(new Date(item.end)).tz(timeZone),
       };
       // tempObj[day] = [tempdata];
       tempObj[day].push(tempdata);
     }
     Object.keys(tempObj).forEach(key => {
       tempObj[key] = tempObj[key].sort(
-        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+        (a, b) => a.start.valueOf() - b.start.valueOf(),
       );
       tempObj[key].forEach((item, i) => {
         item.index = i;

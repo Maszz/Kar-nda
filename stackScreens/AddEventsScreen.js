@@ -48,6 +48,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
     end: new Date(),
     title: '',
     description: '',
+    location: '',
   });
   const submitEvent = () => {
     console.log(formData.start.getTime(), formData.end.getTime());
@@ -63,6 +64,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
       description: formData.description,
       start: formattedStart,
       end: formattedend,
+      location: formData.location,
     };
     addEvent(state);
   };
@@ -110,6 +112,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                       date: formData.date,
                       title: text,
                       description: formData.description,
+                      location: formData.location,
                     });
                   }}
                 />
@@ -137,6 +140,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                               date: d,
                               title: formData.title,
                               description: formData.description,
+                              location: formData.location,
                             });
                           }}
                         />
@@ -171,6 +175,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                               date: formData.date,
                               title: formData.title,
                               description: formData.description,
+                              location: formData.location,
                             });
                           }}
                         />
@@ -200,6 +205,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                               date: formData.date,
                               title: formData.title,
                               description: formData.description,
+                              location: formData.location,
                             });
                           }}
                         />
@@ -208,15 +214,32 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   </Box>
                 </VStack>
               </VStack>
+              <Box mx="4" marginTop={5}>
+                <FormControl.Label>
+                  <Text style={{color: 'white'}}>Location</Text>
+                </FormControl.Label>
+                <Input
+                  // defaultValue="12345"
+                  color="white"
+                  placeholder="Location"
+                  variant="unstyled"
+                  onChangeText={text => {
+                    setFormData({
+                      start: formData.start,
+                      end: formData.end,
+                      date: formData.date,
+                      title: formData.title,
+                      description: formData.description,
+                      location: text,
+                    });
+                  }}
+                />
+              </Box>
               <Stack mx="4" style={{marginVertical: 5}}>
                 <FormControl.Label>
                   <Text style={{color: 'white'}}>Description</Text>
                 </FormControl.Label>
-                {/* <Input
-                // defaultValue="12345"
-                placeholder="Description"
-                variant="underlined"
-              /> */}
+
                 <TextArea
                   h={20}
                   color="white"
@@ -231,6 +254,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                       date: formData.date,
                       title: formData.title,
                       description: text,
+                      location: formData.location,
                     });
                     console.log(formData);
                   }}

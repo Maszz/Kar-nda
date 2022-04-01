@@ -28,7 +28,7 @@ const DayScreen = ({
   setSelectedDate,
   navigationState,
   eventsState,
-  // dayUserMemoState,
+  dayUserMemoState,
 }) => {
   // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
@@ -38,7 +38,7 @@ const DayScreen = ({
 
   const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
   // const eventsState = useSelector(state => state.events);
-  const dayUserMemoState = useSelector(state => state.dayUserMemo);
+  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   // const {setSelectedDate} = bindActionCreators(
   //   actionCreators.selectedDateActionCreator,
   //   dispatch,
@@ -187,7 +187,7 @@ const DayScreen = ({
                 width={Dimensions.get('window').width - 50}
                 height={75}
                 border="1"
-                borderRadius="2xl"
+                borderRadius={5}
                 style={{backgroundColor: '#7CC2FF', marginBottom: 15}}>
                 <VStack style={{padding: 10}}>
                   <Text
@@ -221,7 +221,7 @@ const DayScreen = ({
                   width={Dimensions.get('window').width - 50}
                   height={75}
                   border="1"
-                  borderRadius="2xl"
+                  borderRadius={5}
                   style={{backgroundColor: '#7CC2FF', marginBottom: 15}}>
                   <VStack style={{padding: 10}}>
                     <Text
@@ -254,7 +254,7 @@ const DayScreen = ({
             width={Dimensions.get('window').width - 50}
             height={75}
             border="1"
-            borderRadius="2xl"
+            borderRadius={5}
             style={{backgroundColor: '#7CC2FF', marginBottom: 10}}></Box>
         </TouchableOpacity>
         <VStack>
@@ -275,7 +275,7 @@ const DayScreen = ({
               width={Dimensions.get('window').width - 50}
               height={75}
               border="1"
-              borderRadius="2xl"
+              borderRadius={5}
               style={{
                 backgroundColor: '#7CC2FF',
                 marginBottom: 20,
@@ -313,7 +313,7 @@ const mapStateToProps = function (state) {
     selectedDateState: state.selectedDate.selectedDateState,
     navigationState: state.StackNavigation,
     eventsState: state.events,
-    // dayUserMemoState: state.dayUserMemo,
+    dayUserMemoState: state.dayUserMemo,
   };
 };
 const mapDispatchToProps = {

@@ -41,6 +41,7 @@ const EventModal = ({navigation, route, eventsState}) => {
     end: moment(new Date()),
     title: '',
     description: '',
+    location: '',
   });
   selectedEvent.start.hour();
   selectedEvent.start.minute();
@@ -88,6 +89,7 @@ const EventModal = ({navigation, route, eventsState}) => {
       end: moment(new Date(event.end)).tz(RNLocalize.getTimeZone()),
       title: event.title,
       description: event.description,
+      location: event.location,
     };
     setSelectedEvent(selectedEventDTO);
   }, [date, index]);
@@ -125,14 +127,25 @@ const EventModal = ({navigation, route, eventsState}) => {
             </Text>
           </HStack>
         </Box>
-        <Box style={{marginTop: 20}}>
-          <Box _text={{color: '#ffff', fontSize: 'xl'}}>Description</Box>
-        </Box>
-
         <Box>
-          <Text style={{color: 'white'}}>{selectedEvent.description}</Text>
-          <Text>Map</Text>
-          <Text>Notify</Text>
+          <Box style={{marginTop: 20}}>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Description</Box>
+          </Box>
+
+          <Box>
+            <Text style={{color: 'white'}}>{selectedEvent.description}</Text>
+          </Box>
+        </Box>
+        <Box>
+          <Box style={{marginTop: 20}}>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Location</Box>
+          </Box>
+
+          <Box>
+            <Text style={{color: 'white'}}>
+              {selectedEvent.location || 'no Location set'}
+            </Text>
+          </Box>
         </Box>
       </VStack>
     </View>
