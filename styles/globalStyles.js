@@ -6,7 +6,6 @@ export const textPrimaryColor = '#ffff';
 
 const cardColor = '#7CC2FF';
 
-d;
 export const viewAreaBackgroundColor = {
   backgroundColor: primaryColor,
 };

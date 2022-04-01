@@ -19,6 +19,7 @@ import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Styles} from '../../styles';
 const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   // const monthCalendarState = useSelector(state => state.monthCalendar);
@@ -129,17 +130,10 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         onPressDateHeader={a => {
           console.log('press date header', a);
         }}
-        headerContainerStyle={{
-          backgroundColor: '#1F2937',
-          paddingLeft: 0,
-          borderColor: 'gray',
-        }}
-        bodyContainerStyle={{
-          backgroundColor: '#1F2937',
-          borderColor: 'rgba(255,255,255,0)',
-        }}
-        calendarCellTextStyle={{color: 'white'}}
-        calendarCellStyle={{borderColor: 'gray'}}
+        headerContainerStyle={Styles.monthScreenStyles.headerContainerStyle}
+        bodyContainerStyle={Styles.monthScreenStyles.bodyContainerStyle}
+        calendarCellTextStyle={Styles.monthScreenStyles.calendarCellTextStyle}
+        calendarCellStyle={Styles.monthScreenStyles.calendarCellStyle}
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />
