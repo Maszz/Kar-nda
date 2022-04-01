@@ -104,6 +104,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   placeholder="Add Activity"
                   variant="underlined"
                   size="2xl"
+                  selectionColor={'white'}
                   value={formData.title}
                   onChangeText={text => {
                     setFormData({
@@ -222,6 +223,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   // defaultValue="12345"
                   color="white"
                   placeholder="Location"
+                  selectionColor={'white'}
                   variant="unstyled"
                   onChangeText={text => {
                     setFormData({
@@ -245,6 +247,8 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   color="white"
                   style={{color: 'white'}}
                   placeholder="Desicribe your title."
+                  selectionColor={'white'}
+                  fontFamily={'Roboto'}
                   w="100%"
                   maxW="300"
                   onChangeText={text => {

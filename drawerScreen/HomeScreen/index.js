@@ -65,8 +65,8 @@ const StackScreen = () => {
         name="DairyModal"
         component={DairyModal}
         options={{
-          presentation: 'modal',
-          headerShown: false,
+          presentation: 'fullScreenModal',
+          // headerShown: false,
         }}
       />
       <Stack.Screen

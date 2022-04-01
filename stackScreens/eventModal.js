@@ -96,6 +96,16 @@ const EventModal = ({navigation, route, eventsState}) => {
   return (
     <View style={{backgroundColor: '#1F2937'}} height="100%">
       <VStack style={{paddingHorizontal: 50}}>
+        <Box style={{alignSelf: 'flex-start', padding: 15}}>
+          <Button
+            variant="unstyled"
+            color="white"
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Text style={{color: 'white'}}>Back</Text>
+          </Button>
+        </Box>
         <Box
           style={{
             alignItems: 'flex-start',

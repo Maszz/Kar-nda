@@ -84,11 +84,20 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
       <ScrollView
         style={{backgroundColor: '#1F2937'}}
         showsHorizontalScrollIndicator={false}>
-        <VStack>
+        <VStack width="100%">
+          <Box style={{alignSelf: 'flex-start', padding: 15}}>
+            <Button
+              variant="unstyled"
+              color="white"
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <Text style={{color: 'white'}}>Back</Text>
+            </Button>
+          </Box>
           <Box
             style={{
               flex: 1,
-              justifyContent: 'center',
               alignItems: 'center',
               marginTop: 30,
             }}>
