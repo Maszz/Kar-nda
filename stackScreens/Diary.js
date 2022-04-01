@@ -26,6 +26,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -33,6 +34,7 @@ import {useDispatch, useSelector, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -48,6 +50,7 @@ const DissmissKeyboard = ({children}) => {
 function Diary({navigation, addDairy, dayUserMemoState}) {
   const [dateToDay, setDateToDay] = useState(new Date());
   const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+  const [uri, setUri] = useState(undefined);
   // const dispatch = useDispatch();
   // const {addDairy} = bindActionCreators(
   //   actionCreators.dayUserMemoActionCreator,
@@ -142,6 +145,25 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
                   months[dateToDay.getMonth()]
                 } ${dateToDay.getFullYear()}`}
               </Text>
+            </Box>
+            <Box>
+              <Button
+                onPress={async () => {
+                  const result = await launchImageLibrary({uri: true});
+                  console.log(result);
+                  setUri(result.assets[0].uri);
+                }}>
+                Test Photo
+              </Button>
+              <Image
+                style={{
+                  width: 100,
+                  height: 50,
+                  borderWidth: 1,
+                  borderColor: 'red',
+                }}
+                source={{uri: uri}}
+              />
             </Box>
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

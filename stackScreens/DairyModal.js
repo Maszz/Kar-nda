@@ -26,6 +26,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -81,20 +82,55 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
   }, [dayUserMemoState]);
   return (
     <DissmissKeyboard>
-      <ScrollView
-        style={{backgroundColor: '#1F2937'}}
+      <View
+        style={{backgroundColor: '#1F2937', width: '100%', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
         <VStack width="100%">
-          <Box style={{alignSelf: 'flex-start', padding: 15}}>
-            <Button
-              variant="unstyled"
-              color="white"
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <Text style={{color: 'white'}}>Back</Text>
-            </Button>
-          </Box>
+          <HStack justifyContent="space-between">
+            <Box style={{alignSelf: 'flex-start', padding: 15}}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 30}}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/backbutton2.png')}
+                  style={{width: 25, height: 25}}
+                />
+              </Button>
+            </Box>
+            <Spacer />
+            <Box paddingTop={15}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 30}}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/gobackHome.png')}
+                  style={{width: 25, height: 25}}
+                />
+              </Button>
+            </Box>
+            <Box style={{paddingTop: 15}}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 30, marginRight: 10}}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/editbotton.png')}
+                  style={{width: 25, height: 25}}
+                />
+              </Button>
+            </Box>
+          </HStack>
           <Box
             style={{
               flex: 1,
@@ -126,7 +162,7 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
             </KeyboardAvoidingView>
           </Box>
         </VStack>
-      </ScrollView>
+      </View>
     </DissmissKeyboard>
   );
 }

@@ -26,6 +26,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -103,6 +104,10 @@ const EventModal = ({navigation, route, eventsState}) => {
             onPress={() => {
               navigation.goBack();
             }}>
+            <Image
+              source={require('../assets/backbutton2.png')}
+              style={{width: 25, height: 25, tintColor: 'white'}}
+            />
             <Text style={{color: 'white'}}>Back</Text>
           </Button>
         </Box>
