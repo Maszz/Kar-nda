@@ -20,7 +20,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import {Styles} from '../../styles';
 const DayScreen = ({
   navigation,
   route,
@@ -117,25 +117,19 @@ const DayScreen = ({
   }, [eventsState, dayUserMemoState, selectedDateState]);
 
   return (
-    <View style={{backgroundColor: '#1F2937', flex: 1}}>
+    <View style={Styles.dayScreenStyles.ViewStyles.viewContainer}>
       <CalendarStrip
         scrollable
         selectedDate={selectedDateLocal}
-        calendarAnimation={{type: 'sequence', duration: 30}}
+        calendarAnimation={
+          Styles.dayScreenStyles.calendarStripStylesProps.calendarAnimation
+        }
         style={{height: 50, paddingHorizontal: 5, marginTop: 25}}
-        daySelectionAnimation={{
-          type: 'border',
-          duration: 200,
-          borderWidth: 1,
-          borderHighlightColor: 'white',
-        }}
-        calendarColor={styles.bgcolor.backgroundColor}
-        dayContainerStyle={{
-          backgroundColor: '#1F2937',
-          width: 34,
-          height: 50,
-          borderRadius: 10,
-        }}
+        daySelectionAnimation={
+          Styles.dayScreenStyles.calendarStripStylesProps.daySelectionAnimation
+        }
+        calendarColor={Styles.globalStyles.primaryColor}
+        dayContainerStyle={Styles.dayScreenStyles.ViewStyles.dayContainerStyle}
         onDateSelected={e => {
           let tempArr = [];
           for (const event of eventsState.events) {
@@ -160,19 +154,29 @@ const DayScreen = ({
             setSelectedDairy({title: '', dairyText: '', date: ''});
           }
         }}
-        highlightDateNameStyle={{color: 'white'}}
-        highlightDateNumberStyle={{color: 'white'}}
-        highlightDateContainerStyle={{backgroundColor: '#7CC2FF'}}
-        dateNumberStyle={{color: 'white'}}
-        dateNameStyle={{color: 'white'}}
-        calendarHeaderStyle={{color: 'white', display: 'none'}}
-        iconContainer={{flex: 0.1, display: 'none'}}
+        highlightDateNameStyle={Styles.globalStyles.textStyles.textPrimaryStyle}
+        highlightDateNumberStyle={
+          Styles.globalStyles.textStyles.textPrimaryStyle
+        }
+        highlightDateContainerStyle={
+          Styles.globalStyles.cardContainer.cardBgcolor
+        }
+        dateNumberStyle={Styles.globalStyles.textStyles.textPrimaryStyle}
+        dateNameStyle={Styles.globalStyles.textStyles.textPrimaryStyle}
+        calendarHeaderStyle={Styles.globalStyles.viewStyle.displayNone}
+        iconContainer={Styles.globalStyles.viewStyle.displayNone}
       />
 
       <VStack style={{padding: 25}}>
-        <Text style={{color: 'white', marginBottom: 5}}>Events</Text>
+        <Text
+          style={[
+            Styles.globalStyles.textStyles.textPrimaryStyle,
+            {marginBottom: 5},
+          ]}>
+          Events
+        </Text>
         <Box
-          style={{backgroundColor: 'white'}}
+          style={Styles.globalStyles.viewStyle.bgColorWhite}
           width={Dimensions.get('window').width - 50}
           height={0.5}
         />
@@ -188,13 +192,23 @@ const DayScreen = ({
                 height={75}
                 border="1"
                 borderRadius={5}
-                style={{backgroundColor: '#7CC2FF', marginBottom: 15}}>
+                style={[
+                  Styles.globalStyles.cardContainer.cardBgcolor,
+                  {marginBottom: 15},
+                ]}>
                 <VStack style={{padding: 10}}>
                   <Text
-                    style={{fontWeight: 'bold', color: 'white', fontSize: 18}}>
+                    style={[
+                      Styles.globalStyles.textStyles.textPrimaryStyle,
+                      {fontWeight: 'bold', fontSize: 18},
+                    ]}>
                     To day no Event for You
                   </Text>
-                  <Text style={{color: 'white', fontSize: 13}}>
+                  <Text
+                    style={[
+                      Styles.globalStyles.textStyles.textPrimaryStyle,
+                      {fontSize: 13},
+                    ]}>
                     use This for relex your self
                   </Text>
                 </VStack>
@@ -222,7 +236,10 @@ const DayScreen = ({
                   height={75}
                   border="1"
                   borderRadius={5}
-                  style={{backgroundColor: '#7CC2FF', marginBottom: 15}}>
+                  style={[
+                    Styles.globalStyles.cardContainer.cardBgcolor,
+                    {marginBottom: 15},
+                  ]}>
                   <VStack style={{padding: 10}}>
                     <Text
                       style={{
@@ -232,7 +249,11 @@ const DayScreen = ({
                       }}>
                       {item.title}
                     </Text>
-                    <Text style={{color: 'white', fontSize: 13}}>
+                    <Text
+                      style={[
+                        Styles.globalStyles.textStyles.textPrimaryStyle,
+                        {fontSize: 13},
+                      ]}>
                       {item.description}
                     </Text>
                   </VStack>
@@ -241,11 +262,18 @@ const DayScreen = ({
             );
           })}
         </ScrollView>
-        <Text style={{color: 'white', marginTop: 10, marginBottom: 5}}>
+        <Text
+          style={[
+            Styles.globalStyles.textStyles.textPrimaryStyle,
+            {marginTop: 10, marginBottom: 5},
+          ]}>
           List To do
         </Text>
         <Box
-          style={{backgroundColor: 'white', marginBottom: 20}}
+          style={[
+            Styles.globalStyles.viewStyle.bgColorWhite,
+            {marginBottom: 20},
+          ]}
           width={Dimensions.get('window').width - 50}
           height={0.5}
         />
@@ -258,9 +286,18 @@ const DayScreen = ({
             style={{backgroundColor: '#7CC2FF', marginBottom: 10}}></Box>
         </TouchableOpacity>
         <VStack>
-          <Text style={{color: 'white', marginBottom: 5}}>Dairy</Text>
+          <Text
+            style={[
+              Styles.globalStyles.textStyles.textPrimaryStyle,
+              {marginBottom: 5},
+            ]}>
+            Dairy
+          </Text>
           <Box
-            style={{backgroundColor: 'white', marginBottom: 20}}
+            style={[
+              Styles.globalStyles.viewStyle.bgColorWhite,
+              {marginBottom: 20},
+            ]}
             width={Dimensions.get('window').width - 50}
             height={0.5}
           />
@@ -276,18 +313,20 @@ const DayScreen = ({
               height={75}
               border="1"
               borderRadius={5}
-              style={{
-                backgroundColor: '#7CC2FF',
-                marginBottom: 20,
-                padding: 10,
-              }}>
+              style={[
+                Styles.globalStyles.cardContainer.cardBgcolor,
+                {
+                  marginBottom: 20,
+                  padding: 10,
+                },
+              ]}>
               <VStack>
-                <Text style={{color: 'white'}}>
+                <Text style={Styles.globalStyles.textStyles.textPrimaryStyle}>
                   {selectedDairy.title == ''
                     ? `To day you don't wrote dairy yet.`
                     : `${selectedDairy.title}`}
                 </Text>
-                <Text style={{color: 'white'}}>
+                <Text style={Styles.globalStyles.textStyles.textPrimaryStyle}>
                   {`${
                     days[selectedDateLocal.day()]
                   } ${selectedDateLocal.date()} ${
@@ -303,11 +342,11 @@ const DayScreen = ({
   );
 };
 
-const styles = StyleSheet.create({
-  bgcolor: {
-    backgroundColor: '#1F2937',
-  },
-});
+// const styles = StyleSheet.create({
+//   bgcolor: {
+//     backgroundColor: '#1F2937',
+//   },
+// });
 const mapStateToProps = function (state) {
   return {
     selectedDateState: state.selectedDate.selectedDateState,

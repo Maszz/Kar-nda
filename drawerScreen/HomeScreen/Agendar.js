@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
-
+import {Styles} from '../../styles';
 const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});
   // const eventsState = useSelector(state => state.events);
@@ -26,7 +26,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
 
     return (
       <TouchableOpacity
-        style={[styles.item, {height: 70}]}
+        style={[Styles.weekScreenStyles.AgendarStylesProps.item, {height: 70}]}
         onPress={() => {
           navigationState.navigation.navigate('EventModal', {
             date: selectedDate,
@@ -76,7 +76,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   };
   const renderEmptyDate = () => {
     return (
-      <View style={styles.emptyDate}>
+      <View style={Styles.weekScreenStyles.AgendarStylesProps.emptyDate}>
         <Divider />
       </View>
     );
@@ -127,7 +127,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   }, [eventsState]);
 
   return (
-    <View style={{flex: 1, backgroundColor: '#1F2937'}}>
+    <View style={[Styles.globalStyles.viewStyle.bgColorWhite, {flex: 1}]}>
       <Agenda
         // maxToRenderPerBatch={30}
         // maxToRenderPerBatch={5}
@@ -147,7 +147,6 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         hideKnob={false}
         onDayPress={day => {
           console.log('day pressed', day);
-
           setSelectedDate(day['dateString']); // เเก้
         }}
         // renderDay={(day, item) => <Text>{day ? day.day : 'item'}</Text>}
@@ -165,31 +164,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
         // hideExtraDays={false}
         showOnlySelectedDayItems={true}
-        theme={{
-          backgroundColor: '#1F2937',
-          calendarBackground: '#1F2937',
-          textSectionTitleColor: '#b6c1cd',
-          textSectionTitleDisabledColor: '#d9e1e8',
-          selectedDayBackgroundColor: '#00adf5',
-          selectedDayTextColor: '#ffffff',
-          todayTextColor: '#00adf5',
-          dayTextColor: 'white',
-          textDisabledColor: '#d9e1e8',
-          dotColor: '#00adf5',
-          selectedDotColor: '#ffffff',
-          disabledArrowColor: '#d9e1e8',
-          monthTextColor: 'white',
-          indicatorColor: 'blue',
-          // textDayFontFamily: 'monospace',
-          // textMonthFontFamily: 'monospace',
-          // textDayHeaderFontFamily: 'monospace',
-          textDayFontWeight: '300',
-          textMonthFontWeight: 'bold',
-          textDayHeaderFontWeight: '300',
-          textDayFontSize: 16,
-          textMonthFontSize: 16,
-          textDayHeaderFontSize: 16,
-        }}
+        theme={Styles.weekScreenStyles.theme}
       />
     </View>
   );
