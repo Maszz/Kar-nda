@@ -20,6 +20,7 @@ import {
   VStack,
   Spacer,
   Divider,
+  ZStack,
 } from 'native-base';
 import {
   Alert,
@@ -34,7 +35,7 @@ import {useDispatch, useSelector, connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
-
+import {Styles} from '../styles';
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -46,8 +47,13 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-function DiaryModal({navigation, route, dayUserMemoState}) {
-  const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
+  const [dairy, setDairy] = useState({
+    title: '',
+    dairyText: '',
+    date: '',
+    image: undefined,
+  });
 
   // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   const {date} = route.params;
@@ -86,60 +92,76 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
         style={{backgroundColor: '#1F2937', width: '100%', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
         <VStack width="100%">
+          <ZStack>
+            <Box>
+              <Image
+                source={{uri: dairy.image}}
+                defaultSource={require('../assets/IMG_0715.jpg')}
+                style={{width: 428, height: 340}}
+              />
+              <Box width="100%" height={2.5} backgroundColor="#7198DC" />
+            </Box>
+
+            <Box
+              style={{
+                backgroundColor: 'rgba(0,0,0)',
+                width: '100%',
+                height: '50%',
+              }}></Box>
+          </ZStack>
+          <Box
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              width: '100%',
+              height: '15%',
+            }}></Box>
           <HStack justifyContent="space-between">
             <Box style={{alignSelf: 'flex-start', padding: 15}}>
               <Button
                 variant="unstyled"
                 color="white"
-                style={{marginTop: 30}}
+                style={{marginTop: 10}}
                 onPress={() => {
                   navigation.goBack();
                 }}>
                 <Image
                   source={require('../assets/backbutton2.png')}
-                  style={{width: 25, height: 25}}
+                  style={{width: 32, height: 32}}
                 />
               </Button>
             </Box>
             <Spacer />
-            <Box paddingTop={15}>
-              <Button
-                variant="unstyled"
-                color="white"
-                style={{marginTop: 30}}
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <Image
-                  source={require('../assets/gobackHome.png')}
-                  style={{width: 25, height: 25}}
-                />
-              </Button>
-            </Box>
+
             <Box style={{paddingTop: 15}}>
               <Button
                 variant="unstyled"
                 color="white"
-                style={{marginTop: 30, marginRight: 10}}
+                style={{marginTop: 10, marginRight: 10}}
                 onPress={() => {
-                  navigation.goBack();
+                  navigationState.navigation.goBack();
+                  navigationState.navigation.navigate('DairyScreen', {
+                    date: date,
+                  });
                 }}>
                 <Image
                   source={require('../assets/editbotton.png')}
-                  style={{width: 25, height: 25}}
+                  style={{width: 32, height: 32}}
                 />
               </Button>
             </Box>
           </HStack>
           <Box
             style={{
-              flex: 1,
+              // flex: 1,
               alignItems: 'center',
-              marginTop: 30,
+              marginTop: '110%',
+              position: 'absolute',
+              alignSelf: 'center',
+              width: '100%',
             }}>
             <Text color="white">{dairy.title}</Text>
 
-            <Divider width="60%" style={{marginTop: 10}} />
+            {/* <Divider width="60%" style={{marginTop: 10}} /> */}
             <Box style={{marginBottom: 10, marginTop: 10}}>
               <Text style={{color: 'white'}}>
                 {`${days[dateToDay.getDay()]} ${dateToDay.getDate()} ${
@@ -149,13 +171,16 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
             </Box>
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={{flex: 1, width: '90%'}}>
+              style={{width: '84%', height: '30%'}}>
               <Box>
                 <RichEditor
-                  editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
+                  editorStyle={{
+                    backgroundColor: Styles.globalStyles.primaryColor,
+                    color: 'white',
+                  }}
                   ref={richText}
                   initialContentHTML={dairy.dairyText}
-                  initialHeight={500}
+                  initialHeight={292}
                   disabled={true}
                 />
               </Box>
@@ -169,6 +194,7 @@ function DiaryModal({navigation, route, dayUserMemoState}) {
 const mapStateToProps = function (state) {
   return {
     dayUserMemoState: state.dayUserMemo,
+    navigationState: state.StackNavigation,
   };
 };
 

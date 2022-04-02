@@ -6,7 +6,7 @@ const reducer = createReducer(initialState, builder => {
   builder
     .addCase('onSubmitDairyForm', (state, action) => {
       const timeZone = RNLocalize.getTimeZone();
-      const date = moment(new Date(Date.now()).toISOString())
+      const date = moment(new Date(action.payload.date).toISOString())
         .tz(timeZone)
         .format()
         .split('T')[0];

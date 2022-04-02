@@ -55,7 +55,7 @@ const Onboarding = props => {
     return (
       <LinearGradient
         colors={['#A5C8FF', '#23286B']}
-        style={styles.linearGradient}
+        style={[styles.linearGradient, styles.doneButtonWrapper]}
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 0.5}}
         // style={styles.doneButtonWrapper}

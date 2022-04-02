@@ -20,6 +20,7 @@ import {
   VStack,
   Spacer,
   Divider,
+  ZStack,
 } from 'native-base';
 import {
   Alert,
@@ -35,7 +36,6 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -47,9 +47,22 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-function Diary({navigation, addDairy, dayUserMemoState}) {
+function Diary({
+  navigation,
+  addDairy,
+  route,
+  dayUserMemoState,
+  navigationState,
+}) {
   const [dateToDay, setDateToDay] = useState(new Date());
-  const [dairy, setDairy] = useState({title: '', dairyText: '', date: ''});
+  const [dairy, setDairy] = useState({
+    title: '',
+    dairyText: '',
+    date: '',
+    image: undefined,
+  });
+  const {date} = route.params;
+
   const [uri, setUri] = useState(undefined);
   // const dispatch = useDispatch();
   // const {addDairy} = bindActionCreators(
@@ -77,17 +90,27 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
   ];
   useEffect(() => {
     const timeZone = RNLocalize.getTimeZone();
-    const currentDate = moment(new Date(Date.now()))
-      .tz(timeZone)
-      .format()
-      .split('T')[0];
+    const currentDate =
+      route.params.date ||
+      moment(new Date(Date.now())).tz(timeZone).format().split('T')[0];
+    console.log(currentDate);
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
       if (key == currentDate) {
         setDairy(dayUserMemoState.dairy[key]);
+        console.log;
         break;
+      } else {
+        setDairy({
+          title: '',
+          dairyText: '',
+          date: currentDate,
+          image: undefined,
+        });
       }
     }
+
+    setDateToDay(new Date(currentDate));
   }, [dayUserMemoState]);
   return (
     <DissmissKeyboard>
@@ -95,31 +118,117 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
         style={{backgroundColor: '#1F2937', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
         <VStack>
-          <Box style={{alignSelf: 'flex-end', padding: 15}}>
-            {/* <Button
-              variant="unstyled"
-              onPress={() => {
-                console.log(dayUserMemoState);
-              }}>
-              <Text style={{color: 'white'}}>logs</Text>
-            </Button> */}
-            <Button
-              variant="unstyled"
-              colorScheme="#d3d3d3"
-              onPress={() => {
-                const dairyDTO = {
-                  title: dairy.title,
-                  dairyText: dairy.dairyText,
-                };
-                console.log(dairyDTO);
-                addDairy(dairyDTO);
-                navigation.goBack();
-              }}>
-              <Text style={{color: 'white'}}>Save</Text>
-            </Button>
-          </Box>
+          <ZStack>
+            <Box>
+              <Image
+                source={{uri: dairy.image}}
+                defaultSource={require('../assets/IMG_0715.jpg')}
+                style={{width: 428, height: 340}}
+              />
+              <Box width="100%" height={2.5} backgroundColor="#7198DC" />
+            </Box>
+
+            <Box
+              style={{
+                backgroundColor: 'rgba(0,0,0)',
+                width: '100%',
+                height: '50%',
+              }}></Box>
+            <Box style={{alignSelf: 'center', marginTop: '60%'}}>
+              <Button
+                style={{backgroundColor: 'rgba(255,255,255,0)'}}
+                onPress={async () => {
+                  const result = await launchImageLibrary({uri: true});
+                  console.log(result);
+                  setDairy({
+                    title: dairy.title,
+                    dairyText: dairy.dairyText,
+                    image: result.assets[0].uri,
+                    date: dairy.date,
+                  });
+                  setUri(result.assets[0].uri);
+                }}>
+                <Image
+                  source={require('../assets/Vector.png')}
+                  width={54}
+                  height={54}
+                />
+              </Button>
+              {/* <Image
+                style={{
+                  width: 100,
+                  height: 50,
+                  borderWidth: 1,
+                  borderColor: 'red',
+                }}
+                source={{uri: uri}}
+              /> */}
+            </Box>
+          </ZStack>
+          <HStack style={{justifyContent: 'space-between'}}>
+            <Box style={{marginTop: 15}}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 10}}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/backbutton2.png')}
+                  style={{width: 32, height: 32}}
+                />
+              </Button>
+            </Box>
+            <Spacer />
+            <Box style={{marginTop: 15}}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 10}}
+                onPress={() => {
+                  const dairyDTO = {
+                    title: dairy.title,
+                    dairyText: dairy.dairyText,
+                    image: dairy.image,
+                    date: dairy.date,
+                  };
+
+                  console.log(dairyDTO);
+                  addDairy(dairyDTO);
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/saved.png')}
+                  style={{width: 32, height: 32}}
+                />
+              </Button>
+            </Box>
+            <Box style={{marginTop: 15}}>
+              <Button
+                variant="unstyled"
+                color="white"
+                style={{marginTop: 10}}
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <Image
+                  source={require('../assets/gobackHome.png')}
+                  style={{width: 32, height: 32}}
+                />
+              </Button>
+            </Box>
+          </HStack>
+
           <Box
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            style={{
+              // justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+              alignSelf: 'center',
+              position: 'absolute',
+              marginTop: '85%',
+            }}>
             <Input
               caretHidden={false}
               selectionColor="white"
@@ -131,6 +240,8 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
                 setDairy({
                   title: text,
                   dairyText: dairy.dairyText,
+                  image: dairy.image,
+                  date: dairy.date,
                 });
                 // setTitle(text);
                 console.log(dairy);
@@ -146,70 +257,59 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
                 } ${dateToDay.getFullYear()}`}
               </Text>
             </Box>
-            <Box>
-              <Button
-                onPress={async () => {
-                  const result = await launchImageLibrary({uri: true});
-                  console.log(result);
-                  setUri(result.assets[0].uri);
-                }}>
-                Test Photo
-              </Button>
-              <Image
-                style={{
-                  width: 100,
-                  height: 50,
-                  borderWidth: 1,
-                  borderColor: 'red',
-                }}
-                source={{uri: uri}}
-              />
-            </Box>
+
             <KeyboardAvoidingView
               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={{flex: 1}}>
-              <RichToolbar
-                editor={richText}
-                actions={[
-                  actions.keyboard,
-                  actions.setBold,
-                  actions.setItalic,
-                  actions.setUnderline,
-                  actions.insertBulletsList,
-                  actions.insertOrderedList,
-                  actions.insertLink,
-                  actions.setStrikethrough,
-                  actions.checkboxList,
-                  actions.blockquote,
-                ]}
-              />
-              <RichToolbar
-                editor={richText}
-                actions={[
-                  actions.alignLeft,
-                  actions.alignCenter,
-                  actions.alignRight,
-                  actions.alignFull,
-                ]}
-              />
-              <Box borderWidth={2} borderColor="white">
-                <RichEditor
-                  editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
-                  ref={richText}
-                  onChange={descriptionText => {
-                    // console.log('descriptionText:', descriptionText);
-                    setDairy({
-                      title: dairy.title,
-                      dairyText: descriptionText,
-                    });
-                    // setDairyText(descriptionText);
-                    // console.log(dairyText);
-                    console.log(dairy);
-                  }}
-                  initialContentHTML={dairy.dairyText}
-                  initialHeight={500}
-                />
-              </Box>
+              style={{flex: 1, height: '100%'}}>
+              <TouchableWithoutFeedback>
+                <View>
+                  <RichToolbar
+                    editor={richText}
+                    actions={[
+                      actions.keyboard,
+                      actions.setBold,
+                      actions.setItalic,
+                      actions.setUnderline,
+                      actions.insertBulletsList,
+                      actions.insertOrderedList,
+                      actions.insertLink,
+                      actions.setStrikethrough,
+                      actions.checkboxList,
+                      actions.blockquote,
+                    ]}
+                  />
+                  <RichToolbar
+                    editor={richText}
+                    actions={[
+                      actions.alignLeft,
+                      actions.alignCenter,
+                      actions.alignRight,
+                      actions.alignFull,
+                    ]}
+                  />
+
+                  <Box borderWidth={2} borderColor="white">
+                    <RichEditor
+                      editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
+                      ref={richText}
+                      onChange={descriptionText => {
+                        // console.log('descriptionText:', descriptionText);
+                        setDairy({
+                          title: dairy.title,
+                          dairyText: descriptionText,
+                          image: dairy.image,
+                          date: dairy.date,
+                        });
+                        // setDairyText(descriptionText);
+                        // console.log(dairyText);
+                        console.log(dairy);
+                      }}
+                      initialContentHTML={dairy.dairyText}
+                      initialHeight={300}
+                    />
+                  </Box>
+                </View>
+              </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
 
             {/* <TextArea
@@ -236,6 +336,7 @@ function Diary({navigation, addDairy, dayUserMemoState}) {
 const mapStateToProps = function (state) {
   return {
     dayUserMemoState: state.dayUserMemo,
+    navigationState: state.StackNavigation,
   };
 };
 const mapDispatchToProps = {

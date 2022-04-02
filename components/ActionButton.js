@@ -7,6 +7,9 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import AddEventModal from './AddEventModal';
 import {Container, Box} from 'native-base';
 import {useDispatch, useSelector, connect} from 'react-redux';
+import moment from 'moment';
+import * as RNLocalize from 'react-native-localize';
+
 const ActionButtonComponent = ({navigationState}) => {
   // const navigationState = useSelector(state => state.StackNavigation);
 
@@ -30,7 +33,12 @@ const ActionButtonComponent = ({navigationState}) => {
           buttonColor="#3498db"
           title="Dairy"
           onPress={() => {
-            navigationState.navigation.navigate('DairyScreen');
+            navigationState.navigation.navigate('DairyScreen', {
+              date: moment(new Date(Date.now()))
+                .tz(RNLocalize.getTimeZone())
+                .toISOString()
+                .split('T')[0],
+            });
           }}>
           <Icon name="notifications-outline" style={styles.actionButtonIcon} />
         </ActionButton.Item>
