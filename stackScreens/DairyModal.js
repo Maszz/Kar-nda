@@ -154,7 +154,7 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
             style={{
               // flex: 1,
               alignItems: 'center',
-              marginTop: '110%',
+              marginTop: '90%',
               position: 'absolute',
               alignSelf: 'center',
               width: '100%',

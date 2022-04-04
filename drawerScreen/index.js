@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -10,11 +17,12 @@ import {ZStack} from 'native-base';
 import DebugScreen from './DebugScreen';
 import TimerScreen from './TimerScreen';
 import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Box, Button} from 'native-base';
+import {useDispatch, useSelector, connect} from 'react-redux';
 
 const CustomDrawerContent = props => {
   return (
@@ -27,7 +35,7 @@ const CustomDrawerContent = props => {
 
 const Drawer = createDrawerNavigator();
 
-const DrawerScreenComponent = () => {
+const DrawerScreenComponent = ({navigationState}) => {
   const {t} = useTranslation();
   const [currentDate, setCurrentDate] = useState({day: 0, month: 0, year: 0});
   const month = [
@@ -77,6 +85,22 @@ const DrawerScreenComponent = () => {
           headerTitle: `${currentDate.day} ${t(
             `month:${month[currentDate.month]}`,
           )} ${currentDate.year}`,
+          headerRight: () => {
+            return (
+              <TouchableOpacity>
+                <Button
+                  variant="unstyled"
+                  onPress={() => {
+                    navigationState.navigation.navigate('WeekSummary');
+                  }}>
+                  <Image
+                    source={require('../assets/weekSummaryIcon.png')}
+                    style={{width: 15, height: 15}}
+                  />
+                </Button>
+              </TouchableOpacity>
+            );
+          },
 
           headerTitleStyle: {color: 'white'},
         }}
@@ -133,5 +157,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
-export default DrawerScreenComponent;
+const mapStateToProps = function (state) {
+  return {
+    navigationState: state.StackNavigation,
+  };
+};
+export default connect(mapStateToProps)(DrawerScreenComponent);

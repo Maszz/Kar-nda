@@ -30,16 +30,9 @@ import {actionCreators} from '../../state/index';
 import ActionButton from '../../components/ActionButton';
 import EventModal from '../../stackScreens/eventModal';
 import AnimatedLoader from 'react-native-animated-loader';
-
+import WeekSummaryScreen from '../../stackScreens/weekSummaryScreen';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
-const styles = StyleSheet.create({
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  },
-});
 
 const StackScreen = () => {
   return (
@@ -49,7 +42,7 @@ const StackScreen = () => {
         name="DairyScreen"
         component={Diary}
         options={{
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         }}
       />
@@ -72,6 +65,14 @@ const StackScreen = () => {
       <Stack.Screen
         name="EventModal"
         component={EventModal}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WeekSummary"
+        component={WeekSummaryScreen}
         options={{
           presentation: 'modal',
           headerShown: false,
