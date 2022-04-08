@@ -1,6 +1,6 @@
 import CalendarComponent from '../../components/Carendar';
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -12,6 +12,8 @@ import {
   Stagger,
   ZStack,
   Button,
+  Spinner,
+  Heading,
 } from 'native-base';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -31,6 +33,7 @@ import ActionButton from '../../components/ActionButton';
 import EventModal from '../../stackScreens/eventModal';
 import AnimatedLoader from 'react-native-animated-loader';
 import WeekSummaryScreen from '../../stackScreens/weekSummaryScreen';
+import {Styles} from '../../styles';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -103,6 +106,24 @@ const HomeScreen = ({navigation}) => {
           tabBarStyle: {backgroundColor: '#1F2937'},
           tabBarInactiveTintColor: '#6B7280',
           tabBarActiveTintColor: '#ffff',
+          lazy: true,
+          lazyPlaceholder: () => {
+            return (
+              <View
+                space={2}
+                alignItems="center"
+                justifyContent="center"
+                style={{
+                  flex: 1,
+                  backgroundColor: Styles.globalStyles.primaryColor,
+                }}>
+                <Spinner accessibilityLabel="Loading posts" />
+                <Heading color="primary.500" fontSize="md">
+                  Loading
+                </Heading>
+              </View>
+            );
+          },
         }}
         initialRouteName="MonthScreen">
         <Tab.Group>

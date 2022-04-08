@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -39,18 +40,18 @@ const DrawerScreenComponent = ({navigationState}) => {
   const {t} = useTranslation();
   const [currentDate, setCurrentDate] = useState({day: 0, month: 0, year: 0});
   const month = [
-    'january',
-    'febuary',
-    'march',
-    'april',
-    'may',
-    'june',
-    'july',
-    'august',
-    'september',
-    'october',
-    'november',
-    'december',
+    t('month:january'),
+    t('month:february'),
+    t('month:march'),
+    t('month:april'),
+    t('month:may'),
+    t('month:june'),
+    t('month:july'),
+    t('month:august'),
+    t('month:september'),
+    t('month:october'),
+    t('month:november'),
+    t('month:december'),
   ];
 
   useEffect(() => {
@@ -62,92 +63,100 @@ const DrawerScreenComponent = ({navigationState}) => {
     setCurrentDate(tempObj);
   }, []);
   return (
-    <Drawer.Navigator
-      drawerContent={props => <CustomDrawerContent {...props} />}
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#334155',
-        },
-        drawerStatusBarAnimation: 'slide',
-        drawerActiveTintColor: 'gray',
-        drawerLabelStyle: {color: 'white'},
-        headerStyle: {
-          backgroundColor: '#1F2937',
-        },
-      }}>
-      <Drawer.Screen
-        name="Calendar"
-        r
-        component={HomeScreen}
-        // options={{headerShown: false}}
-        options={{
-          title: `${t('common:calendar')}`,
-          headerTitle: `${currentDate.day} ${t(
-            `month:${month[currentDate.month]}`,
-          )} ${currentDate.year}`,
-          headerRight: () => {
-            return (
-              <TouchableOpacity>
-                <Button
-                  variant="unstyled"
-                  onPress={() => {
-                    navigationState.navigation.navigate('WeekSummary');
-                  }}>
-                  <Image
-                    source={require('../assets/weekSummaryIcon.png')}
-                    style={{width: 15, height: 15}}
-                  />
-                </Button>
-              </TouchableOpacity>
-            );
+    <>
+      <StatusBar
+        animated={true}
+        barStyle={'dark-content'}
+        showHideTransition={'slide'}
+      />
+      <Drawer.Navigator
+        drawerContent={props => <CustomDrawerContent {...props} />}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: '#334155',
           },
-
-          headerTitleStyle: {color: 'white'},
-        }}
-      />
-      <Drawer.Screen
-        name="Timer"
-        component={TimerScreen}
-        options={{
-          title: `${t('common:timer')}`,
+          unmountOnBlur: true,
+          drawerStatusBarAnimation: 'slide',
+          drawerActiveTintColor: 'gray',
           drawerLabelStyle: {color: 'white'},
-        }}
-      />
+          headerStyle: {
+            backgroundColor: '#1F2937',
+          },
+        }}>
+        <Drawer.Screen
+          name="Calendar"
+          r
+          component={HomeScreen}
+          // options={{headerShown: false}}
+          options={{
+            title: `${t('common:calendar')}`,
+            headerTitle: `${currentDate.day} ${month[currentDate.month]} ${
+              currentDate.year
+            }`,
+            headerRight: () => {
+              return (
+                <TouchableOpacity>
+                  <Button
+                    variant="unstyled"
+                    onPress={() => {
+                      navigationState.navigation.navigate('WeekSummary');
+                    }}>
+                    <Image
+                      source={require('../assets/weekSummaryIcon.png')}
+                      style={{width: 15, height: 15}}
+                    />
+                  </Button>
+                </TouchableOpacity>
+              );
+            },
 
-      {/* <Drawer.Screen
+            headerTitleStyle: {color: 'white'},
+          }}
+        />
+        <Drawer.Screen
+          name="Timer"
+          component={TimerScreen}
+          options={{
+            title: `${t('common:timer')}`,
+            drawerLabelStyle: {color: 'white'},
+          }}
+        />
+
+        {/* <Drawer.Screen
         name="All to do list "
         component={Article}
         options={{ title: `${t('common:allTodoList')}` }}
       /> */}
 
-      {/* <Drawer.Screen
+        {/* <Drawer.Screen
         name="All Event"
         component={AllEventScreen}
         options={{ title: `${t('common:allEvent')}` }}
       /> */}
-      <Drawer.Screen
-        name="Setting Test"
-        component={DebugScreen}
-        options={{
-          headerShown: false,
-          title: 'Debug',
-          drawerLabelStyle: {color: 'white'},
-        }}
-      />
-      <Drawer.Screen
-        name="Setting"
-        component={SettingScreen}
-        options={{
-          headerShown: false,
-          title: `${t('common:setting')}`,
-          drawerLabelStyle: {color: 'white'},
-        }}
-      />
+        <Drawer.Screen
+          name="Setting Test"
+          component={DebugScreen}
+          options={{
+            headerShown: false,
+            title: 'Debug',
+            drawerLabelStyle: {color: 'white'},
+          }}
+        />
+        <Drawer.Screen
+          name="Setting"
+          component={SettingScreen}
+          options={{
+            headerShown: false,
+            title: `${t('common:setting')}`,
+            drawerLabelStyle: {color: 'white'},
+          }}
+        />
 
-      {/* <Drawer.Screen name="Test" component={TestScreen} />
+        {/* <Drawer.Screen name="Test" component={TestScreen} />
       <Drawer.Screen name="Test2" component={TestScreen2} options={{ title: "tet", headerTitle: monthCalendarState.month + ' ' + monthCalendarState.year }}
       /> */}
-    </Drawer.Navigator>
+      </Drawer.Navigator>
+    </>
   );
 };
 const styles = StyleSheet.create({

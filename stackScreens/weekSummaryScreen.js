@@ -35,8 +35,11 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
+import {useTranslation} from 'react-i18next';
+
 const WeekSummaryScreen = ({eventsState}) => {
   const timeZone = RNLocalize.getTimeZone();
+  const {t} = useTranslation();
 
   const [date, setDate] = useState(
     moment(new Date(Date.now()))
@@ -95,7 +98,7 @@ const WeekSummaryScreen = ({eventsState}) => {
         }}
         width="90%"
         minHeight={100}>
-        <Text color={'#4AA9FF'}>Today</Text>
+        <Text color={'#4AA9FF'}>{t('common:today')}</Text>
         <Divider />
         <Box style={{padding: 10}}>
           {inRangeEvents.map((event, j) => {
@@ -115,6 +118,7 @@ const WeekSummaryScreen = ({eventsState}) => {
         if (i != 0) {
           return (
             <Box
+              key={i}
               style={{
                 padding: 10,
                 alignSelf: 'center',

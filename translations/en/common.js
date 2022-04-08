@@ -12,5 +12,7 @@ export default {
   week: 'Week',
   month: 'Month',
   year: 'Year',
-
+  events: 'Events',
+  diary: 'Diary',
+  today: 'Today',
 };

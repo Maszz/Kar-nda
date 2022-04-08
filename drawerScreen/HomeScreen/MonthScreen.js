@@ -20,6 +20,8 @@ import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Styles} from '../../styles';
+import {useTranslation} from 'react-i18next';
+
 const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   // const monthCalendarState = useSelector(state => state.monthCalendar);
@@ -30,20 +32,23 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   // );
   // const {events} = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([]);
+  const {t} = useTranslation();
+
   const monthNames = [
-    'January',
-    'Febuary',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    t('month:january'),
+    t('month:february'),
+    t('month:march'),
+    t('month:april'),
+    t('month:may'),
+    t('month:june'),
+    t('month:july'),
+    t('month:august'),
+    t('month:september'),
+    t('month:october'),
+    t('month:november'),
+    t('month:december'),
   ];
+
   const [touchY, setTouchY] = useState(0);
   const windowHeight = Dimensions.get('window').height;
   const [viewHeight, setViewHeight] = useState(0);

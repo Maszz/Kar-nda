@@ -14,16 +14,22 @@ import {actionCreators} from '../../state';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../../styles';
+
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
 const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});
   // const eventsState = useSelector(state => state.events);
   const [selectedDate, setSelectedDate] = useState(
     moment(Date.now()).tz(RNLocalize.getTimeZone()).format().split('T')[0],
   );
+
   const renderItem = (reservation, isFirst) => {
     const fontSize = isFirst ? 16 : 14;
     const color = isFirst ? 'black' : '#43515c';
-
     return (
       <TouchableOpacity
         style={[Styles.weekScreenStyles.AgendarStylesProps.item, {height: 70}]}
@@ -165,6 +171,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         // hideExtraDays={false}
         showOnlySelectedDayItems={true}
         theme={Styles.weekScreenStyles.theme}
+        // key={'th'}
       />
     </View>
   );

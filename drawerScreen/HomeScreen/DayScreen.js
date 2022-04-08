@@ -21,6 +21,8 @@ import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {Styles} from '../../styles';
+import {useTranslation} from 'react-i18next';
+import {calendarStripLocaleTh} from '../../translations/calendarStrip';
 const DayScreen = ({
   navigation,
   route,
@@ -35,6 +37,7 @@ const DayScreen = ({
   const timeZone = RNLocalize.getTimeZone();
   // const {selectedDateState} = useSelector(state => state.selectedDate);
   // const dispatch = useDispatch();
+  const {t, i18n} = useTranslation();
 
   const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
   // const eventsState = useSelector(state => state.events);
@@ -63,11 +66,13 @@ const DayScreen = ({
     'November',
     'December',
   ];
+
   const isFocused = useIsFocused();
   if (!isFocused) {
     console.log('Defocus Effect');
     setSelectedDate(selectedDateLocal);
   }
+
   useFocusEffect(
     React.useCallback(() => {
       setSelectedDateLocal(selectedDateState);
@@ -120,6 +125,7 @@ const DayScreen = ({
     <View style={Styles.dayScreenStyles.ViewStyles.viewContainer}>
       <CalendarStrip
         scrollable
+        locale={i18n.language == 'th' ? calendarStripLocaleTh : undefined}
         selectedDate={selectedDateLocal}
         calendarAnimation={
           Styles.dayScreenStyles.calendarStripStylesProps.calendarAnimation
@@ -173,7 +179,7 @@ const DayScreen = ({
             Styles.globalStyles.textStyles.textPrimaryStyle,
             {marginBottom: 5},
           ]}>
-          Events
+          {t('common:events')}
         </Text>
         <Box
           style={Styles.globalStyles.viewStyle.bgColorWhite}
@@ -291,7 +297,7 @@ const DayScreen = ({
               Styles.globalStyles.textStyles.textPrimaryStyle,
               {marginBottom: 5},
             ]}>
-            Dairy
+            {t('common:diary')}
           </Text>
           <Box
             style={[

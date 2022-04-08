@@ -11,5 +11,8 @@ export default {
   day: 'วัน',
   week: 'สัปดาห์',
   month: 'เดือน',
-  year: 'ปี'
+  year: 'ปี',
+  events: 'กิจกรรม',
+  diary: 'ไดอารี',
+  today: 'วันนี้',
 };

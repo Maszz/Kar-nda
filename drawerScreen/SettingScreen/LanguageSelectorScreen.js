@@ -2,7 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
-
+import {LocaleConfig} from 'react-native-calendars';
+import moment from 'moment';
 const LANGUAGES = [
   {code: 'en', label: 'english'},
   {code: 'th', label: 'thai'},
@@ -30,7 +31,17 @@ const Selector = () => {
               key={language.code}
               style={styles.buttonContainer}
               disabled={selectedLanguage}
-              onPress={() => setLanguage(language.code)}>
+              onPress={async () => {
+                setLanguage(language.code);
+
+                if (language.code == 'th') {
+                  LocaleConfig.defaultLocale = 'th';
+                  moment.locale('th');
+                } else {
+                  LocaleConfig.defaultLocale = '';
+                  moment.locale('en');
+                }
+              }}>
               <Text
                 style={[selectedLanguage ? styles.selectedText : styles.text]}>
                 {t(`common:${language.label}`)}
