@@ -21,6 +21,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useTranslation} from 'react-i18next';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -42,6 +43,8 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
   //   actionCreators.eventsActionCreator,
   //   dispatch,
   // );
+  const {t} = useTranslation();
+
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -93,7 +96,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   navigation.goBack();
                 }
               }}>
-              <Text style={{color: 'white'}}>Save</Text>
+              <Text style={{color: 'white'}}>{t('common:save')}</Text>
             </Button>
           </Box>
           <Box w="90%">
@@ -101,7 +104,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               <VStack mx="4">
                 <Input
                   color="white"
-                  placeholder="Add Activity"
+                  placeholder={t('common:addActivity')}
                   variant="underlined"
                   size="2xl"
                   selectionColor={'white'}
@@ -126,10 +129,10 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           alignSelf: 'flex-start',
                           color: 'white',
                         }}>
-                        Date
+                        {t('common:date')}
                       </Text>
                       <Spacer />
-                      <Box style={{width: 125, alignSelf: 'flex-end'}}>
+                      <Box style={{width: 150, alignSelf: 'flex-end'}}>
                         <DateTimePicker
                           display="default"
                           mode="date"
@@ -160,7 +163,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           marginHorizontal: 'auto',
                           color: 'white',
                         }}>
-                        Start Time
+                        {t('common:startTime')}
                       </Text>
                       <Spacer />
                       <Box style={{width: 100, alignSelf: 'flex-end'}}>
@@ -190,7 +193,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           alignSelf: 'flex-start',
                           color: 'white',
                         }}>
-                        End Time
+                        {t('common:endTime')}
                       </Text>
                       <Spacer />
                       <Box style={{width: 100, alignSelf: 'flex-end'}}>
@@ -217,7 +220,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               </VStack>
               <Box mx="4" marginTop={5}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>Location</Text>
+                  <Text style={{color: 'white'}}>{t('common:location')}</Text>
                 </FormControl.Label>
                 <Input
                   // defaultValue="12345"
@@ -239,14 +242,16 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               </Box>
               <Stack mx="4" style={{marginVertical: 5}}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>Description</Text>
+                  <Text style={{color: 'white'}}>
+                    {t('common:description')}
+                  </Text>
                 </FormControl.Label>
 
                 <TextArea
                   h={20}
                   color="white"
                   style={{color: 'white'}}
-                  placeholder="Desicribe your title."
+                  placeholder={t('common:descriptionPlaceholder')}
                   selectionColor={'white'}
                   fontFamily={'Roboto'}
                   w="100%"

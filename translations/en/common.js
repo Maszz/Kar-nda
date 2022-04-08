@@ -15,4 +15,12 @@ export default {
   events: 'Events',
   diary: 'Diary',
   today: 'Today',
+  date: 'Date',
+  startTime: 'Start Time',
+  endTime: 'End Time',
+  location: 'Location',
+  description: 'Description',
+  save: 'Save',
+  addActivity: 'Add Activity',
+  descriptionPlaceholder: 'Describe your event.',
 };

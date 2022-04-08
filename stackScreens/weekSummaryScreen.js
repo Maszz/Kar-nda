@@ -81,11 +81,6 @@ const WeekSummaryScreen = ({eventsState}) => {
 
     console.log(tempWeekArr);
     setWeekDate(tempWeekArr);
-    console.log(
-      'temp',
-      moment('2022-04-02T22:15:21.758Z').tz(timeZone).format(),
-    );
-    console.log();
   }, []);
   return (
     <ScrollView style={{backgroundColor: '#334155', padding: 20}}>
@@ -127,14 +122,16 @@ const WeekSummaryScreen = ({eventsState}) => {
               <Text fontSize={'2xl'} style={{color: 'white'}}>
                 {v.format('LL')}
               </Text>
-              {inRangeEvents.map((event, j) => {
-                if (
-                  moment(event.start).tz(timeZone).format().split('T')[0] ==
-                  v.format().split('T')[0]
-                ) {
-                  return <Text style={{color: 'white'}}>{event.title}</Text>;
-                }
-              })}
+              <Box style={{padding: 10}}>
+                {inRangeEvents.map((event, j) => {
+                  if (
+                    moment(event.start).tz(timeZone).format().split('T')[0] ==
+                    v.format().split('T')[0]
+                  ) {
+                    return <Text style={{color: 'white'}}>{event.title}</Text>;
+                  }
+                })}
+              </Box>
             </Box>
           );
         }

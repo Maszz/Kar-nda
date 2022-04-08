@@ -15,4 +15,12 @@ export default {
   events: 'กิจกรรม',
   diary: 'ไดอารี',
   today: 'วันนี้',
+  date: 'วันที่',
+  startTime: 'เวลาเริ่ม',
+  endTime: 'เวลาจบ',
+  location: 'สถานที่',
+  description: 'รายละเอียด',
+  save: 'บันทึก',
+  addActivity: 'เพิ่มกิจกรรม',
+  descriptionPlaceholder: 'เพิ่มรายละเอียดกิจกรรมตรงนี้',
 };
