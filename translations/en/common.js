@@ -23,4 +23,5 @@ export default {
   save: 'Save',
   addActivity: 'Add Activity',
   descriptionPlaceholder: 'Describe your event.',
+  dailyTitle: 'title the days',
 };

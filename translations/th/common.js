@@ -23,4 +23,5 @@ export default {
   save: 'บันทึก',
   addActivity: 'เพิ่มกิจกรรม',
   descriptionPlaceholder: 'เพิ่มรายละเอียดกิจกรรมตรงนี้',
+  dailyTitle: 'ชื่อเรื่อง',
 };

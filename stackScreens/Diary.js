@@ -37,6 +37,8 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
+
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -55,6 +57,8 @@ function Diary({
   dayUserMemoState,
   navigationState,
 }) {
+  const {t} = useTranslation();
+
   const [dateToDay, setDateToDay] = useState(new Date());
   const [dairy, setDairy] = useState({
     title: '',
@@ -239,7 +243,7 @@ function Diary({
             selectionColor="white"
             color="white"
             variant="unstyled"
-            placeholder="Title The days"
+            placeholder={t('common:dailyTitle')}
             value={dairy.title}
             onChangeText={text => {
               setDairy({

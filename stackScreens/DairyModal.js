@@ -36,6 +36,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -58,7 +59,7 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
   // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   const {date} = route.params;
   const [dateToDay, setDateToDay] = useState(new Date(date));
-
+  const [shouldHideEditButton, setShouldHideEditButton] = useState(false);
   const richText = useRef();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   // const dairyDTO = {title:"",dairyText:""}
@@ -84,6 +85,10 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
         setDairy(dayUserMemoState.dairy[key]);
         break;
       }
+    }
+    if (new Date(currentDate).getTime() > new Date().getTime()) {
+      setShouldHideEditButton(true);
+      console.log('should hide');
     }
   }, [dayUserMemoState]);
   return (
@@ -116,7 +121,11 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
               height: '15%',
             }}></Box>
           <HStack justifyContent="space-between">
-            <Box style={{alignSelf: 'flex-start', padding: 15}}>
+            <Box
+              style={{
+                alignSelf: 'flex-start',
+                padding: 15,
+              }}>
               <Button
                 variant="unstyled"
                 color="white"
@@ -132,7 +141,11 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
             </Box>
             <Spacer />
 
-            <Box style={{paddingTop: 15}}>
+            <Box
+              style={{
+                paddingTop: 15,
+                display: shouldHideEditButton ? 'none' : 'flex',
+              }}>
               <Button
                 variant="unstyled"
                 color="white"
