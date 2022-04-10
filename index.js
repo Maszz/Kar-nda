@@ -9,6 +9,7 @@ import 'react-native-gesture-handler';
 import PushNotification from 'react-native-push-notification';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import './translations/calendarLocale';
+import './translations/day';
 GoogleSignin.configure({
   webClientId:
     '358505907509-gibbr7tbcgd1i71r0gpo4g3ukblj2q1b.apps.googleusercontent.com',

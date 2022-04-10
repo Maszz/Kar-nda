@@ -35,7 +35,7 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 
-const EventModal = ({navigation, route, eventsState}) => {
+const EventModal = ({navigation, route, eventsState, navigationState}) => {
   const timeZone = RNLocalize.getTimeZone();
   const [selectedEvent, setSelectedEvent] = useState({
     start: moment(new Date()).tz(RNLocalize.getTimeZone()),
@@ -170,6 +170,7 @@ const EventModal = ({navigation, route, eventsState}) => {
 const mapStateToProps = function (state) {
   return {
     eventsState: state.events,
+    navigationState: state.StackNavigation,
   };
 };
 

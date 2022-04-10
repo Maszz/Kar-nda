@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Box,
@@ -22,6 +22,9 @@ import {actionCreators} from '../state/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
+import CalendarPicker from 'react-native-calendar-picker';
+import DateSelector from '../components/dateSelector';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -33,9 +36,8 @@ const DissmissKeyboard = ({children}) => {
     </TouchableWithoutFeedback>
   );
 };
-import CalendarPicker from 'react-native-calendar-picker';
-import DateSelector from '../components/dateSelector';
-const AddtitleScreen = ({navigation, addEvent, events}) => {
+
+const AddEventScreen = ({navigation, addEvent, events}) => {
   // const events = useSelector(state => state.events);
   // const dispatch = useDispatch();
 
@@ -44,7 +46,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
   //   dispatch,
   // );
   const {t} = useTranslation();
-
+  const [spinner, setSpinner] = useState(false);
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -61,6 +63,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
     const formmatedEndTime = formData.end.toISOString().split('T')[1];
     const formattedStart = `${formmatedDate}T${formmatedStartTime}`;
     const formattedend = `${formmatedDate}T${formmatedEndTime}`;
+    console.log('add section');
     console.log(formattedStart, formattedend);
     const state = {
       title: formData.title,
@@ -71,6 +74,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
     };
     addEvent(state);
   };
+
   return (
     <DissmissKeyboard>
       <View
@@ -172,7 +176,6 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           mode="time"
                           value={formData.start}
                           onChange={(e, d) => {
-                            console.log(d.toISOString().split('T')[1]);
                             setFormData({
                               start: d,
                               end: formData.end,
@@ -202,7 +205,6 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           mode="time"
                           value={formData.end}
                           onChange={(e, d) => {
-                            console.log(d.toISOString().split('T')[1]);
                             setFormData({
                               start: formData.start,
                               end: d,
@@ -307,4 +309,4 @@ const mapStateToProps = function (state) {
 const mapDispatchToProps = {
   addEvent: actionCreators.eventsActionCreator.addEvent,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AddtitleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AddEventScreen);

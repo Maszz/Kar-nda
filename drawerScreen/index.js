@@ -95,7 +95,7 @@ const DrawerScreenComponent = ({navigationState}) => {
             }`,
             headerRight: () => {
               return (
-                <TouchableOpacity>
+                <TouchableOpacity style={{marginRight: 8}}>
                   <Button
                     variant="unstyled"
                     onPress={() => {
@@ -111,14 +111,6 @@ const DrawerScreenComponent = ({navigationState}) => {
             },
 
             headerTitleStyle: {color: 'white'},
-          }}
-        />
-        <Drawer.Screen
-          name="Timer"
-          component={TimerScreen}
-          options={{
-            title: `${t('common:timer')}`,
-            drawerLabelStyle: {color: 'white'},
           }}
         />
 

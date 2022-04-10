@@ -122,7 +122,7 @@ const WeekSummaryScreen = ({eventsState}) => {
               <Text fontSize={'2xl'} style={{color: 'white'}}>
                 {v.format('LL')}
               </Text>
-              <Box style={{padding: 10}}>
+              <Box style={{paddingHorizontal: 10, paddingTop: 10}}>
                 {inRangeEvents.map((event, j) => {
                   if (
                     moment(event.start).tz(timeZone).format().split('T')[0] ==

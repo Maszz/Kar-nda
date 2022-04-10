@@ -1,3 +1,3 @@
 const testfunc = () => {
-    console.log("Test")
+  console.log('Test');
 };

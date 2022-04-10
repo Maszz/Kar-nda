@@ -32,7 +32,7 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   // );
   // const {events} = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([]);
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const monthNames = [
     t('month:january'),
@@ -52,26 +52,24 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [touchY, setTouchY] = useState(0);
   const windowHeight = Dimensions.get('window').height;
   const [viewHeight, setViewHeight] = useState(0);
+
   useEffect(() => {
     let tempList = [];
     const timeZone = RNLocalize.getTimeZone();
     console.log(events);
 
     for (const event of events) {
-      if (typeof event.start == 'string') {
-        let tempObj = {};
-        Object.assign(tempObj, event);
-        tempObj['start'] = new Date(event.start);
-        tempObj['end'] = new Date(event.end);
-        tempList.push(tempObj);
-      } else {
-        console.log('IN else');
-        tempList.push(event);
-      }
+      let tempObj = {};
+      tempObj['title'] = event.title;
+      tempObj['start'] = new Date(event.start);
+      tempObj['end'] = new Date(event.end);
+      tempList.push(tempObj);
     }
-    console.log('final templist', tempList);
-    setPassingEvent(tempList);
-    console.log('This is Passing Event', passingEvent);
+    const sortedArr = tempList.sort(
+      (a, b) => moment(a.start).unix() - moment(b.start).unix(),
+    );
+    console.log('final templist', sortedArr);
+    setPassingEvent(sortedArr);
 
     onSwipeMonthChange(
       monthNames[currentDate.getMonth()],
@@ -112,10 +110,19 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         </Text>
       </Center>
       <Calendar
+        locale={i18n.language == 'th' ? 'th' : undefined}
         events={passingEvent}
         height={Dimensions.get('window').height - 300}
         onPressEvent={e => {
           console.log('click event', e);
+          // console.log(
+          //   'IN Modal',
+          //   selectedDateLocal.format().split('T')[0],
+          // );
+          // navigationState.navigation.navigate('EventModal', {
+          //   date: selectedDateLocal.format().split('T')[0],
+          //   index: i,
+          // });
         }}
         // activeDate={new Date()}
         date={currentDate}
@@ -139,6 +146,8 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         bodyContainerStyle={Styles.monthScreenStyles.bodyContainerStyle}
         calendarCellTextStyle={Styles.monthScreenStyles.calendarCellTextStyle}
         calendarCellStyle={Styles.monthScreenStyles.calendarCellStyle}
+        calendarContainerStyle={{color: 'white'}}
+
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />
