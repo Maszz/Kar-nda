@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {Calendar} from 'react-native-big-calendar';
@@ -12,7 +12,15 @@ import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
-import {ZStack, Box, VStack, Divider, Text, Container} from 'native-base';
+import {
+  ZStack,
+  Box,
+  VStack,
+  Divider,
+  Text,
+  Container,
+  Checkbox,
+} from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -31,6 +39,7 @@ const DayScreen = ({
   navigationState,
   eventsState,
   dayUserMemoState,
+  todoListItems,
 }) => {
   // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
@@ -38,6 +47,16 @@ const DayScreen = ({
   // const {selectedDateState} = useSelector(state => state.selectedDate);
   // const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
+  const [todoList, setTodoList] = useState([
+    {todoTitle: 'fsd', ischecked: false},
+    {todoTitle: 'sd', ischecked: false},
+  ]);
+  const todolistDto = {
+    '12-34-56': [
+      {todoTitle: 'fsd', ischecked: false},
+      {todoTitle: 'sd', ischecked: false},
+    ],
+  };
 
   const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
   // const eventsState = useSelector(state => state.events);
@@ -74,7 +93,7 @@ const DayScreen = ({
   }
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       setSelectedDateLocal(selectedDateState);
       console.log('Focus Effect');
       const dairyKeys = Object.keys(dayUserMemoState.dairy);
@@ -96,6 +115,7 @@ const DayScreen = ({
   useEffect(() => {
     const currentDate = selectedDateState.format().split('T')[0];
     const tempArr = [];
+
     for (const event of eventsState.events) {
       if (
         currentDate ==
@@ -119,7 +139,15 @@ const DayScreen = ({
       }
       setSelectedDairy({title: '', dairyText: '', date: ''});
     }
-  }, [eventsState, dayUserMemoState, selectedDateState]);
+
+    const todolistDays = Object.keys(todoListItems);
+    for (const key of todolistDays) {
+      if (key == currentDate) {
+        setTodoList(todoListItems[key]);
+        console.log('incase');
+      }
+    }
+  }, [eventsState, dayUserMemoState, selectedDateState, todoListItems]);
 
   return (
     <View style={Styles.dayScreenStyles.ViewStyles.viewContainer}>
@@ -284,12 +312,24 @@ const DayScreen = ({
           height={0.5}
         />
         <TouchableOpacity>
-          <Box
-            width={Dimensions.get('window').width - 50}
-            height={75}
-            border="1"
-            borderRadius={5}
-            style={{backgroundColor: '#7CC2FF', marginBottom: 10}}></Box>
+          <Box style={{minHeight: 50}}>
+            {todoList.map((todo, i) => {
+              return (
+                <Checkbox
+                  colorScheme="info"
+                  value="2"
+                  defaultIsChecked={todo.ischecked}>
+                  <Text style={{color: 'white'}}>{todo.todoTitle}</Text>
+                </Checkbox>
+              );
+            })}
+            <Checkbox colorScheme="info" value="2" defaultIsChecked={true}>
+              <Text style={{color: 'white'}}>UX Research</Text>
+            </Checkbox>
+            <Checkbox colorScheme="info" value="3" defaultIsChecked={false}>
+              <Text style={{color: 'white'}}>Software Development</Text>
+            </Checkbox>
+          </Box>
         </TouchableOpacity>
         <VStack>
           <Text
@@ -359,6 +399,7 @@ const mapStateToProps = function (state) {
     navigationState: state.StackNavigation,
     eventsState: state.events,
     dayUserMemoState: state.dayUserMemo,
+    todoListItems: state.todoList.todoItem,
   };
 };
 const mapDispatchToProps = {

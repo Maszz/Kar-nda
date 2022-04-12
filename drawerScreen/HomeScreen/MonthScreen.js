@@ -143,11 +143,57 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
           console.log('press date header', a);
         }}
         headerContainerStyle={Styles.monthScreenStyles.headerContainerStyle}
-        bodyContainerStyle={Styles.monthScreenStyles.bodyContainerStyle}
+        bodyContainerStyle={[
+          Styles.monthScreenStyles.bodyContainerStyle,
+          {color: 'white'},
+        ]}
+        // moreLabel={'{moreCount}asd'}
         calendarCellTextStyle={Styles.monthScreenStyles.calendarCellTextStyle}
         calendarCellStyle={Styles.monthScreenStyles.calendarCellStyle}
         calendarContainerStyle={{color: 'white'}}
-
+        theme={{
+          isRTL: false,
+          palette: {
+            primary: {
+              main: 'rgb(66, 133, 244)',
+              contrastText: '#fff',
+            },
+            nowIndicator: 'red',
+            gray: {
+              // 50: '#fafafa',
+              100: '#f5f5f5',
+              200: '#eeeeee',
+              300: '#e0e0e0',
+              // 400: '#bdbdbd',
+              500: '#9e9e9e',
+              // 600: '#757575',
+              // 700: '#616161',
+              800: '#424242',
+              // 900: '#212121',
+            },
+            moreLabel: '#fff',
+          },
+          eventCellOverlappings: [
+            {main: '#E26245', contrastText: '#fff'},
+            {main: '#4AC001', contrastText: '#fff'},
+            {main: '#5934C7', contrastText: '#fff'}, // purple
+          ],
+          typography: {
+            xs: {
+              fontSize: 10,
+            },
+            sm: {
+              fontSize: 12,
+            },
+            xl: {
+              fontSize: 22,
+            },
+            moreLabel: {
+              fontSize: 11,
+              fontWeight: 'bold',
+            },
+          },
+        }}
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />

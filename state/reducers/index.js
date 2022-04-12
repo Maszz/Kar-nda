@@ -9,6 +9,7 @@ import onBoardReducer from './onBoardReducer';
 import StackNavigationReducer from './stackNavigationReducer';
 import dayUserMemoReducer from './dayUserMemoReducer';
 import selectedDateReducer from './selectedDateReducer';
+import todoListReducer from './todoListReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -39,6 +40,7 @@ const reducers = combineReducers({
   dayUserMemo: persistReducer(persistConfigDayUserConfig, dayUserMemoReducer),
   monthCalendar: monthCalendarReducer,
   selectedDate: selectedDateReducer,
+  todoList: todoListReducer,
 });
 
 export default reducers;

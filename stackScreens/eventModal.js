@@ -35,7 +35,13 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 
-const EventModal = ({navigation, route, eventsState, navigationState}) => {
+const EventModal = ({
+  navigation,
+  route,
+  eventsState,
+  navigationState,
+  removeEvent,
+}) => {
   const timeZone = RNLocalize.getTimeZone();
   const [selectedEvent, setSelectedEvent] = useState({
     start: moment(new Date()).tz(RNLocalize.getTimeZone()),
@@ -97,20 +103,21 @@ const EventModal = ({navigation, route, eventsState, navigationState}) => {
   return (
     <View style={{backgroundColor: '#1F2937'}} height="100%">
       <VStack style={{paddingHorizontal: 50}}>
-        {/* <Box style={{alignSelf: 'flex-start', padding: 15}}>
+        <Box style={{alignSelf: 'flex-start', padding: 15}}>
           <Button
             variant="unstyled"
             color="white"
             onPress={() => {
+              removeEvent(selectedEvent);
               navigation.goBack();
             }}>
             <Image
               source={require('../assets/backbutton2.png')}
               style={{width: 25, height: 25, tintColor: 'white'}}
             />
-            <Text style={{color: 'white'}}>Back</Text>
+            <Text style={{color: 'white'}}>Delete</Text>
           </Button>
-        </Box> */}
+        </Box>
         <Box
           style={{
             alignItems: 'flex-start',
@@ -173,5 +180,8 @@ const mapStateToProps = function (state) {
     navigationState: state.StackNavigation,
   };
 };
+const mapDispatchToProps = {
+  removeEvent: actionCreators.eventsActionCreator.removeEvent,
+};
 
-export default connect(mapStateToProps)(EventModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EventModal);
