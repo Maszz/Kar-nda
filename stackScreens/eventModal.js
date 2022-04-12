@@ -20,6 +20,7 @@ import {
   VStack,
   Spacer,
   Divider,
+  Modal,
 } from 'native-base';
 import {
   Alert,
@@ -54,6 +55,7 @@ const EventModal = ({
   selectedEvent.start.minute();
   const {date, index} = route.params;
   const [forMattedDate, setFormattedDate] = useState();
+
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',
@@ -102,22 +104,23 @@ const EventModal = ({
   }, [date, index]);
   return (
     <View style={{backgroundColor: '#1F2937'}} height="100%">
+      <Box
+        style={{
+          alignSelf: 'flex-end',
+          paddingHorizontal: 25,
+          paddingTop: 25,
+        }}>
+        <Button
+          variant="unstyled"
+          color="white"
+          onPress={() => {
+            removeEvent(selectedEvent);
+            navigation.goBack();
+          }}>
+          <Text style={{color: 'white'}}>Delete</Text>
+        </Button>
+      </Box>
       <VStack style={{paddingHorizontal: 50}}>
-        <Box style={{alignSelf: 'flex-start', padding: 15}}>
-          <Button
-            variant="unstyled"
-            color="white"
-            onPress={() => {
-              removeEvent(selectedEvent);
-              navigation.goBack();
-            }}>
-            <Image
-              source={require('../assets/backbutton2.png')}
-              style={{width: 25, height: 25, tintColor: 'white'}}
-            />
-            <Text style={{color: 'white'}}>Delete</Text>
-          </Button>
-        </Box>
         <Box
           style={{
             alignItems: 'flex-start',
