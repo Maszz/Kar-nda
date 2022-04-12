@@ -111,8 +111,7 @@ const DayScreen = ({
       };
     }, [selectedDateState, dayUserMemoState]),
   );
-
-  useEffect(() => {
+  const eventStateCallback = useCallback(() => {
     const currentDate = selectedDateState.format().split('T')[0];
     const tempArr = [];
 
@@ -130,7 +129,8 @@ const DayScreen = ({
     );
     console.log(sortedArr);
     setEventCard(sortedArr);
-
+  }, [eventsState.events, selectedDateState]);
+  const dayUserMemoStateCallback = useCallback(() => {
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
       if (key == selectedDateState.toISOString().split('T')[0]) {
@@ -139,6 +139,36 @@ const DayScreen = ({
       }
       setSelectedDairy({title: '', dairyText: '', date: ''});
     }
+  }, [dayUserMemoState, selectedDateState]);
+  useEffect(() => {
+    const currentDate = selectedDateState.format().split('T')[0];
+    const tempArr = [];
+
+    // for (const event of eventsState.events) {
+    //   if (
+    //     currentDate ==
+    //     moment(new Date(event.start)).tz(timeZone).format().split('T')[0]
+    //   ) {
+    //     tempArr.push(event);
+    //   }
+    // }
+    // console.log('THis is temp arr ', tempArr);
+    // const sortedArr = tempArr.sort(
+    //   (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+    // );
+    // console.log(sortedArr);
+    // setEventCard(sortedArr);
+    eventStateCallback();
+
+    // const dairyKeys = Object.keys(dayUserMemoState.dairy);
+    // for (const key of dairyKeys) {
+    //   if (key == selectedDateState.toISOString().split('T')[0]) {
+    //     setSelectedDairy(dayUserMemoState.dairy[key]);
+    //     break;
+    //   }
+    //   setSelectedDairy({title: '', dairyText: '', date: ''});
+    // }
+    dayUserMemoStateCallback();
 
     const todolistDays = Object.keys(todoListItems);
     for (const key of todolistDays) {
@@ -147,7 +177,12 @@ const DayScreen = ({
         console.log('incase');
       }
     }
-  }, [eventsState, dayUserMemoState, selectedDateState, todoListItems]);
+  }, [
+    eventStateCallback,
+    dayUserMemoStateCallback,
+    selectedDateState,
+    todoListItems,
+  ]);
 
   return (
     <View style={Styles.dayScreenStyles.ViewStyles.viewContainer}>

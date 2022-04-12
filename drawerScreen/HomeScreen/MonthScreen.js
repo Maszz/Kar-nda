@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Dimensions} from 'react-native';
 import {Calendar} from 'react-native-big-calendar';
 import {
@@ -33,7 +33,24 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   // const {events} = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([]);
   const {t, i18n} = useTranslation();
+  const eventStateCallback = useCallback(() => {
+    let tempList = [];
+    const timeZone = RNLocalize.getTimeZone();
+    console.log(events);
 
+    for (const event of events) {
+      let tempObj = {};
+      tempObj['title'] = event.title;
+      tempObj['start'] = new Date(event.start);
+      tempObj['end'] = new Date(event.end);
+      tempList.push(tempObj);
+    }
+    const sortedArr = tempList.sort(
+      (a, b) => moment(a.start).unix() - moment(b.start).unix(),
+    );
+    console.log('final templist', sortedArr);
+    setPassingEvent(sortedArr);
+  }, [events]);
   const monthNames = [
     t('month:january'),
     t('month:february'),
@@ -52,30 +69,13 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [touchY, setTouchY] = useState(0);
   const windowHeight = Dimensions.get('window').height;
   const [viewHeight, setViewHeight] = useState(0);
-
   useEffect(() => {
-    let tempList = [];
-    const timeZone = RNLocalize.getTimeZone();
-    console.log(events);
-
-    for (const event of events) {
-      let tempObj = {};
-      tempObj['title'] = event.title;
-      tempObj['start'] = new Date(event.start);
-      tempObj['end'] = new Date(event.end);
-      tempList.push(tempObj);
-    }
-    const sortedArr = tempList.sort(
-      (a, b) => moment(a.start).unix() - moment(b.start).unix(),
-    );
-    console.log('final templist', sortedArr);
-    setPassingEvent(sortedArr);
-
+    eventStateCallback();
     onSwipeMonthChange(
       monthNames[currentDate.getMonth()],
       currentDate.getFullYear(),
     );
-  }, [events, currentDate]);
+  }, [eventStateCallback, currentDate]);
 
   return (
     <View
