@@ -1,8 +1,8 @@
-export const setStackNavigation = value => {
+export const setTodoList = value => {
   return dispatch => {
     dispatch({
-      type: 'setTodolist',
-      payload: {date: value.date, todoItem: value.todoItem},
+      type: 'setTodoItem',
+      payload: {date: value.date, todoList: value.todoItem},
     });
   };
 };

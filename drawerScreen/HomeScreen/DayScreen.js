@@ -31,6 +31,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {Styles} from '../../styles';
 import {useTranslation} from 'react-i18next';
 import {calendarStripLocaleTh} from '../../translations/calendarStrip';
+import TodoList from '../../components/todolist';
 const DayScreen = ({
   navigation,
   route,
@@ -40,6 +41,7 @@ const DayScreen = ({
   eventsState,
   dayUserMemoState,
   todoListItems,
+  setTodoListState,
 }) => {
   // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
@@ -48,7 +50,7 @@ const DayScreen = ({
   // const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
   const [todoList, setTodoList] = useState([
-    {todoTitle: 'fsd', ischecked: false},
+    {todoTitle: 'fsd', ischecked: true},
     {todoTitle: 'sd', ischecked: false},
   ]);
   const todolistDto = {
@@ -140,6 +142,23 @@ const DayScreen = ({
       setSelectedDairy({title: '', dairyText: '', date: ''});
     }
   }, [dayUserMemoState, selectedDateState]);
+
+  const todoListStateCallback = useCallback(() => {
+    const currentDate = selectedDateLocal.format().split('T')[0];
+
+    const todolistDays = Object.keys(todoListItems.todoItem);
+    console.log(todolistDays);
+    setTodoList([]);
+
+    for (const key of todolistDays) {
+      if (key == currentDate) {
+        setTodoList(todoListItems.todoItem[key]);
+        console.log('incase');
+        break;
+      }
+    }
+  }, [todoListItems, selectedDateState]);
+
   useEffect(() => {
     const currentDate = selectedDateState.format().split('T')[0];
     const tempArr = [];
@@ -170,18 +189,22 @@ const DayScreen = ({
     // }
     dayUserMemoStateCallback();
 
-    const todolistDays = Object.keys(todoListItems);
-    for (const key of todolistDays) {
-      if (key == currentDate) {
-        setTodoList(todoListItems[key]);
-        console.log('incase');
-      }
-    }
+    // const todolistDays = Object.keys(todoListItems.todoItem);
+    // console.log(todolistDays);
+    // setTodoList([]);
+
+    // for (const key of todolistDays) {
+    //   if (key == currentDate) {
+    //     setTodoList(todoListItems.todoItem[key]);
+    //     console.log('incase');
+    //   }
+    // }
+    todoListStateCallback();
   }, [
     eventStateCallback,
     dayUserMemoStateCallback,
     selectedDateState,
-    todoListItems,
+    todoListStateCallback,
   ]);
 
   return (
@@ -222,6 +245,22 @@ const DayScreen = ({
             }
             setSelectedDairy({title: '', dairyText: '', date: ''});
           }
+
+          //set list todo
+
+          const currentDate = date.format().split('T')[0];
+
+          const todolistDays = Object.keys(todoListItems.todoItem);
+          console.log(todolistDays);
+          setTodoList([]);
+
+          for (const key of todolistDays) {
+            if (key == currentDate) {
+              setTodoList(todoListItems.todoItem[key]);
+              console.log('incase');
+              break;
+            }
+          }
         }}
         highlightDateNameStyle={Styles.globalStyles.textStyles.textPrimaryStyle}
         highlightDateNumberStyle={
@@ -250,8 +289,8 @@ const DayScreen = ({
           height={0.5}
         />
         <ScrollView
-          height={166}
-          style={{marginTop: 20}}
+          // height={166}
+          style={{marginTop: 20, minHeight: 90, maxHeight: 166}}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
           {eventCard.length === 0 && (
@@ -348,22 +387,63 @@ const DayScreen = ({
         />
         <TouchableOpacity>
           <Box style={{minHeight: 50}}>
-            {todoList.map((todo, i) => {
+            {/* {todoList.map((todo, i) => {
               return (
                 <Checkbox
+                  onChange={isSeletced => {
+                    console.log('Before: ', todoList);
+                    todoList[i].ischecked = isSeletced;
+                    todoList[i].todoTitle = 'test';
+                    setTodoList([]);
+
+                    console.log('After: ', todoList);
+                    setTodoList(todoList);
+                    // todoObj[i].ischecked = isSeletced;
+                    // console.log(todoObj);
+                    // setTodoList(todoObj);
+                  }}
                   colorScheme="info"
                   value="2"
                   defaultIsChecked={todo.ischecked}>
-                  <Text style={{color: 'white'}}>{todo.todoTitle}</Text>
+                  <Text
+                    style={{
+                      color: 'white',
+                      textDecorationLine: todo.ischecked
+                        ? 'line-through'
+                        : 'none',
+                    }}>
+                    {todo.todoTitle}
+                  </Text>
                 </Checkbox>
               );
-            })}
-            <Checkbox colorScheme="info" value="2" defaultIsChecked={true}>
-              <Text style={{color: 'white'}}>UX Research</Text>
+            })} */}
+            <TodoList
+              list={todoList}
+              setList={setTodoList}
+              setTodoListState={setTodoListState}
+              selectedDate={selectedDateLocal}
+            />
+            {/* <Checkbox
+              colorScheme="info"
+              value="2"
+              my={0.5}
+              defaultIsChecked={true}>
+              <Text
+                style={{
+                  color: 'white',
+                  textDecorationLine: true ? 'line-through' : 'none',
+                }}>
+                UX Research
+              </Text>
             </Checkbox>
-            <Checkbox colorScheme="info" value="3" defaultIsChecked={false}>
+            <Checkbox
+              onChange={() => {}}
+              colorScheme="info"
+              value="3"
+              my={0.5}
+              defaultIsChecked={false}>
               <Text style={{color: 'white'}}>Software Development</Text>
-            </Checkbox>
+            </Checkbox> */}
           </Box>
         </TouchableOpacity>
         <VStack>
@@ -434,10 +514,11 @@ const mapStateToProps = function (state) {
     navigationState: state.StackNavigation,
     eventsState: state.events,
     dayUserMemoState: state.dayUserMemo,
-    todoListItems: state.todoList.todoItem,
+    todoListItems: state.todoList,
   };
 };
 const mapDispatchToProps = {
   setSelectedDate: actionCreators.selectedDateActionCreator.setSelectedDate,
+  setTodoListState: actionCreators.todoListActionCreator.setTodoList,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DayScreen);

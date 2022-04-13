@@ -114,8 +114,21 @@ const EventModal = ({
           variant="unstyled"
           color="white"
           onPress={() => {
-            removeEvent(selectedEvent);
-            navigation.goBack();
+            Alert.alert('Delete Event', 'Did you want to delete the event?', [
+              {
+                text: 'Cancel',
+                // onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {
+                text: 'Yes',
+                onPress: () => {
+                  removeEvent(selectedEvent);
+                  navigation.goBack();
+                },
+                style: 'default',
+              },
+            ]);
           }}>
           <Text style={{color: 'white'}}>Delete</Text>
         </Button>
