@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback, useReducer} from 'react';
-
+import {Alert} from 'react-native';
 import {
   ZStack,
   Box,
@@ -117,12 +117,12 @@ const Todolist = ({
 
   return (
     <Center w="100%">
-      <Box maxW="300" w="100%">
+      <Box w="100%" px={5}>
         {/* <Heading mb="2" size="md">
           Wednesday
         </Heading> */}
         <VStack space={4}>
-          <HStack space={2}>
+          {/* <HStack space={2}>
             <Input
               flex={1}
               onChangeText={v => setInputValue(v)}
@@ -139,7 +139,7 @@ const Todolist = ({
                 setInputValue('');
               }}
             />
-          </HStack>
+          </HStack> */}
           <VStack space={2}>
             {list.map((item, itemI) => (
               <HStack
@@ -167,7 +167,27 @@ const Todolist = ({
                   size="sm"
                   color={'white'}
                   icon={<EntypoIcon name="minus" size={12} color="#fff" />}
-                  onPress={() => handleDelete(itemI)}
+                  onPress={() => {
+                    Alert.alert('Delete', 'Did you want to delete this item?', [
+                      {
+                        text: 'Cancel',
+                        onPress: () => {
+                          console.log('cancel');
+                        },
+                        style: 'cancel',
+                      },
+                      {
+                        text: 'Yes',
+                        onPress: () => {
+                          console.log('Cancel Pressed');
+                          handleDelete(itemI);
+                        },
+                        style: 'default',
+                      },
+                    ]);
+
+                    // handleDelete(itemI);
+                  }}
                 />
               </HStack>
             ))}

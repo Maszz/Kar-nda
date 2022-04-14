@@ -15,11 +15,6 @@ import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../../styles';
 
-function useForceUpdate() {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
-}
-
 const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});
   // const eventsState = useSelector(state => state.events);
@@ -152,7 +147,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         showClosingKnob={false}
         hideKnob={false}
         onDayPress={day => {
-          console.log('day pressed', day);
+          // console.log('day pressed', day);
           setSelectedDate(day['dateString']); // เเก้
         }}
         // renderDay={(day, item) => <Text>{day ? day.day : 'item'}</Text>}

@@ -479,10 +479,9 @@ const DayScreen = ({
           width={Dimensions.get('window').width - 50}
           height={0.5}
         />
-        <TouchableOpacity>
-          <Box style={{minHeight: 50}}>
-            <TodoList />
-            {/* <Center w="100%">
+        <Box style={{minHeight: 50, marginBottom: 15}}>
+          <TodoList />
+          {/* <Center w="100%">
               <Box maxW="300" w="100%">
                 <Heading mb="2" size="md">
                   Wednesday
@@ -543,8 +542,7 @@ const DayScreen = ({
                 </VStack>
               </Box>
             </Center> */}
-          </Box>
-        </TouchableOpacity>
+        </Box>
         <VStack>
           <Text
             style={[
