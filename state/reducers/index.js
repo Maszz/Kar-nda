@@ -25,6 +25,11 @@ const persistConfigDayUserConfig = {
   storage: AsyncStorage,
   whilelist: ['dairy', 'todo'],
 };
+const persistConfigTodoList = {
+  key: 'todoList',
+  storage: AsyncStorage,
+  whilelist: ['todoItem'],
+};
 
 /**
  * Combine Reducers to one instance.
@@ -40,7 +45,7 @@ const reducers = combineReducers({
   dayUserMemo: persistReducer(persistConfigDayUserConfig, dayUserMemoReducer),
   monthCalendar: monthCalendarReducer,
   selectedDate: selectedDateReducer,
-  todoList: todoListReducer,
+  todoList: persistReducer(persistConfigTodoList, todoListReducer),
 });
 
 export default reducers;

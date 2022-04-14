@@ -93,7 +93,13 @@ const WeekSummaryScreen = ({eventsState}) => {
         }}
         width="90%"
         minHeight={100}>
-        <Text color={'#4AA9FF'}>{t('common:today')}</Text>
+        <Text
+          color={'#4AA9FF'}
+          fontSize={18}
+          fontWeight={'semibold'}
+          style={{marginBottom: 5}}>
+          {t('common:today')}
+        </Text>
         <Divider />
         <Box style={{padding: 10}}>
           {inRangeEvents.map((event, j) => {
@@ -119,7 +125,10 @@ const WeekSummaryScreen = ({eventsState}) => {
                 alignSelf: 'center',
               }}
               width="90%">
-              <Text fontSize={'2xl'} style={{color: 'white'}}>
+              <Text
+                fontSize={'2xl'}
+                fontWeight={'semibold'}
+                style={{color: 'white'}}>
                 {v.format('LL')}
               </Text>
               <Box style={{paddingHorizontal: 10, paddingTop: 10}}>

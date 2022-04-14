@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback, useReducer} from 'react';
 
 import {
   ZStack,
@@ -18,8 +18,17 @@ import {
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {Styles} from '../styles';
-const Example = ({list, setList, setTodoListState, selectedDate}) => {
-  //   const [list, setList] = React.useState(instState);
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import {useSelector, connect} from 'react-redux';
+import {actionCreators} from '../state/';
+
+const Todolist = ({
+  setTodoListState,
+  selectedDate,
+  todoListItems,
+  selectedDateState,
+}) => {
+  const [list, setList] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
   const toast = useToast();
 
@@ -32,15 +41,15 @@ const Example = ({list, setList, setTodoListState, selectedDate}) => {
       return;
     }
 
-    setList(prevList => {
-      return [
-        ...prevList,
-        {
-          todoTitle: todoTitle,
-          ischecked: false,
-        },
-      ];
-    });
+    // setList(prevList => {
+    //   return [
+    //     ...prevList,
+    //     {
+    //       todoTitle: todoTitle,
+    //       ischecked: false,
+    //     },
+    //   ];
+    // });
     const temp = [
       ...list,
       {
@@ -48,37 +57,63 @@ const Example = ({list, setList, setTodoListState, selectedDate}) => {
         ischecked: false,
       },
     ];
-    console.log({
-      date: selectedDate.format().split('T')[0],
-      todoItem: temp,
-    });
+    // console.log({
+    //   date: selectedDateState.format().split('T')[0],
+    //   todoItem: temp,
+    // });
     setTodoListState({
-      date: selectedDate.format().split('T')[0],
+      date: selectedDateState.format().split('T')[0],
       todoItem: temp,
     });
   };
 
   const handleDelete = index => {
-    setList(prevList => {
-      const temp = prevList.filter((_, itemI) => itemI !== index);
-      return temp;
-    });
+    // setList(prevList => {
+    //   const temp = prevList.filter((_, itemI) => itemI !== index);
+    //   return temp;
+    // });
     const temp2 = list.filter((_, itemI) => itemI !== index);
     console.log(temp2);
 
     setTodoListState({
-      date: selectedDate.format().split('T')[0],
+      date: selectedDateState.format().split('T')[0],
       todoItem: temp2,
     });
   };
 
   const handleStatusChange = index => {
-    setList(prevList => {
-      const newList = [...prevList];
-      newList[index].ischecked = !newList[index].ischecked;
-      return newList;
+    const newList2 = [...list];
+
+    // setList(prevList => {
+    //   const newList = [...prevList];
+    //   newList[index].ischecked = !newList[index].ischecked;
+    //   return newList;
+    // });
+    console.log('NewList:', newList2);
+
+    newList2[index].ischecked = !newList2[index].ischecked;
+    console.log('NewList:', newList2);
+    setTodoListState({
+      date: selectedDateState.format().split('T')[0],
+      todoItem: newList2,
     });
   };
+
+  useEffect(() => {
+    const currentDate = selectedDateState.format().split('T')[0];
+
+    const todolistDays = Object.keys(todoListItems.todoItem);
+    console.log(todolistDays);
+    setList([]);
+
+    for (const key of todolistDays) {
+      if (key == currentDate) {
+        setList(todoListItems.todoItem[key]);
+        console.log('incase');
+        break;
+      }
+    }
+  }, [selectedDateState, todoListItems]);
 
   return (
     <Center w="100%">
@@ -98,7 +133,7 @@ const Example = ({list, setList, setTodoListState, selectedDate}) => {
             <IconButton
               borderRadius="sm"
               variant="solid"
-              icon={<FeatherIcon name="plus" size={12} color="#cdcdcd" />}
+              icon={<EntypoIcon name="plus" size={12} color="#ffff" />}
               onPress={() => {
                 addItem(inputValue);
                 setInputValue('');
@@ -142,5 +177,14 @@ const Example = ({list, setList, setTodoListState, selectedDate}) => {
     </Center>
   );
 };
+const mapStateToProps = function (state) {
+  return {
+    selectedDateState: state.selectedDate.selectedDateState,
 
-export default Example;
+    todoListItems: state.todoList,
+  };
+};
+const mapDispatchToProps = {
+  setTodoListState: actionCreators.todoListActionCreator.setTodoList,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Todolist);

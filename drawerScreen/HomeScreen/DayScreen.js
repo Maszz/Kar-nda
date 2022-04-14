@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+
 import {
   ZStack,
   Box,
@@ -20,6 +22,11 @@ import {
   Text,
   Container,
   Checkbox,
+  useToast,
+  Center,
+  HStack,
+  IconButton,
+  Input,
 } from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, connect} from 'react-redux';
@@ -60,7 +67,7 @@ const DayScreen = ({
     ],
   };
 
-  const [selectedDateLocal, setSelectedDateLocal] = useState(selectedDateState);
+  const [selectedDateLocal, setSelectedDateLocal] = useState(moment());
   // const eventsState = useSelector(state => state.events);
   // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   // const {setSelectedDate} = bindActionCreators(
@@ -87,7 +94,72 @@ const DayScreen = ({
     'November',
     'December',
   ];
+  const [inputValue, setInputValue] = React.useState('');
+  const toast = useToast();
 
+  const addItem = todoTitle => {
+    if (todoTitle === '') {
+      toast.show({
+        todoTitle: 'Please Enter Text',
+        status: 'warning',
+      });
+      return;
+    }
+
+    // setList(prevList => {
+    //   return [
+    //     ...prevList,
+    //     {
+    //       todoTitle: todoTitle,
+    //       ischecked: false,
+    //     },
+    //   ];
+    // });
+    const temp = [
+      ...todoList,
+      {
+        todoTitle: todoTitle,
+        ischecked: false,
+      },
+    ];
+
+    setTodoListState({
+      date: selectedDateLocal.format().split('T')[0],
+      todoItem: temp,
+    });
+  };
+
+  const handleDelete = index => {
+    // setList(prevList => {
+    //   const temp = prevList.filter((_, itemI) => itemI !== index);
+    //   return temp;
+    // });
+    const temp2 = todoList.filter((_, itemI) => itemI !== index);
+    console.log(temp2);
+
+    setTodoListState({
+      date: selectedDateLocal.format().split('T')[0],
+      todoItem: temp2,
+    });
+  };
+
+  const handleStatusChange = index => {
+    const newList2 = [...todoList];
+
+    // setList(prevList => {
+    //   const newList = [...prevList];
+    //   newList[index].ischecked = !newList[index].ischecked;
+    //   return newList;
+    // });
+    console.log('NewList:', newList2);
+
+    newList2[index].ischecked = !newList2[index].ischecked;
+    console.log('NewList:', newList2);
+    setTodoListState({
+      date: selectedDateLocal.format().split('T')[0],
+      todoItem: newList2,
+    });
+  };
   const isFocused = useIsFocused();
   if (!isFocused) {
     console.log('Defocus Effect');
@@ -107,11 +179,27 @@ const DayScreen = ({
         setSelectedDairy({title: '', dairyText: '', date: ''});
       }
 
+      // const currentDate = selectedDateLocal.format().split('T')[0];
+
+      const todolistDays = Object.keys(todoListItems.todoItem);
+      console.log(todolistDays);
+      console.log(selectedDateState.toISOString().split('T')[0]);
+      setTodoList([]);
+
+      for (const key of todolistDays) {
+        if (key == selectedDateState.toISOString().split('T')[0]) {
+          setTodoList(todoListItems.todoItem[key]);
+          console.log('In case focus: ', todoListItems.todoItem[key]);
+          console.log('incase Focus');
+          break;
+        }
+      }
+
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
-    }, [selectedDateState, dayUserMemoState]),
+    }, [selectedDateState, dayUserMemoState]), //, dayUserMemoState, todoListItems
   );
   const eventStateCallback = useCallback(() => {
     const currentDate = selectedDateState.format().split('T')[0];
@@ -125,13 +213,13 @@ const DayScreen = ({
         tempArr.push(event);
       }
     }
-    console.log('THis is temp arr ', tempArr);
+    console.log('THis is temp arr Callback', tempArr);
     const sortedArr = tempArr.sort(
       (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
     );
     console.log(sortedArr);
     setEventCard(sortedArr);
-  }, [eventsState.events, selectedDateState]);
+  }, [eventsState, selectedDateState]);
   const dayUserMemoStateCallback = useCallback(() => {
     const dairyKeys = Object.keys(dayUserMemoState.dairy);
     for (const key of dairyKeys) {
@@ -232,9 +320,16 @@ const DayScreen = ({
               tempArr.push(event);
             }
           }
-          setEventCard(tempArr);
+          // setEventCard(tempArr);
+          const sortedArr = tempArr.sort(
+            (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
+          );
+          // console.log(sortedArr);
+          setEventCard(sortedArr);
+
           const date = moment(e).tz(timeZone);
           setSelectedDateLocal(date);
+          setSelectedDate(date);
 
           // set dairy.
           const dairyKeys = Object.keys(dayUserMemoState.dairy);
@@ -257,7 +352,6 @@ const DayScreen = ({
           for (const key of todolistDays) {
             if (key == currentDate) {
               setTodoList(todoListItems.todoItem[key]);
-              console.log('incase');
               break;
             }
           }
@@ -387,63 +481,68 @@ const DayScreen = ({
         />
         <TouchableOpacity>
           <Box style={{minHeight: 50}}>
-            {/* {todoList.map((todo, i) => {
-              return (
-                <Checkbox
-                  onChange={isSeletced => {
-                    console.log('Before: ', todoList);
-                    todoList[i].ischecked = isSeletced;
-                    todoList[i].todoTitle = 'test';
-                    setTodoList([]);
-
-                    console.log('After: ', todoList);
-                    setTodoList(todoList);
-                    // todoObj[i].ischecked = isSeletced;
-                    // console.log(todoObj);
-                    // setTodoList(todoObj);
-                  }}
-                  colorScheme="info"
-                  value="2"
-                  defaultIsChecked={todo.ischecked}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      textDecorationLine: todo.ischecked
-                        ? 'line-through'
-                        : 'none',
-                    }}>
-                    {todo.todoTitle}
-                  </Text>
-                </Checkbox>
-              );
-            })} */}
-            <TodoList
-              list={todoList}
-              setList={setTodoList}
-              setTodoListState={setTodoListState}
-              selectedDate={selectedDateLocal}
-            />
-            {/* <Checkbox
-              colorScheme="info"
-              value="2"
-              my={0.5}
-              defaultIsChecked={true}>
-              <Text
-                style={{
-                  color: 'white',
-                  textDecorationLine: true ? 'line-through' : 'none',
-                }}>
-                UX Research
-              </Text>
-            </Checkbox>
-            <Checkbox
-              onChange={() => {}}
-              colorScheme="info"
-              value="3"
-              my={0.5}
-              defaultIsChecked={false}>
-              <Text style={{color: 'white'}}>Software Development</Text>
-            </Checkbox> */}
+            <TodoList />
+            {/* <Center w="100%">
+              <Box maxW="300" w="100%">
+                <Heading mb="2" size="md">
+                  Wednesday
+                </Heading>
+                <VStack space={4}>
+                  <HStack space={2}>
+                    <Input
+                      flex={1}
+                      onChangeText={v => setInputValue(v)}
+                      value={inputValue}
+                      color={'#ffff'}
+                      placeholder="Add Task"
+                    />
+                    <IconButton
+                      borderRadius="sm"
+                      variant="solid"
+                      icon={<EntypoIcon name="plus" size={12} color="#ffff" />}
+                      onPress={() => {
+                        addItem(inputValue);
+                        setInputValue('');
+                      }}
+                    />
+                  </HStack>
+                  <VStack space={2}>
+                    {todoList.map((item, itemI) => (
+                      <HStack
+                        w="100%"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        key={item.todoTitle + itemI.toString()}>
+                        <Checkbox
+                          isChecked={item.ischecked}
+                          onChange={() => handleStatusChange(itemI)}
+                          value={item.todoTitle}>
+                          <Text></Text>
+                        </Checkbox>
+                        <Text
+                          width="100%"
+                          flexShrink={1}
+                          textAlign="left"
+                          mx="2"
+                          strikeThrough={item.ischecked}
+                          style={{color: item.ischecked ? 'gray' : 'white'}}
+                          onPress={() => handleStatusChange(itemI)}>
+                          {item.todoTitle}
+                        </Text>
+                        <IconButton
+                          size="sm"
+                          color={'white'}
+                          icon={
+                            <EntypoIcon name="minus" size={12} color="#fff" />
+                          }
+                          onPress={() => handleDelete(itemI)}
+                        />
+                      </HStack>
+                    ))}
+                  </VStack>
+                </VStack>
+              </Box>
+            </Center> */}
           </Box>
         </TouchableOpacity>
         <VStack>
