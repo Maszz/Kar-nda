@@ -18,7 +18,9 @@ GoogleSignin.configure({
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
-
+if (__DEV__) {
+  require('react-native-performance-flipper-reporter').setupDefaultFlipperReporter();
+}
 PushNotification.configure({
   onNotification: function (notification) {
     console.log('Notification :', notification);
