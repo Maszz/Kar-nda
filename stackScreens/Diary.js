@@ -129,8 +129,12 @@ function Diary({
   return (
     <DissmissKeyboard>
       <ScrollView
-        style={{backgroundColor: '#1F2937', height: '100%', width: '100%'}}
+        style={{backgroundColor: '#1F2937', width: '100%'}}
         showsVerticalScrollIndicator={true}>
+        <KeyboardAvoidingView
+          behavior={
+            Platform.OS === 'ios' ? 'padding' : 'height'
+          }></KeyboardAvoidingView>
         <ZStack>
           <Box>
             <Image
@@ -267,61 +271,59 @@ function Diary({
             </Text>
           </Box>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <TouchableWithoutFeedback>
-              <View>
-                <RichToolbar
-                  editor={richText}
-                  actions={[
-                    actions.keyboard,
-                    actions.setBold,
-                    actions.setItalic,
-                    actions.setUnderline,
-                    actions.insertBulletsList,
-                    actions.insertOrderedList,
-                    actions.insertLink,
-                    actions.setStrikethrough,
-                    actions.checkboxList,
-                    actions.blockquote,
-                  ]}
-                />
-                <RichToolbar
-                  editor={richText}
-                  actions={[
-                    actions.alignLeft,
-                    actions.alignCenter,
-                    actions.alignRight,
-                    actions.alignFull,
-                  ]}
-                />
+          <View>
+            <View>
+              <RichToolbar
+                editor={richText}
+                actions={[
+                  actions.keyboard,
+                  actions.setBold,
+                  actions.setItalic,
+                  actions.setUnderline,
+                  actions.insertBulletsList,
+                  actions.insertOrderedList,
+                  actions.insertLink,
+                  actions.setStrikethrough,
+                  actions.checkboxList,
+                  actions.blockquote,
+                ]}
+              />
+              <RichToolbar
+                editor={richText}
+                actions={[
+                  actions.alignLeft,
+                  actions.alignCenter,
+                  actions.alignRight,
+                  actions.alignFull,
+                ]}
+              />
 
-                <Box borderWidth={2} borderColor="white">
-                  <RichEditor
-                    editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
-                    ref={richText}
-                    onChange={descriptionText => {
-                      // console.log('descriptionText:', descriptionText);
-                      setDairy({
-                        title: dairy.title,
-                        dairyText: descriptionText,
-                        image: dairy.image,
-                        date: dairy.date,
-                      });
-                      // setDairyText(descriptionText);
-                      // console.log(dairyText);
-                      console.log(dairy);
-                    }}
-                    initialContentHTML={dairy.dairyText}
-                    initialHeight={292}
-                  />
-                </Box>
+              <Box borderWidth={2} borderColor="white">
+                <RichEditor
+                  editorStyle={{backgroundColor: '#1F2937', color: 'white'}}
+                  ref={richText}
+                  onChange={descriptionText => {
+                    // console.log('descriptionText:', descriptionText);
+                    setDairy({
+                      title: dairy.title,
+                      dairyText: descriptionText,
+                      image: dairy.image,
+                      date: dairy.date,
+                    });
+                    // setDairyText(descriptionText);
+                    // console.log(dairyText);
+                    console.log(dairy);
+                  }}
+                  initialContentHTML={dairy.dairyText}
+                  initialHeight={292}
+                />
+              </Box>
 
-                <Box width="100%" height={viewHeight} />
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
+              <Box width="100%" height={viewHeight} />
+            </View>
+          </View>
         </Box>
+        <KeyboardAvoidingView />
       </ScrollView>
     </DissmissKeyboard>
   );

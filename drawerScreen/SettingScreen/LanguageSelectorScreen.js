@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    color: 'white',
+    color: '#4AA9FF',
     fontSize: 28,
     fontWeight: '600',
     marginLeft: 10,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: '#000',
+    color: '#fff',
     paddingVertical: 4,
   },
   selectedText: {

@@ -2,13 +2,28 @@ import {createReducer} from '@reduxjs/toolkit';
 import {stringHasContent} from 'react-native-big-calendar';
 import moment from 'moment';
 import * as RNLocalize from 'react-native-localize';
+import PushNotification from 'react-native-push-notification';
 
 const initialState = {events: []};
+
+const scheduleNotifications = (title, message, date) => {
+  PushNotification.localNotificationSchedule({
+    channelId: 'test-channel',
+    title: title,
+    message: message,
+    date: date,
+    allowWhileIdle: true,
+    id: title + '-' + date.toISOString(),
+    repeatType: 'hour',
+  });
+};
 
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('addEvent', (state, action) => {
-      state.events.push(action.payload);
+      const data = action.payload;
+      scheduleNotifications(data.title, data.description, new Date(data.start));
+      state.events.push(data);
       // state.events = []
       // console.log(state);
     })
@@ -33,6 +48,9 @@ const reducer = createReducer(initialState, builder => {
       if (found) {
         const index = state.events.indexOf(found);
         console.log(index);
+        const temp = state.events[index];
+        PushNotification.cancelLocalNotification(temp.title + '-' + temp.start);
+
         state.events.splice(index, 1);
       }
       console.log('Original:', state.events);

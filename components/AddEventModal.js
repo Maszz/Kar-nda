@@ -14,19 +14,22 @@ import {
   Input,
 } from 'native-base';
 import {actionCreators} from '../state/';
-import {useSelector, connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
+import {useDispatch, useSelector} from 'react-redux';
 import {Styles} from '../styles';
-const AddEventModal = ({
-  showModal,
-  closeModal,
-  setShowModal,
-  selectedDateState,
-  todoListItems,
-  setTodoListState,
-}) => {
+const AddEventModal = ({showModal, closeModal, setShowModal}) => {
   const [list, setList] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
-
+  const selectedDateState = useSelector(
+    state => state.selectedDate.selectedDateState,
+  );
+  const todoListItems = useSelector(state => state.todoList);
+  const dispatch = useDispatch();
+  const {setTodoList} = bindActionCreators(
+    actionCreators.todoListActionCreator,
+    dispatch,
+  );
   const addItem = todoTitle => {
     const temp = [
       ...list,
@@ -39,7 +42,7 @@ const AddEventModal = ({
     //   date: selectedDateState.format().split('T')[0],
     //   todoItem: temp,
     // });
-    setTodoListState({
+    setTodoList({
       date: selectedDateState.format().split('T')[0],
       todoItem: temp,
     });
@@ -111,14 +114,5 @@ const AddEventModal = ({
     </Center>
   );
 };
-const mapStateToProps = function (state) {
-  return {
-    selectedDateState: state.selectedDate.selectedDateState,
 
-    todoListItems: state.todoList,
-  };
-};
-const mapDispatchToProps = {
-  setTodoListState: actionCreators.todoListActionCreator.setTodoList,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(AddEventModal);
+export default AddEventModal;

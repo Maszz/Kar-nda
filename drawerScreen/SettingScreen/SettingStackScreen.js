@@ -1,6 +1,15 @@
 import React, {useEffect} from 'react';
 
-import {View, Button} from 'native-base';
+import {
+  View,
+  Button,
+  Box,
+  HStack,
+  VStack,
+  Text,
+  Spacer,
+  Switch,
+} from 'native-base';
 import {TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import ListComp from '../../components/listComponent';
 import {ListBox, Line, ListItem} from '../../components/customList';
@@ -12,6 +21,18 @@ import {useTranslation} from 'react-i18next';
 const SettingStackScreen = props => {
   const {t} = useTranslation();
 
+  const screenItem = [
+    {
+      listName: 'Languages Setting',
+      icon: <Icon name="language-sharp" size={30} color="#ecfeff" />,
+      place: 'Language',
+    },
+    {
+      listName: 'Notification',
+      icon: <Icon name="language-sharp" size={30} color="#ecfeff" />,
+      place: 'Language',
+    },
+  ];
   const createChannels = () => {
     PushNotification.createChannel({
       channelId: 'test-channel',
@@ -44,12 +65,88 @@ const SettingStackScreen = props => {
     <View
       space={4}
       style={{
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
         backgroundColor: '#1F2937',
       }}>
+      <Box style={{marginTop: 30}}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Language')}>
+          <Box
+            style={{marginTop: 3, marginBottom: 3}}
+            w={
+              Dimensions.get('window').width -
+              (10 / 100) * Dimensions.get('window').width
+            }
+            py={2}
+            px={3}
+            bgColor={'rgba(147, 147, 147, 0.3)'}
+            rounded="lg">
+            <HStack space={4} justifyContent="space-between">
+              <Icon name="language-sharp" size={30} color="#ecfeff" />
+              <VStack justifyContent="center">
+                <Text color="#e5e5e5" bold>
+                  Languages
+                </Text>
+              </VStack>
+              <Spacer />
+              <Icon name="chevron-forward-outline" size={30} color="#525252" />
+            </HStack>
+          </Box>
+        </TouchableOpacity>
+        <Box
+          style={{marginTop: 10, marginBottom: 3}}
+          w={
+            Dimensions.get('window').width -
+            (10 / 100) * Dimensions.get('window').width
+          }
+          py={2}
+          px={3}
+          bgColor={'rgba(147, 147, 147, 0.3)'}
+          rounded="lg">
+          <HStack space={4} justifyContent="space-between">
+            <Icon name="notifications" size={30} color="#ecfeff" />
+            <VStack justifyContent="center">
+              <Text
+                _dark={{
+                  color: 'warmGray.50',
+                }}
+                color="#e5e5e5"
+                bold>
+                Notifications
+              </Text>
+            </VStack>
+            <Spacer />
+            <Switch
+              onValueChange={e => {
+                console.log(e);
+              }}
+              size="sm"
+            />
+          </HStack>
+        </Box>
+      </Box>
       <Button
+        onPress={() => {
+          PushNotification.getScheduledLocalNotifications(e => {
+            console.log(e);
+          });
+        }}>
+        arr
+      </Button>
+      <Button
+        onPress={() => {
+          // PushNotification.localNotificationSchedule({
+          //   channelId: 'test-channel',
+          //   title: 'Clicked',
+          //   message: 'payload',
+          //   date: new Date(Date.now() + 5 * 1000),
+          //   allowWhileIdle: true,
+          // });
+        }}>
+        arr
+      </Button>
+      {/* <Button
         style={{marginTop: 20}}
         onPress={() => {
           props.navigation.navigate('Language');
@@ -62,7 +159,12 @@ const SettingStackScreen = props => {
           handleNotification();
         }}>
         Notification
-      </Button>
+      </Button> */}
+      {/* <ListBox
+        icon={<Icon name="language-sharp" size={30} color="#ecfeff" />}
+        onPress={props.navigation}
+        items={screenItem}
+      /> */}
     </View>
   );
 };
