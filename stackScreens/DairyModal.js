@@ -82,7 +82,12 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
         break;
       }
     }
-    if (new Date(currentDate).getTime() > new Date().getTime()) {
+    const refDate = moment(new Date())
+      .tz(RNLocalize.getTimeZone())
+      .format()
+      .split('T')[0];
+    console.log(new Date(currentDate).getTime(), new Date(refDate).getTime());
+    if (new Date(currentDate).getTime() > new Date(refDate).getTime()) {
       setShouldHideEditButton(true);
       console.log('should hide');
     }
