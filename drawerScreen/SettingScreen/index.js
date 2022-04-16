@@ -18,7 +18,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingScreen = props => {
   const {t} = useTranslation();
-  const navigate = () => props.navigation.goBack();
+  const navigate = () => {
+    props.navigation.goBack();
+  };
 
   return (
     <Stack.Navigator>
