@@ -404,14 +404,14 @@ const DayScreen = ({
                       Styles.globalStyles.textStyles.textPrimaryStyle,
                       {fontWeight: 'bold', fontSize: 18},
                     ]}>
-                    To day no Event for You
+                    {t('common:eventcardTitlePlaceHolder')}
                   </Text>
                   <Text
                     style={[
                       Styles.globalStyles.textStyles.textPrimaryStyle,
                       {fontSize: 13},
                     ]}>
-                    use This for relex your self
+                    {t('common:eventcardDescriptionPlaceHolder')}
                   </Text>
                 </VStack>
               </Box>
@@ -469,7 +469,7 @@ const DayScreen = ({
             Styles.globalStyles.textStyles.textPrimaryStyle,
             {marginTop: 10, marginBottom: 5},
           ]}>
-          List To do
+          {t('common:todoList')}
         </Text>
         <Box
           style={[
@@ -581,7 +581,7 @@ const DayScreen = ({
               <VStack>
                 <Text style={Styles.globalStyles.textStyles.textPrimaryStyle}>
                   {selectedDairy.title == ''
-                    ? `To day you don't wrote dairy yet.`
+                    ? t('common:dairyTitlePlaceholder')
                     : `${selectedDairy.title}`}
                 </Text>
                 <Text style={Styles.globalStyles.textStyles.textPrimaryStyle}>

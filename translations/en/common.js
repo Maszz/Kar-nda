@@ -24,4 +24,9 @@ export default {
   addActivity: 'Add Activity',
   descriptionPlaceholder: 'Describe your event.',
   dailyTitle: 'title the days',
+  notifications: 'Notifications',
+  eventcardTitlePlaceHolder: 'To day no Event for You.',
+  eventcardDescriptionPlaceHolder: 'use This for relex your self.',
+  dairyTitlePlaceholder: `To day you don't wrote dairy yet.`,
+  todoList: 'Todo List.',
 };

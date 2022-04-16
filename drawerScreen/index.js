@@ -125,7 +125,7 @@ const DrawerScreenComponent = ({navigationState}) => {
         component={AllEventScreen}
         options={{ title: `${t('common:allEvent')}` }}
       /> */}
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="Setting Test"
           component={DebugScreen}
           options={{
@@ -133,7 +133,7 @@ const DrawerScreenComponent = ({navigationState}) => {
             title: 'Debug',
             drawerLabelStyle: {color: 'white'},
           }}
-        />
+        /> */}
         <Drawer.Screen
           name="Setting"
           component={SettingScreen}

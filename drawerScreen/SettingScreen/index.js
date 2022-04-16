@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingScreen = props => {
   const {t} = useTranslation();
-  const test = () => props.navigation.navigate('Calendar');
+  const navigate = () => props.navigation.goBack();
 
   return (
     <Stack.Navigator>
@@ -33,7 +33,7 @@ const SettingScreen = props => {
           headerTintColor: '#ffff',
           headerLeft: () => {
             return (
-              <Button variant="unstyled" onPress={() => test()}>
+              <Button variant="unstyled" onPress={() => navigate()}>
                 <Icon name="menu" size={20} color="rgb(82,78,183)" />
               </Button>
             );

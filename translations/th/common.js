@@ -24,4 +24,9 @@ export default {
   addActivity: 'เพิ่มกิจกรรม',
   descriptionPlaceholder: 'เพิ่มรายละเอียดกิจกรรมตรงนี้',
   dailyTitle: 'ชื่อเรื่อง',
+  notifications: 'การเเจ้งเตือน',
+  eventcardTitlePlaceHolder: 'วันนี้คุณไม่มีกิจกรรมที่ต้องทำ',
+  eventcardDescriptionPlaceHolder: 'ใช้เวลานี้ในการพักผ่อนสิ',
+  dairyTitlePlaceholder: 'วันนี้คุณยังไม่ได้เขียนไดอรี่',
+  todoList: 'สิ่งที่ต้องทำ',
 };

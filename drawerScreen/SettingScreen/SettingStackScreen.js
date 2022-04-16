@@ -86,7 +86,7 @@ const SettingStackScreen = props => {
               <Icon name="language-sharp" size={30} color="#ecfeff" />
               <VStack justifyContent="center">
                 <Text color="#e5e5e5" bold>
-                  Languages
+                  {t('common:languageSetting')}
                 </Text>
               </VStack>
               <Spacer />
@@ -113,7 +113,7 @@ const SettingStackScreen = props => {
                 }}
                 color="#e5e5e5"
                 bold>
-                Notifications
+                {t('common:notifications')}
               </Text>
             </VStack>
             <Spacer />
@@ -126,7 +126,7 @@ const SettingStackScreen = props => {
           </HStack>
         </Box>
       </Box>
-      <Button
+      {/* <Button
         onPress={() => {
           PushNotification.getScheduledLocalNotifications(e => {
             console.log(e);
@@ -145,7 +145,7 @@ const SettingStackScreen = props => {
           // });
         }}>
         arr
-      </Button>
+      </Button> */}
       {/* <Button
         style={{marginTop: 20}}
         onPress={() => {
