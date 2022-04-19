@@ -11,6 +11,8 @@ import LogRocket from '@logrocket/react-native';
  */
 
 const middlewares = [thunk, LogRocket.reduxMiddleware()];
+
+// debug section remove in productions.
 if (__DEV__) {
   const createDebugger = require('redux-flipper').default;
   const reselectDebugger = require('reselect-debugger-flipper');

@@ -31,6 +31,8 @@ import {useReduxDevToolsExtension} from '@react-navigation/devtools';
 const App = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef();
+
+  // debug section remove it on production.
   useFlipper(navigationRef);
   useReduxDevToolsExtension(navigationRef);
 
