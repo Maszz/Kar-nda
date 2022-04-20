@@ -17,7 +17,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {settingScreenItem} from '../../Constant/index';
 import PushNotification from 'react-native-push-notification';
 import {useTranslation} from 'react-i18next';
-
+import {useSelector, connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../../state/index';
 const SettingStackScreen = props => {
   const {t} = useTranslation();
 
@@ -168,4 +171,13 @@ const SettingStackScreen = props => {
     </View>
   );
 };
+
+// const mapStateToProps = function (state) {
+//   return {
+//     notification: state.notifications.notification,
+//   };
+// };
+// const mapDispatchToProps = {
+//   setNotification: actionCreators.notificationsActionCreator.setNotification,
+// };
 export default SettingStackScreen;

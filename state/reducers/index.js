@@ -10,6 +10,7 @@ import StackNavigationReducer from './stackNavigationReducer';
 import dayUserMemoReducer from './dayUserMemoReducer';
 import selectedDateReducer from './selectedDateReducer';
 import todoListReducer from './todoListReducer';
+import notificationsReducer from './notificationsReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
@@ -30,6 +31,11 @@ const persistConfigTodoList = {
   storage: AsyncStorage,
   whilelist: ['todoItem'],
 };
+const persistConfigNotifications = {
+  key: 'notifications',
+  storage: AsyncStorage,
+  whilelist: ['notification'],
+};
 
 /**
  * Combine Reducers to one instance.
@@ -46,6 +52,10 @@ const reducers = combineReducers({
   monthCalendar: monthCalendarReducer,
   selectedDate: selectedDateReducer,
   todoList: persistReducer(persistConfigTodoList, todoListReducer),
+  notifications: persistReducer(
+    persistConfigNotifications,
+    notificationsReducer,
+  ),
 });
 
 export default reducers;
