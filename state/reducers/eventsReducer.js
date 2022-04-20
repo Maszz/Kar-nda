@@ -22,8 +22,18 @@ const reducer = createReducer(initialState, builder => {
   builder
     .addCase('addEvent', (state, action) => {
       const data = action.payload;
-      scheduleNotifications(data.title, data.description, new Date(data.start));
-      state.events.push(data);
+      console.log(data);
+      const event = data.event;
+      const isNotifiaction = data.isNotification;
+      console.log('isNotifiaction instate :', isNotifiaction);
+      if (isNotifiaction) {
+        scheduleNotifications(
+          event.title,
+          event.description,
+          new Date(event.start),
+        );
+      }
+      state.events.push(event);
       // state.events = []
       // console.log(state);
     })

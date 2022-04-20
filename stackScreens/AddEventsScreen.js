@@ -37,7 +37,7 @@ const DissmissKeyboard = ({children}) => {
   );
 };
 
-const AddEventScreen = ({navigation, addEvent, events}) => {
+const AddEventScreen = ({navigation, addEvent, events, notification}) => {
   // const events = useSelector(state => state.events);
   // const dispatch = useDispatch();
 
@@ -72,7 +72,8 @@ const AddEventScreen = ({navigation, addEvent, events}) => {
       end: formattedend,
       location: formData.location,
     };
-    addEvent(state);
+    console.log('Notification :', notification);
+    addEvent(state, notification);
   };
 
   return (
@@ -304,6 +305,7 @@ const mapStateToProps = function (state) {
   return {
     events: state.events,
     navigationState: state.StackNavigation,
+    notification: state.notifications.notification,
   };
 };
 const mapDispatchToProps = {

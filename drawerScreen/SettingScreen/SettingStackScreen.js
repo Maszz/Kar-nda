@@ -135,8 +135,8 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
             </VStack>
             <Spacer />
             <Switch
+              value={notification}
               onValueChange={e => {
-                console.log(e);
                 setNotification(e);
               }}
               size="sm"
