@@ -24,6 +24,8 @@ import {actionCreators} from '../../state/index';
 const SettingStackScreen = props => {
   const {t} = useTranslation();
   const notification = useSelector(state => state.notifications.notification);
+  const eventsState = useSelector(state => state.events.events);
+
   const dispatch = useDispatch();
   const {setNotification} = bindActionCreators(
     actionCreators.notificationsActionCreator,
@@ -48,11 +50,17 @@ const SettingStackScreen = props => {
     });
   };
   const notificationsCallbacks = useCallback(() => {
+    console.log(eventsState);
     if (notification) {
       console.log('True');
       PushNotification.getScheduledLocalNotifications(v => {
         console.log(v);
       });
+      for (const event of eventsState) {
+        if (new Date(event.start).getTime() > Date.now()) {
+          console.log('incase');
+        }
+      }
     } else {
       console.log('False');
       PushNotification.cancelAllLocalNotifications();
