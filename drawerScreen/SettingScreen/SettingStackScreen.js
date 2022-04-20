@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect} from 'react';
 
 import {
   View,
@@ -21,20 +21,14 @@ import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
-const SettingStackScreen = ({notification, navigation}) => {
+const SettingStackScreen = props => {
   const {t} = useTranslation();
-
+  const notification = useSelector(state => state.notifications.notification);
   const dispatch = useDispatch();
   const {setNotification} = bindActionCreators(
     actionCreators.notificationsActionCreator,
     dispatch,
   );
-  const createChannels = () => {
-    PushNotification.createChannel({
-      channelId: 'test-channel',
-      channelchannelName: 'test Channel',
-    });
-  };
   const handleNotification = () => {
     PushNotification.localNotification({
       channelId: 'test-channel',
@@ -80,7 +74,7 @@ const SettingStackScreen = ({notification, navigation}) => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Language')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Language')}>
           <Box
             style={{marginTop: 3, marginBottom: 3}}
             w={
@@ -128,7 +122,7 @@ const SettingStackScreen = ({notification, navigation}) => {
             <Spacer />
             <Switch
               onValueChange={e => {
-                // console.log(e);
+                console.log(e);
                 setNotification(e);
               }}
               size="sm"
@@ -136,57 +130,7 @@ const SettingStackScreen = ({notification, navigation}) => {
           </HStack>
         </Box>
       </Box>
-      {/* <Button
-        onPress={() => {
-          PushNotification.getScheduledLocalNotifications(e => {
-            console.log(e);
-          });
-        }}>
-        arr
-      </Button>
-      <Button
-        onPress={() => {
-          // PushNotification.localNotificationSchedule({
-          //   channelId: 'test-channel',
-          //   title: 'Clicked',
-          //   message: 'payload',
-          //   date: new Date(Date.now() + 5 * 1000),
-          //   allowWhileIdle: true,
-          // });
-        }}>
-        arr
-      </Button> */}
-      {/* <Button
-        style={{marginTop: 20}}
-        onPress={() => {
-          props.navigation.navigate('Language');
-        }}>
-        {t('common:languageSetting')}
-      </Button>
-      <Button
-        style={{marginTop: 20}}
-        onPress={() => {
-          handleNotification();
-        }}>
-        Notification
-      </Button> */}
-      {/* <ListBox
-        icon={<Icon name="language-sharp" size={30} color="#ecfeff" />}
-        onPress={props.navigation}
-        items={screenItem}
-      /> */}
     </View>
   );
 };
-
-const mapStateToProps = function (state) {
-  return {
-    notification: state.notifications.notification,
-  };
-};
-// const mapDispatchToProps = {
-//   setNotificationState:
-//     actionCreators.notificationsActionCreator.setNotification,
-// };
-
-export default connect(mapStateToProps)(SettingStackScreen);
+export default SettingStackScreen;
