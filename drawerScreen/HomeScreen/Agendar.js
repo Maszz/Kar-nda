@@ -14,6 +14,7 @@ import {actionCreators} from '../../state';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../../styles';
+import PushNotification from 'react-native-push-notification';
 
 const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});

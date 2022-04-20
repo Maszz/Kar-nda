@@ -21,10 +21,10 @@ import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
-const SettingStackScreen = props => {
+const SettingStackScreen = ({notification, eventsState, navigation}) => {
   const {t} = useTranslation();
-  const notification = useSelector(state => state.notifications.notification);
-  const eventsState = useSelector(state => state.events.events);
+  // const notification = useSelector(state => state.notifications.notification);
+  // const eventsState = useSelector(state => state.events.events);
 
   const dispatch = useDispatch();
   const {setNotification} = bindActionCreators(
@@ -40,25 +40,31 @@ const SettingStackScreen = props => {
     });
   };
 
-  const scheduleNotifications = () => {
+  const scheduleNotifications = (title, message, date) => {
     PushNotification.localNotificationSchedule({
       channelId: 'test-channel',
-      title: 'Clicked',
-      message: 'payload',
-      date: new Date(Date.now() + 20 * 1000),
+      title: title,
+      message: message,
+      date: date,
       allowWhileIdle: true,
+      id: title + '-' + date.toISOString(),
+      repeatType: 'hour',
     });
   };
   const notificationsCallbacks = useCallback(() => {
     console.log(eventsState);
     if (notification) {
       console.log('True');
-      PushNotification.getScheduledLocalNotifications(v => {
-        console.log(v);
-      });
+      // PushNotification.getScheduledLocalNotifications(v => {
+      //   console.log(v);
+      // });
       for (const event of eventsState) {
         if (new Date(event.start).getTime() > Date.now()) {
-          console.log('incase');
+          scheduleNotifications(
+            event.title,
+            event.description,
+            new Date(event.start),
+          );
         }
       }
     } else {
@@ -82,7 +88,7 @@ const SettingStackScreen = props => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Language')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Language')}>
           <Box
             style={{marginTop: 3, marginBottom: 3}}
             w={
@@ -141,4 +147,10 @@ const SettingStackScreen = props => {
     </View>
   );
 };
-export default SettingStackScreen;
+const mapStateToProps = function (state) {
+  return {
+    eventsState: state.events.events,
+    notification: state.notifications.notification,
+  };
+};
+export default connect(mapStateToProps)(SettingStackScreen);
