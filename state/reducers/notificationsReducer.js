@@ -1,10 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-const initialState = {notification: True};
+const initialState = {notification: true};
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('setNotification', (state, action) => {
-      state = action.payload;
+      state.notification = action.payload;
     })
 
     .addDefaultCase((state, action) => {
