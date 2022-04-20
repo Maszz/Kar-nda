@@ -28,5 +28,5 @@ export default {
   eventcardTitlePlaceHolder: 'To day no Event for You.',
   eventcardDescriptionPlaceHolder: 'use This for relex your self.',
   dairyTitlePlaceholder: `To day you don't wrote dairy yet.`,
-  todoList: 'Todo List.',
+  todoList: 'Todo List',
 };

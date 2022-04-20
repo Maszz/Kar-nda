@@ -98,8 +98,7 @@ const Todolist = ({
       todoItem: newList2,
     });
   };
-
-  useEffect(() => {
+  const todoListItemsStateCallback = useCallback(() => {
     const currentDate = selectedDateState.format().split('T')[0];
 
     const todolistDays = Object.keys(todoListItems.todoItem);
@@ -114,6 +113,9 @@ const Todolist = ({
       }
     }
   }, [selectedDateState, todoListItems]);
+  useEffect(() => {
+    todoListItemsStateCallback();
+  }, [todoListItemsStateCallback]);
 
   return (
     <Center w="100%">
