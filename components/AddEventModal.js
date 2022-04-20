@@ -78,8 +78,8 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
             <Text style={{color: '#fff', alignSelf: 'center'}}>
               Add Todo list
             </Text>
-            <FormControl>
-              <FormControl.Label>Todo Task</FormControl.Label>
+            <FormControl style={{marginTop: 10}}>
+              {/* <FormControl.Label>Todo Task</FormControl.Label> */}
               <Input
                 flex={1}
                 onChangeText={v => setInputValue(v)}
