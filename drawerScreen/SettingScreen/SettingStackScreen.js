@@ -21,21 +21,14 @@ import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
-const SettingStackScreen = props => {
+const SettingStackScreen = ({notification, navigation}) => {
   const {t} = useTranslation();
 
-  const screenItem = [
-    {
-      listName: 'Languages Setting',
-      icon: <Icon name="language-sharp" size={30} color="#ecfeff" />,
-      place: 'Language',
-    },
-    {
-      listName: 'Notification',
-      icon: <Icon name="language-sharp" size={30} color="#ecfeff" />,
-      place: 'Language',
-    },
-  ];
+  const dispatch = useDispatch();
+  const {setNotification} = bindActionCreators(
+    actionCreators.notificationsActionCreator,
+    dispatch,
+  );
   const createChannels = () => {
     PushNotification.createChannel({
       channelId: 'test-channel',
@@ -74,7 +67,7 @@ const SettingStackScreen = props => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Language')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Language')}>
           <Box
             style={{marginTop: 3, marginBottom: 3}}
             w={
@@ -122,7 +115,8 @@ const SettingStackScreen = props => {
             <Spacer />
             <Switch
               onValueChange={e => {
-                console.log(e);
+                // console.log(e);
+                setNotification(e);
               }}
               size="sm"
             />
@@ -172,12 +166,14 @@ const SettingStackScreen = props => {
   );
 };
 
-// const mapStateToProps = function (state) {
-//   return {
-//     notification: state.notifications.notification,
-//   };
-// };
+const mapStateToProps = function (state) {
+  return {
+    notification: state.notifications.notification,
+  };
+};
 // const mapDispatchToProps = {
-//   setNotification: actionCreators.notificationsActionCreator.setNotification,
+//   setNotificationState:
+//     actionCreators.notificationsActionCreator.setNotification,
 // };
-export default SettingStackScreen;
+
+export default connect(mapStateToProps)(SettingStackScreen);
