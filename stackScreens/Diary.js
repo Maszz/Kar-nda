@@ -237,30 +237,34 @@ function Diary({
             // justifyContent: 'center',
             alignItems: 'center',
             // height: '100%',
-            alignSelf: 'center',
+            justifyContent: 'center',
             // position: 'absolute',
             width: '100%',
             marginTop: '70%',
           }}>
-          <Input
-            caretHidden={false}
-            selectionColor="white"
-            color="white"
-            variant="unstyled"
-            placeholder={t('common:dailyTitle')}
-            value={dairy.title}
-            onChangeText={text => {
-              setDairy({
-                title: text,
-                dairyText: dairy.dairyText,
-                image: dairy.image,
-                date: dairy.date,
-              });
-              // setTitle(text);
-              console.log(dairy);
-            }}
-            size="2xl"
-          />
+          <Box style={{alignItems: 'center'}}>
+            <Input
+              caretHidden={false}
+              selectionColor="white"
+              textAlign={'center'}
+              width="70%"
+              color="white"
+              variant="unstyled"
+              placeholder={t('common:dailyTitle')}
+              value={dairy.title}
+              onChangeText={text => {
+                setDairy({
+                  title: text,
+                  dairyText: dairy.dairyText,
+                  image: dairy.image,
+                  date: dairy.date,
+                });
+                // setTitle(text);
+                console.log(dairy);
+              }}
+              size="2xl"
+            />
+          </Box>
 
           <Divider width="60%" />
           <Box style={{marginBottom: 10, marginTop: 10}}>

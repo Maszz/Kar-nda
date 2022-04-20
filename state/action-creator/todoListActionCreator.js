@@ -6,3 +6,12 @@ export const setTodoList = value => {
     });
   };
 };
+
+export const setTodoLength = value => {
+  return dispatch => {
+    dispatch({
+      type: 'setTodoLength',
+      payload: value,
+    });
+  };
+};

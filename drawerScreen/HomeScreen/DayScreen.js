@@ -27,6 +27,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Badge,
 } from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, connect} from 'react-redux';
@@ -231,69 +232,10 @@ const DayScreen = ({
     }
   }, [dayUserMemoState, selectedDateState]);
 
-  const todoListStateCallback = useCallback(() => {
-    const currentDate = selectedDateLocal.format().split('T')[0];
-
-    const todolistDays = Object.keys(todoListItems.todoItem);
-    console.log(todolistDays);
-    setTodoList([]);
-
-    for (const key of todolistDays) {
-      if (key == currentDate) {
-        setTodoList(todoListItems.todoItem[key]);
-        console.log('incase');
-        break;
-      }
-    }
-  }, [todoListItems, selectedDateState]);
-
   useEffect(() => {
-    const currentDate = selectedDateState.format().split('T')[0];
-    const tempArr = [];
-
-    // for (const event of eventsState.events) {
-    //   if (
-    //     currentDate ==
-    //     moment(new Date(event.start)).tz(timeZone).format().split('T')[0]
-    //   ) {
-    //     tempArr.push(event);
-    //   }
-    // }
-    // console.log('THis is temp arr ', tempArr);
-    // const sortedArr = tempArr.sort(
-    //   (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
-    // );
-    // console.log(sortedArr);
-    // setEventCard(sortedArr);
     eventStateCallback();
-
-    // const dairyKeys = Object.keys(dayUserMemoState.dairy);
-    // for (const key of dairyKeys) {
-    //   if (key == selectedDateState.toISOString().split('T')[0]) {
-    //     setSelectedDairy(dayUserMemoState.dairy[key]);
-    //     break;
-    //   }
-    //   setSelectedDairy({title: '', dairyText: '', date: ''});
-    // }
     dayUserMemoStateCallback();
-
-    // const todolistDays = Object.keys(todoListItems.todoItem);
-    // console.log(todolistDays);
-    // setTodoList([]);
-
-    // for (const key of todolistDays) {
-    //   if (key == currentDate) {
-    //     setTodoList(todoListItems.todoItem[key]);
-    //     console.log('incase');
-    //   }
-    // }
-    todoListStateCallback();
-  }, [
-    eventStateCallback,
-    dayUserMemoStateCallback,
-    selectedDateState,
-    todoListStateCallback,
-  ]);
+  }, [eventStateCallback, dayUserMemoStateCallback, selectedDateState]);
 
   return (
     <View style={Styles.dayScreenStyles.ViewStyles.viewContainer}>
@@ -370,13 +312,27 @@ const DayScreen = ({
       />
 
       <VStack style={{padding: 25}}>
-        <Text
-          style={[
-            Styles.globalStyles.textStyles.textPrimaryStyle,
-            {marginBottom: 5},
-          ]}>
-          {t('common:events')}
-        </Text>
+        <HStack style={{alignItems: 'center', marginBottom: 5}}>
+          <Text
+            style={[
+              Styles.globalStyles.textStyles.textPrimaryStyle,
+              {marginBottom: 2},
+            ]}>
+            {t('common:events')}
+          </Text>
+          <TouchableOpacity
+            style={{
+              marginLeft: 10,
+              borderRadius: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 23,
+              height: 23,
+              backgroundColor: Styles.globalStyles.cardColor,
+            }}>
+            <Text style={{color: '#fff'}}>{eventCard.length}</Text>
+          </TouchableOpacity>
+        </HStack>
         <Box
           style={Styles.globalStyles.viewStyle.bgColorWhite}
           width={Dimensions.get('window').width - 50}
@@ -464,13 +420,28 @@ const DayScreen = ({
             );
           })}
         </ScrollView>
-        <Text
-          style={[
-            Styles.globalStyles.textStyles.textPrimaryStyle,
-            {marginTop: 10, marginBottom: 5},
-          ]}>
-          {t('common:todoList')}
-        </Text>
+
+        <HStack style={{alignItems: 'center', marginBottom: 5, marginTop: 10}}>
+          <Text
+            style={[
+              Styles.globalStyles.textStyles.textPrimaryStyle,
+              {marginBottom: 2},
+            ]}>
+            {t('common:todoList')}
+          </Text>
+          <TouchableOpacity
+            style={{
+              marginLeft: 10,
+              borderRadius: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 23,
+              height: 23,
+              backgroundColor: Styles.globalStyles.cardColor,
+            }}>
+            <Text style={{color: '#fff'}}>{todoListItems.todoLength}</Text>
+          </TouchableOpacity>
+        </HStack>
         <Box
           style={[
             Styles.globalStyles.viewStyle.bgColorWhite,
@@ -481,67 +452,6 @@ const DayScreen = ({
         />
         <Box style={{minHeight: 50, marginBottom: 15}}>
           <TodoList />
-          {/* <Center w="100%">
-              <Box maxW="300" w="100%">
-                <Heading mb="2" size="md">
-                  Wednesday
-                </Heading>
-                <VStack space={4}>
-                  <HStack space={2}>
-                    <Input
-                      flex={1}
-                      onChangeText={v => setInputValue(v)}
-                      value={inputValue}
-                      color={'#ffff'}
-                      placeholder="Add Task"
-                    />
-                    <IconButton
-                      borderRadius="sm"
-                      variant="solid"
-                      icon={<EntypoIcon name="plus" size={12} color="#ffff" />}
-                      onPress={() => {
-                        addItem(inputValue);
-                        setInputValue('');
-                      }}
-                    />
-                  </HStack>
-                  <VStack space={2}>
-                    {todoList.map((item, itemI) => (
-                      <HStack
-                        w="100%"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        key={item.todoTitle + itemI.toString()}>
-                        <Checkbox
-                          isChecked={item.ischecked}
-                          onChange={() => handleStatusChange(itemI)}
-                          value={item.todoTitle}>
-                          <Text></Text>
-                        </Checkbox>
-                        <Text
-                          width="100%"
-                          flexShrink={1}
-                          textAlign="left"
-                          mx="2"
-                          strikeThrough={item.ischecked}
-                          style={{color: item.ischecked ? 'gray' : 'white'}}
-                          onPress={() => handleStatusChange(itemI)}>
-                          {item.todoTitle}
-                        </Text>
-                        <IconButton
-                          size="sm"
-                          color={'white'}
-                          icon={
-                            <EntypoIcon name="minus" size={12} color="#fff" />
-                          }
-                          onPress={() => handleDelete(itemI)}
-                        />
-                      </HStack>
-                    ))}
-                  </VStack>
-                </VStack>
-              </Box>
-            </Center> */}
         </Box>
         <VStack>
           <Text
@@ -563,7 +473,7 @@ const DayScreen = ({
             onPress={() => {
               console.log(selectedDateLocal.toISOString().split('T')[0]);
               navigationState.navigation.navigate('DairyModal', {
-                date: selectedDateLocal.toISOString().split('T')[0],
+                date: selectedDateLocal.format().split('T')[0],
               });
             }}>
             <Box
@@ -600,11 +510,6 @@ const DayScreen = ({
   );
 };
 
-// const styles = StyleSheet.create({
-//   bgcolor: {
-//     backgroundColor: '#1F2937',
-//   },
-// });
 const mapStateToProps = function (state) {
   return {
     selectedDateState: state.selectedDate.selectedDateState,

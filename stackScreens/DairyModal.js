@@ -168,8 +168,8 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
           style={{
             // flex: 1,
             // alignItems: 'center',
-            marginTop: '87%',
-            position: 'absolute',
+            marginTop: '70%',
+            // position: 'absolute',
             alignSelf: 'center',
             width: '100%',
             height: (55 / 100) * Dimensions.get('window').height,

@@ -27,6 +27,7 @@ const Todolist = ({
   selectedDate,
   todoListItems,
   selectedDateState,
+  setTodoLength,
 }) => {
   const [list, setList] = React.useState([]);
   const [inputValue, setInputValue] = React.useState('');
@@ -104,13 +105,27 @@ const Todolist = ({
     const todolistDays = Object.keys(todoListItems.todoItem);
     console.log(todolistDays);
     setList([]);
-
+    var memorizedKey = '';
     for (const key of todolistDays) {
       if (key == currentDate) {
         setList(todoListItems.todoItem[key]);
+        memorizedKey = key;
         console.log('incase');
         break;
       }
+    }
+    var todoUncheckedCount = 0;
+    const temp = todoListItems.todoItem[memorizedKey];
+    if (temp) {
+      for (const item of temp) {
+        if (item.ischecked) {
+          todoUncheckedCount++;
+        }
+      }
+      console.log(temp.length - todoUncheckedCount);
+      setTodoLength(temp.length - todoUncheckedCount);
+    } else {
+      setTodoLength(0);
     }
   }, [selectedDateState, todoListItems]);
   useEffect(() => {
@@ -208,6 +223,7 @@ const mapStateToProps = function (state) {
 };
 const mapDispatchToProps = {
   setTodoListState: actionCreators.todoListActionCreator.setTodoList,
+  setTodoLength: actionCreators.todoListActionCreator.setTodoLength,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Todolist);
 // export default Todolist;

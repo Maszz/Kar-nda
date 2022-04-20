@@ -61,7 +61,7 @@ const ActionButtonComponent = ({navigationState}) => {
             navigationState.navigation.navigate('DairyScreen', {
               date: moment(new Date(Date.now()))
                 .tz(RNLocalize.getTimeZone())
-                .toISOString()
+                .format()
                 .split('T')[0],
             });
           }}>
