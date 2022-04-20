@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 
 import {
   View,
@@ -53,10 +53,23 @@ const SettingStackScreen = ({notification, navigation}) => {
       allowWhileIdle: true,
     });
   };
+  const notificationsCallbacks = useCallback(() => {
+    if (notification) {
+      console.log('True');
+      PushNotification.getScheduledLocalNotifications(v => {
+        console.log(v);
+      });
+    } else {
+      console.log('False');
+      PushNotification.cancelAllLocalNotifications();
+    }
+  }, [notification]);
   useEffect(() => {
-    createChannels();
-    console.log('create channel');
-  }, []);
+    // createChannels();
+    // console.log('create channel');
+    notificationsCallbacks();
+  }, [notificationsCallbacks]);
+
   return (
     <View
       space={4}
