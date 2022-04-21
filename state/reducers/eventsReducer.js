@@ -14,7 +14,6 @@ const scheduleNotifications = (title, message, date) => {
     date: date,
     allowWhileIdle: true,
     id: title + '-' + date.toISOString(),
-    repeatType: 'hour',
   });
 };
 

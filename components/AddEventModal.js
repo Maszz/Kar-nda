@@ -88,9 +88,9 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
                 placeholder="Add Task"
               />
             </FormControl>
-          </Modal.Body>
-          <Modal.Footer bgColor={Styles.globalStyles.primaryColor}>
-            <Button.Group space={2}>
+            <Button.Group
+              space={2}
+              style={{alignSelf: 'flex-end', marginTop: 15}}>
               <Button
                 variant="ghost"
                 colorScheme="blueGray"
@@ -108,7 +108,7 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
                 Save
               </Button>
             </Button.Group>
-          </Modal.Footer>
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </Center>

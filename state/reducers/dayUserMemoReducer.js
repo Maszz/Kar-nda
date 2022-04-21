@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import moment from 'moment';
 import * as RNLocalize from 'react-native-localize';
-const initialState = {dairy: {}, todo: []};
+const initialState = {dairy: {}};
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('onSubmitDairyForm', (state, action) => {

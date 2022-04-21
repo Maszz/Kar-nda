@@ -25,7 +25,8 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
   const {t} = useTranslation();
   // const notification = useSelector(state => state.notifications.notification);
   // const eventsState = useSelector(state => state.events.events);
-
+  const [localNotificationState, setLocalNotificationState] =
+    useState(notification);
   const dispatch = useDispatch();
   const {setNotification} = bindActionCreators(
     actionCreators.notificationsActionCreator,
@@ -135,14 +136,23 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
             </VStack>
             <Spacer />
             <Switch
-              value={notification}
+              value={localNotificationState}
               onValueChange={e => {
                 setNotification(e);
+                setLocalNotificationState(e);
               }}
               size="sm"
             />
           </HStack>
         </Box>
+        <Button
+          onPress={e => {
+            PushNotification.getScheduledLocalNotifications(e => {
+              console.log(e);
+            });
+          }}>
+          asdsda
+        </Button>
       </Box>
     </View>
   );

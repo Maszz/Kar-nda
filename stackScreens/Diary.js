@@ -29,6 +29,7 @@ import {
   KeyboardAvoidingView,
   Image,
   ScrollView,
+  InputAccessoryView,
 } from 'react-native';
 // import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
@@ -292,6 +293,7 @@ function Diary({
                   actions.blockquote,
                 ]}
               />
+
               <RichToolbar
                 editor={richText}
                 actions={[
