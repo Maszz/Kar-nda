@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, useEffect, useCallback} from 'react';
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   Agenda,
@@ -100,14 +100,10 @@ const AgendaComponents = ({eventsState, navigationState}) => {
     const date = moment(time);
     return date.tz(RNLocalize.getTimeZone()).format().split('T')[0];
   };
-
-  useEffect(() => {
+  const eventsCallback = useCallback(() => {
     const tempObj = {};
     const timeZone = RNLocalize.getTimeZone();
-    const localeTime = moment(new Date(Date.now()).toISOString())
-      .tz(timeZone)
-      .format()
-      .split('T')[0];
+    const localeTime = selectedDate;
     tempObj[localeTime] = [];
     for (const item of eventsState.events) {
       const day = moment(item.start).tz(timeZone).format().split('T')[0];
@@ -121,8 +117,10 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         start: moment(new Date(item.start)).tz(timeZone),
         end: moment(new Date(item.end)).tz(timeZone),
       };
-      // tempObj[day] = [tempdata];
-      tempObj[day].push(tempdata);
+      if (day == localeTime) {
+        // tempObj[day] = [tempdata];
+        tempObj[day].push(tempdata);
+      }
     }
     Object.keys(tempObj).forEach(key => {
       tempObj[key] = tempObj[key].sort(
@@ -134,7 +132,10 @@ const AgendaComponents = ({eventsState, navigationState}) => {
     });
     setItemCard(tempObj);
     console.log(tempObj);
-  }, [eventsState]);
+  }, [eventsState, selectedDate]);
+  useEffect(() => {
+    eventsCallback();
+  }, [eventsCallback, selectedDate]);
 
   return (
     <View style={[Styles.globalStyles.viewStyle.bgColorWhite, {flex: 1}]}>
@@ -148,7 +149,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         pastScrollRange={12}
         futureScrollRange={12}
         items={itemsCard}
-        loadItemsForMonth={loadItems}
+        // loadItemsForMonth={loadItems}
         selected={selectedDate}
         renderItem={renderItem}
         renderEmptyDate={renderEmptyDate}

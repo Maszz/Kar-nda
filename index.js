@@ -20,6 +20,7 @@ LogBox.ignoreLogs([
   'Sending `LogRocketSDKOnError` with no listeners registered.',
   'LogRocket initialization failed! Check device logs for further details.',
   'Sending `onAnimatedValueUpdate` with no listeners registered.',
+  'LogRocket: Redux state is large (> 1MB), consider using stateSanitizer to prevent data loss: https://docs.logrocket.com/reference#redux-logging',
 ]);
 if (__DEV__) {
   require('react-native-performance-flipper-reporter').setupDefaultFlipperReporter();

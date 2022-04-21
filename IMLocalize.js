@@ -3,6 +3,8 @@ import {initReactI18next} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNLocalize from 'react-native-localize';
 import {LocaleConfig} from 'react-native-calendars';
+import {reactI18nextModule} from 'react-i18next';
+
 import moment from 'moment';
 
 import en from './translations/en';
@@ -64,7 +66,7 @@ i18n
 
     resources: LANGUAGES,
     react: {
-      useSuspense: false,
+      useSuspense: true,
     },
     interpolation: {
       escapeValue: false,

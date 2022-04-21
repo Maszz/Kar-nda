@@ -102,23 +102,26 @@ const WeekSummaryScreen = ({eventsState}) => {
         </Text>
         <Divider />
         <Box style={{padding: 10}}>
-          {inRangeEvents.map((event, j) => {
+          {inRangeEvents.map((event, i) => {
             if (
               moment(event.start).tz(timeZone).format().split('T')[0] ==
               weekDate[0].format().split('T')[0]
             ) {
-              return <Text style={{color: 'white'}}>{event.title}</Text>;
+              return (
+                <Text key={i} style={{color: 'white'}}>
+                  {event.title}
+                </Text>
+              );
             }
           })}
         </Box>
       </Box>
 
       {weekDate?.map((v, i) => {
-        console.log(v.format('LL'));
-
         if (i != 0) {
           return (
             <Box
+              // key={`${v}${i}`}
               key={i}
               style={{
                 padding: 10,
@@ -137,7 +140,11 @@ const WeekSummaryScreen = ({eventsState}) => {
                     moment(event.start).tz(timeZone).format().split('T')[0] ==
                     v.format().split('T')[0]
                   ) {
-                    return <Text style={{color: 'white'}}>{event.title}</Text>;
+                    return (
+                      <Text key={j} style={{color: 'white'}}>
+                        {event.title}
+                      </Text>
+                    );
                   }
                 })}
               </Box>
