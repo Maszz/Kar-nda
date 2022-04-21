@@ -21,6 +21,7 @@ import {Styles} from '../styles';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useSelector, connect} from 'react-redux';
 import {actionCreators} from '../state/';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Todolist = ({
   setTodoListState,
@@ -134,7 +135,7 @@ const Todolist = ({
 
   return (
     <Center w="100%">
-      <Box w="100%" px={5}>
+      <VStack w="100%" px={5}>
         {/* <Heading mb="2" size="md">
           Wednesday
         </Heading> */}
@@ -157,7 +158,7 @@ const Todolist = ({
               }}
             />
           </HStack> */}
-          <VStack space={2}>
+          <ScrollView space={2} showsVerticalScrollIndicator={false}>
             {list.map((item, itemI) => (
               <HStack
                 w="100%"
@@ -208,9 +209,9 @@ const Todolist = ({
                 />
               </HStack>
             ))}
-          </VStack>
+          </ScrollView>
         </VStack>
-      </Box>
+      </VStack>
     </Center>
   );
 };

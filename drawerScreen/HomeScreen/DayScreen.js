@@ -356,6 +356,8 @@ const DayScreen = ({
                 ]}>
                 <VStack style={{padding: 10}}>
                   <Text
+                    numberOfLines={1}
+                    ellipsizeMode={'tail'}
                     style={[
                       Styles.globalStyles.textStyles.textPrimaryStyle,
                       {fontWeight: 'bold', fontSize: 18},
@@ -363,6 +365,8 @@ const DayScreen = ({
                     {t('common:eventcardTitlePlaceHolder')}
                   </Text>
                   <Text
+                    numberOfLines={1}
+                    ellipsizeMode={'tail'}
                     style={[
                       Styles.globalStyles.textStyles.textPrimaryStyle,
                       {fontSize: 13},
@@ -400,6 +404,8 @@ const DayScreen = ({
                   ]}>
                   <VStack style={{padding: 10}}>
                     <Text
+                      numberOfLines={1}
+                      ellipsizeMode={'tail'}
                       style={{
                         fontWeight: 'bold',
                         color: 'white',
@@ -408,6 +414,8 @@ const DayScreen = ({
                       {item.title}
                     </Text>
                     <Text
+                      numberOfLines={2}
+                      ellipsizeMode={'tail'}
                       style={[
                         Styles.globalStyles.textStyles.textPrimaryStyle,
                         {fontSize: 13},
@@ -450,7 +458,7 @@ const DayScreen = ({
           width={Dimensions.get('window').width - 50}
           height={0.5}
         />
-        <Box style={{minHeight: 50, marginBottom: 15}}>
+        <Box style={{minHeight: 50, marginBottom: 15, maxHeight: ' 35%'}}>
           <TodoList />
         </Box>
         <VStack>
@@ -489,7 +497,10 @@ const DayScreen = ({
                 },
               ]}>
               <VStack>
-                <Text style={Styles.globalStyles.textStyles.textPrimaryStyle}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode={'tail'}
+                  style={Styles.globalStyles.textStyles.textPrimaryStyle}>
                   {selectedDairy.title == ''
                     ? t('common:dairyTitlePlaceholder')
                     : `${selectedDairy.title}`}

@@ -34,10 +34,16 @@ const AgendaComponents = ({eventsState, navigationState}) => {
           });
         }}>
         <VStack>
-          <Text style={{fontSize: 16, color: 'white', fontWeight: '500'}}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode={'tail'}
+            style={{fontSize: 16, color: 'white', fontWeight: '500'}}>
             {reservation.name}
           </Text>
-          <Text style={{fontSize: 13, color: 'white'}}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode={'tail'}
+            style={{fontSize: 13, color: 'white'}}>
             {reservation.description}
           </Text>
           <Box>

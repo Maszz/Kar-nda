@@ -228,7 +228,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 <Input
                   // defaultValue="12345"
                   color="white"
-                  placeholder="Location"
+                  placeholder={t('common:location')}
                   selectionColor={'white'}
                   variant="unstyled"
                   onChangeText={text => {
