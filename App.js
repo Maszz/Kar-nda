@@ -21,8 +21,8 @@ import {SSRProvider} from '@react-aria/ssr';
 import analytics from '@react-native-firebase/analytics';
 import LogRocket from '@logrocket/react-native';
 // import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
-// import {useFlipper} from '@react-navigation/devtools';
-// import {useReduxDevToolsExtension} from '@react-navigation/devtools';
+import {useFlipper} from '@react-navigation/devtools';
+import {useReduxDevToolsExtension} from '@react-navigation/devtools';
 
 /**
  * the Main screen of app Wrapped from navigation container.
@@ -33,9 +33,10 @@ const App = () => {
   const routeNameRef = useRef();
 
   // debug section remove it on production.
-  // useFlipper(navigationRef);
-  // useReduxDevToolsExtension(navigationRef);
-
+  // if (__DEV__) {
+  //   useFlipper(navigationRef);
+  //   useReduxDevToolsExtension(navigationRef);
+  // }
   return (
     <NavigationContainer
       ref={navigationRef}

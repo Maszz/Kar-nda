@@ -37,8 +37,6 @@ import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {set} from 'react-native-reanimated';
 
 function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
   const [dairy, setDairy] = useState({

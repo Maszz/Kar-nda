@@ -21,6 +21,7 @@ import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Styles} from '../../styles';
 import {useTranslation} from 'react-i18next';
+import 'dayjs/locale/th';
 
 const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));

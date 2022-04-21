@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 export const calendarStripLocaleTh = {
   name: 'th',
   config: {
@@ -23,7 +21,7 @@ export const calendarStripLocaleTh = {
       LLLL: 'dddd D MMMM YYYY HH:mm',
     },
     calendar: {
-      sameDay: '[Aujourd’hui à] LT',
+      sameDay: '[Aujourdhui à] LT',
       nextDay: '[Demain à] LT',
       nextWeek: 'dddd [à] LT',
       lastDay: '[Hier à] LT',

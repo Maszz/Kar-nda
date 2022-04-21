@@ -17,6 +17,8 @@ GoogleSignin.configure({
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  'Sending `LogRocketSDKOnError` with no listeners registered.',
+  'LogRocket initialization failed! Check device logs for further details.',
 ]);
 if (__DEV__) {
   require('react-native-performance-flipper-reporter').setupDefaultFlipperReporter();
