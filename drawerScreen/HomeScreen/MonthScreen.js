@@ -43,7 +43,7 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
       let tempObj = {};
       tempObj['title'] = event.title;
       tempObj['start'] = new Date(event.start);
-      tempObj['end'] = new Date(event.end);
+      tempObj['end'] = new Date(event.start);
       tempList.push(tempObj);
     }
     const sortedArr = tempList.sort(
@@ -51,7 +51,7 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
     );
     console.log('final templist', sortedArr);
     setPassingEvent(sortedArr);
-  }, [events]);
+  }, [events, currentDate]);
   const monthNames = [
     t('month:january'),
     t('month:february'),
