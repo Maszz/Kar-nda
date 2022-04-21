@@ -5,6 +5,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../assets/colors/colors';
 import {Styles} from '../styles';
+
 const data = [
   {
     title: 'Save time by tracking your day',
@@ -18,7 +19,7 @@ const data = [
   },
   {
     title: 'Spend more time doing the things you love',
-    text: 'Get started within less minite',
+    text: 'Get started within less minute',
     image: require('../assets/images/Onboard3.png'),
   },
 ];
@@ -49,7 +50,7 @@ const Onboarding = props => {
   const renderDoneButton = () => {
     return (
       <LinearGradient
-        colors={['#A5C8FF', '#23286B']}
+        colors={[Styles.globalStyles.cardColor, Styles.globalStyles.cardColor]}
         style={[styles.linearGradient, styles.doneButtonWrapper]}
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 0.5}}
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blueFaded,
   },
   activeDotStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: Styles.globalStyles.cardColor,
   },
   rightTextWrapper: {
     width: 40,

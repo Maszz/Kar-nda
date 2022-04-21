@@ -145,14 +145,14 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
             />
           </HStack>
         </Box>
-        <Button
+        {/* <Button
           onPress={e => {
             PushNotification.getScheduledLocalNotifications(e => {
               console.log(e);
             });
           }}>
           asdsda
-        </Button>
+        </Button> */}
       </Box>
     </View>
   );
