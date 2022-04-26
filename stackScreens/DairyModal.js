@@ -186,7 +186,7 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
             </Box>
           </Box>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <Box minHeight={50} w="100%">
+            <Box minHeight={50} w="100%" px={3}>
               <RichEditor
                 useContainer={true}
                 editorStyle={{
