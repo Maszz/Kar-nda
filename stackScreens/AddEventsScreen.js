@@ -7,24 +7,18 @@ import {
   View,
   Text,
   Input,
-  WarningOutlineIcon,
   TextArea,
   HStack,
-  Container,
   VStack,
   Spacer,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {bindActionCreators} from 'redux';
+
 import {actionCreators} from '../state/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ScrollView} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
-import CalendarPicker from 'react-native-calendar-picker';
-import DateSelector from '../components/dateSelector';
-import Spinner from 'react-native-loading-spinner-overlay';
+
 import PushNotification from 'react-native-push-notification';
 
 const DissmissKeyboard = ({children}) => {

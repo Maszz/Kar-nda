@@ -1,15 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {Calendar} from 'react-native-big-calendar';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
-import dayjs from 'dayjs';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
+
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -31,8 +22,7 @@ import {
 } from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector, connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {bindActionCreators} from 'redux';
+
 import {actionCreators} from '../../state/index';
 import * as RNLocalize from 'react-native-localize';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';

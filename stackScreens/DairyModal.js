@@ -8,33 +8,18 @@ import {
 import {
   Button,
   Box,
-  FormControl,
-  Stack,
   View,
   Text,
-  Input,
-  WarningOutlineIcon,
-  TextArea,
   HStack,
-  Container,
-  VStack,
   Spacer,
   Divider,
   ZStack,
 } from 'native-base';
-import {
-  Alert,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {Image, Dimensions} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
 import {useDispatch, useSelector, connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {actionCreators} from '../state/index';
+
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
 
@@ -46,13 +31,11 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
     image: undefined,
   });
 
-  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
   const {date} = route.params;
   const [dateToDay, setDateToDay] = useState(new Date(date));
   const [shouldHideEditButton, setShouldHideEditButton] = useState(false);
   const richText = useRef();
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  // const dairyDTO = {title:"",dairyText:""}
   const months = [
     'Jan',
     'Feb',

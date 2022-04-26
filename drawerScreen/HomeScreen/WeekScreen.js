@@ -8,13 +8,10 @@ import {
 } from 'react-native-calendars';
 import {Divider, Skeleton, VStack, Box, HStack, Spacer} from 'native-base';
 import {useSelector, connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {actionCreators} from '../../state';
+
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../../styles';
-import PushNotification from 'react-native-push-notification';
 
 const AgendaComponents = ({eventsState, navigationState}) => {
   const [itemsCard, setItemCard] = useState({});
@@ -140,16 +137,12 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   return (
     <View style={[Styles.globalStyles.viewStyle.bgColorWhite, {flex: 1}]}>
       <Agenda
-        // maxToRenderPerBatch={30}
-        // maxToRenderPerBatch={5}
         windowSize={12}
         initialNumToRender={12}
-        // updateCellsBatchingPeriod={30}
         removeClippedSubviews={true}
         pastScrollRange={12}
         futureScrollRange={12}
         items={itemsCard}
-        // loadItemsForMonth={loadItems}
         selected={selectedDate}
         renderItem={renderItem}
         renderEmptyDate={renderEmptyDate}
@@ -160,20 +153,6 @@ const AgendaComponents = ({eventsState, navigationState}) => {
           // console.log('day pressed', day);
           setSelectedDate(day['dateString']); // เเก้
         }}
-        // renderDay={(day, item) => <Text>{day ? day.day : 'item'}</Text>}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        // hideExtraDays={false}
         showOnlySelectedDayItems={true}
         theme={Styles.weekScreenStyles.theme}
         // key={'th'}

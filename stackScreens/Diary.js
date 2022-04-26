@@ -8,16 +8,10 @@ import {
 import {
   Button,
   Box,
-  FormControl,
-  Stack,
   View,
   Text,
   Input,
-  WarningOutlineIcon,
-  TextArea,
   HStack,
-  Container,
-  VStack,
   Spacer,
   Divider,
   ZStack,
@@ -29,7 +23,6 @@ import {
   KeyboardAvoidingView,
   Image,
   ScrollView,
-  InputAccessoryView,
 } from 'react-native';
 // import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';

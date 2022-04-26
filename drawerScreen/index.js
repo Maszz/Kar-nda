@@ -16,7 +16,6 @@ import {
 } from '@react-navigation/drawer';
 import {ZStack} from 'native-base';
 import DebugScreen from './DebugScreen';
-import TimerScreen from './TimerScreen';
 import {useTranslation} from 'react-i18next';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';

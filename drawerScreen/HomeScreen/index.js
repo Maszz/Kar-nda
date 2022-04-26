@@ -3,18 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import {
-  useDisclose,
-  Center,
-  Box,
-  IconButton,
-  HStack,
-  Stagger,
-  ZStack,
-  Button,
-  Spinner,
-  Heading,
-} from 'native-base';
+import {Spinner, Heading} from 'native-base';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -22,7 +11,7 @@ import MonthScreen from './MonthScreen';
 import YearScreen from './YearScreen';
 import {useTranslation} from 'react-i18next';
 import DayScreen from './DayScreen';
-import Agendar from './Agendar';
+import Agendar from './WeekScreen';
 import Diary from '../../stackScreens/Diary';
 import AddEventScreen from '../../stackScreens/AddEventsScreen';
 import DairyModal from '../../stackScreens/DairyModal';

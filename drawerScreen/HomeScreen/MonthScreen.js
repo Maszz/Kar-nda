@@ -10,7 +10,6 @@ import {
 import Modal from '../../components/Modal';
 import MonthNameComponent from '../../components/MonthName';
 import {useDispatch, useSelector, connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 
 import {Center, View, Text, Box} from 'native-base';
