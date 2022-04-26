@@ -6,17 +6,6 @@ import PushNotification from 'react-native-push-notification';
 
 const initialState = {events: []};
 
-const scheduleNotifications = (title, message, date) => {
-  PushNotification.localNotificationSchedule({
-    channelId: 'test-channel',
-    title: title,
-    message: message,
-    date: date,
-    allowWhileIdle: true,
-    id: title + '-' + date.toISOString(),
-  });
-};
-
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('addEvent', (state, action) => {
@@ -25,16 +14,8 @@ const reducer = createReducer(initialState, builder => {
       const event = data.event;
       const isNotifiaction = data.isNotification;
       console.log('isNotifiaction instate :', isNotifiaction);
-      if (isNotifiaction) {
-        scheduleNotifications(
-          event.title,
-          event.description,
-          new Date(event.start),
-        );
-      }
+
       state.events.push(event);
-      // state.events = []
-      // console.log(state);
     })
     .addCase('removeEvent', (state, action) => {
       const filtered = state.events.filter(

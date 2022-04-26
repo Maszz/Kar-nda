@@ -25,6 +25,7 @@ import {useTranslation} from 'react-i18next';
 import CalendarPicker from 'react-native-calendar-picker';
 import DateSelector from '../components/dateSelector';
 import Spinner from 'react-native-loading-spinner-overlay';
+import PushNotification from 'react-native-push-notification';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -55,6 +56,15 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
     description: '',
     location: '',
   });
+  const scheduleNotifications = (title, message, date) => {
+    PushNotification.localNotificationSchedule({
+      title: title,
+      message: message,
+      date: date,
+      allowWhileIdle: true,
+      id: title + '-' + date.toISOString(),
+    });
+  };
   const submitEvent = () => {
     console.log(formData.start.getTime(), formData.end.getTime());
 
@@ -73,6 +83,13 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
       location: formData.location,
     };
     console.log('Notification :', notification);
+    if (notification) {
+      scheduleNotifications(
+        formData.title,
+        formData.description,
+        new Date(formattedStart),
+      );
+    }
     addEvent(state, notification);
   };
 
