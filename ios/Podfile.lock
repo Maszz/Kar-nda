@@ -173,7 +173,7 @@ PODS:
   - GTMAppAuth (1.2.3):
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.7.1)
+  - GTMSessionFetcher/Core (1.7.2)
   - hermes-engine (0.9.0)
   - HMSegmentedControl (1.5.6)
   - libevent (2.1.12)
@@ -486,22 +486,13 @@ PODS:
     - React-jsi (= 0.67.2)
     - React-logger (= 0.67.2)
     - React-perflogger (= 0.67.2)
-<<<<<<< HEAD
-  - ReactNativeNavigation (7.27.1):
-=======
   - ReactNativeNavigation (7.27.0):
->>>>>>> newui
     - HMSegmentedControl
     - React-Core
     - React-RCTImage
     - React-RCTText
-<<<<<<< HEAD
-    - ReactNativeNavigation/Core (= 7.27.1)
-  - ReactNativeNavigation/Core (7.27.1):
-=======
     - ReactNativeNavigation/Core (= 7.27.0)
   - ReactNativeNavigation/Core (7.27.0):
->>>>>>> newui
     - HMSegmentedControl
     - React-Core
     - React-RCTImage
@@ -512,24 +503,6 @@ PODS:
     - React-Core
   - RNDateTimePicker (6.1.2):
     - React-Core
-<<<<<<< HEAD
-  - RNFBAnalytics (14.8.1):
-    - Firebase/AnalyticsWithoutAdIdSupport (= 8.15.0)
-    - React-Core
-    - RNFBApp
-  - RNFBApp (14.8.1):
-    - Firebase/CoreOnly (= 8.15.0)
-    - React-Core
-  - RNFBAuth (14.8.1):
-    - Firebase/Auth (= 8.15.0)
-    - React-Core
-    - RNFBApp
-  - RNFBPerf (14.8.1):
-    - Firebase/Performance (= 8.15.0)
-    - React-Core
-    - RNFBApp
-  - RNGestureHandler (2.4.1):
-=======
   - RNFBAnalytics (14.8.0):
     - Firebase/AnalyticsWithoutAdIdSupport (= 8.15.0)
     - React-Core
@@ -546,18 +519,13 @@ PODS:
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.4.0):
->>>>>>> newui
     - React-Core
   - RNGoogleSignin (7.2.2):
     - GoogleSignIn (~> 6.1.0)
     - React-Core
   - RNLocalize (2.2.1):
     - React-Core
-<<<<<<< HEAD
-  - RNReanimated (2.8.0):
-=======
   - RNReanimated (2.7.0):
->>>>>>> newui
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -854,11 +822,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
   FirebasePerformance: 66eb58c3e3568a0501a9be271c8ff424dea0ff34
   FirebaseRemoteConfig: 2d6e2cfdb49af79535c8af8a80a4a5009038ec2b
-<<<<<<< HEAD
-  Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
-=======
   Flipper: ddebcdc5528290a97118e90a7316132e855dc12e
->>>>>>> newui
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
   Flipper-Fmt: 60cbdd92fc254826e61d669a5d87ef7015396a9b
@@ -874,7 +838,7 @@ SPEC CHECKSUMS:
   GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMAppAuth: 987526d41b07efb1bedda5e936fe0cb718a03113
-  GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   hermes-engine: bf7577d12ac6ccf53ab8b5af3c6ccf0dd8458c5c
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
@@ -917,20 +881,6 @@ SPEC CHECKSUMS:
   React-RCTVibration: 99c7f67fba7a5ade46e98e870c6ff2444484f995
   React-runtimeexecutor: 2450b43df7ffe8e805a0b3dcb2abd4282f1f1836
   ReactCommon: d98c6c96b567f9b3a15f9fd4cc302c1eda8e3cf2
-<<<<<<< HEAD
-  ReactNativeNavigation: 94979dd1572a3f093fc85d4599360530a1bed8c8
-  RNCAsyncStorage: 005c0e2f09575360f142d0d1f1f15e4ec575b1af
-  RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
-  RNDateTimePicker: 6f1f0b4cf7c71b6e2aea7a3aa62969111084bbd1
-  RNFBAnalytics: 0c9b67fb56747574db8e3aa63bb6909b032c0b4b
-  RNFBApp: 6aa068869d959488039cbceb2d830f53d4136c72
-  RNFBAuth: 0ae809a3cc2317450d0727b4e5cd54e8108cf6c9
-  RNFBPerf: 5ffe22d5c9d9de28f02284a73b54585c6bc65438
-  RNGestureHandler: 4f4986408310a43f1606c391f38f76e0d6e790d5
-  RNGoogleSignin: d7f8368b82d94f1dec964785d496387ca7f19092
-  RNLocalize: cbcb55d0e19c78086ea4eea20e03fe8000bbbced
-  RNReanimated: 46cdb89ca59ab7181334f4ed05a70e82ddb36751
-=======
   ReactNativeNavigation: c7e6d14dfcbe8c981887674deb0a37082cfc74e3
   RNCAsyncStorage: 005c0e2f09575360f142d0d1f1f15e4ec575b1af
   RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
@@ -943,7 +893,6 @@ SPEC CHECKSUMS:
   RNGoogleSignin: d7f8368b82d94f1dec964785d496387ca7f19092
   RNLocalize: cbcb55d0e19c78086ea4eea20e03fe8000bbbced
   RNReanimated: 96ab42cfb0e5517293499e0f3f810420eb459f75
->>>>>>> newui
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
@@ -951,10 +900,6 @@ SPEC CHECKSUMS:
   Yoga: 9b6696970c3289e8dea34b3eda93f23e61fb8121
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-<<<<<<< HEAD
-PODFILE CHECKSUM: b13aef594c94f9e23512ddc8377bb9ac7f5a4348
-=======
 PODFILE CHECKSUM: 65450f67387a856b4c075ae975842398b31a7b13
->>>>>>> newui
 
 COCOAPODS: 1.11.3
