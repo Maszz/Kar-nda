@@ -11,7 +11,7 @@ import {LocaleConfig} from 'react-native-calendars';
 import moment from 'moment';
 import {Box, View, Text, HStack, VStack, Spacer} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import {Styles} from '../../styles';
 const LANGUAGES = [
   {code: 'en', label: 'english'},
   {code: 'th', label: 'thai'},
@@ -67,14 +67,18 @@ const Selector = () => {
         }>
         <Text
           style={{
-            color: '#fff',
+            color: Styles.globalStyles.textPrimaryColor,
             fontSize: 25,
             fontWeight: 'bold',
             letterSpacing: 1,
           }}>
           {t('common:language')}
         </Text>
-        <Ionicons color="white" size={28} name="ios-language-outline" />
+        <Ionicons
+          color={Styles.globalStyles.primaryColor}
+          size={28}
+          name="ios-language-outline"
+        />
       </HStack>
       <Box style={{marginTop: 5, alignItems: 'center'}}>
         {LANGUAGES.map(language => {
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: '#fff',
+    color: Styles.globalStyles.textPrimaryColor,
     paddingVertical: 4,
     letterSpacing: 1,
   },

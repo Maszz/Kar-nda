@@ -320,7 +320,9 @@ const DayScreen = ({
               height: 23,
               backgroundColor: Styles.globalStyles.cardColor,
             }}>
-            <Text style={{color: '#fff'}}>{eventCard.length}</Text>
+            <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+              {eventCard.length}
+            </Text>
           </TouchableOpacity>
         </HStack>
         <Box
@@ -398,7 +400,7 @@ const DayScreen = ({
                       ellipsizeMode={'tail'}
                       style={{
                         fontWeight: 'bold',
-                        color: 'white',
+                        color: Styles.globalStyles.textPrimaryColor,
                         fontSize: 18,
                       }}>
                       {item.title}
@@ -437,7 +439,9 @@ const DayScreen = ({
               height: 23,
               backgroundColor: Styles.globalStyles.cardColor,
             }}>
-            <Text style={{color: '#fff'}}>{todoListItems.todoLength}</Text>
+            <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+              {todoListItems.todoLength}
+            </Text>
           </TouchableOpacity>
         </HStack>
         <Box

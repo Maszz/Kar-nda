@@ -23,6 +23,7 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Box, Button} from 'native-base';
 import {useDispatch, useSelector, connect} from 'react-redux';
+import {Styles} from '../styles';
 
 const CustomDrawerContent = props => {
   return (
@@ -72,7 +73,7 @@ const DrawerScreenComponent = ({navigationState}) => {
         showHideTransition="slide"
       />
       <Drawer.Navigator
-        drawerContent={props => <CustomDrawerContent {...props} />}
+        // drawerContent={props => <CustomDrawerContent {...props} />}
         screenOptions={{
           drawerStyle: {
             backgroundColor: '#334155',
@@ -80,7 +81,7 @@ const DrawerScreenComponent = ({navigationState}) => {
           unmountOnBlur: true,
           drawerStatusBarAnimation: 'slide',
           drawerActiveTintColor: 'gray',
-          drawerLabelStyle: {color: 'white'},
+          drawerLabelStyle: {color: Styles.globalStyles.textPrimaryColor},
           headerStyle: {
             backgroundColor: '#1F2937',
           },
@@ -112,7 +113,7 @@ const DrawerScreenComponent = ({navigationState}) => {
               );
             },
 
-            headerTitleStyle: {color: 'white'},
+            headerTitleStyle: {color: Styles.globalStyles.textPrimaryColor},
           }}
         />
 
@@ -142,7 +143,7 @@ const DrawerScreenComponent = ({navigationState}) => {
           options={{
             headerShown: false,
             title: `${t('common:setting')}`,
-            drawerLabelStyle: {color: 'white'},
+            drawerLabelStyle: {color: Styles.globalStyles.textPrimaryColor},
           }}
         />
 

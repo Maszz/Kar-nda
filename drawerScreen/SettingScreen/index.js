@@ -12,6 +12,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {Button, IconButton} from 'native-base';
+import {Styles} from '../../styles';
 const Stack = createNativeStackNavigator();
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -32,7 +33,7 @@ const SettingScreen = props => {
           headerStyle: {
             backgroundColor: '#1F2937',
           },
-          headerTintColor: '#ffff',
+          headerTintColor: Styles.globalStyles.textPrimaryColor,
           headerLeft: () => {
             return (
               <Button variant="unstyled" onPress={() => navigate()}>
@@ -51,7 +52,7 @@ const SettingScreen = props => {
           headerStyle: {
             backgroundColor: '#1F2937',
           },
-          headerTitleStyle: {color: 'white'},
+          headerTitleStyle: {color: Styles.globalStyles.textPrimaryColor},
         }}
       />
     </Stack.Navigator>

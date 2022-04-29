@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const primaryColor = '#1F2937';
 
-export const textPrimaryColor = '#ffff';
+export const textPrimaryColor = '#F9FAFB';
 
 export const cardColor = '#7CC2FF';
 

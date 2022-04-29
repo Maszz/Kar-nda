@@ -34,20 +34,24 @@ const AgendaComponents = ({eventsState, navigationState}) => {
           <Text
             numberOfLines={1}
             ellipsizeMode={'tail'}
-            style={{fontSize: 16, color: 'white', fontWeight: '500'}}>
+            style={{
+              fontSize: 16,
+              color: Styles.globalStyles.textPrimaryColor,
+              fontWeight: '500',
+            }}>
             {reservation.name}
           </Text>
           <Text
             numberOfLines={1}
             ellipsizeMode={'tail'}
-            style={{fontSize: 13, color: 'white'}}>
+            style={{fontSize: 13, color: Styles.globalStyles.textPrimaryColor}}>
             {reservation.description}
           </Text>
           <Box>
             <HStack space={4} style={{justifyContent: 'space-between'}}>
               <Spacer />
               <Box style={{justifyContent: 'flex-end'}}>
-                <Text style={{color: 'white'}}>
+                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
                   {`${reservation.start.format(
                     'h:mm a',
                   )} - ${reservation.end.format('h:mm a')}`}

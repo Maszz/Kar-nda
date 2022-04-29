@@ -105,7 +105,12 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         setViewHeight(height);
       }}>
       <Center style={{marginVertical: 10, backgroundColor: '#1F2937'}}>
-        <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: Styles.globalStyles.textPrimaryColor,
+          }}>
           {monthNames[currentDate.getMonth()] + ' ' + currentDate.getFullYear()}
         </Text>
       </Center>
@@ -145,18 +150,18 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         headerContainerStyle={Styles.monthScreenStyles.headerContainerStyle}
         bodyContainerStyle={[
           Styles.monthScreenStyles.bodyContainerStyle,
-          {color: 'white'},
+          {color: Styles.globalStyles.textPrimaryColor},
         ]}
         // moreLabel={'{moreCount}asd'}
         calendarCellTextStyle={Styles.monthScreenStyles.calendarCellTextStyle}
         calendarCellStyle={Styles.monthScreenStyles.calendarCellStyle}
-        calendarContainerStyle={{color: 'white'}}
+        calendarContainerStyle={{color: Styles.globalStyles.textPrimaryColor}}
         theme={{
           isRTL: false,
           palette: {
             primary: {
               main: 'rgb(66, 133, 244)',
-              contrastText: '#fff',
+              contrastText: Styles.globalStyles.textPrimaryColor,
             },
             nowIndicator: 'red',
             gray: {
@@ -171,12 +176,21 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
               800: '#424242',
               // 900: '#212121',
             },
-            moreLabel: '#fff',
+            moreLabel: Styles.globalStyles.textPrimaryColor,
           },
           eventCellOverlappings: [
-            {main: '#E26245', contrastText: '#fff'},
-            {main: '#4AC001', contrastText: '#fff'},
-            {main: '#5934C7', contrastText: '#fff'}, // purple
+            {
+              main: '#E26245',
+              contrastText: Styles.globalStyles.textPrimaryColor,
+            },
+            {
+              main: '#4AC001',
+              contrastText: Styles.globalStyles.textPrimaryColor,
+            },
+            {
+              main: '#5934C7',
+              contrastText: Styles.globalStyles.textPrimaryColor,
+            },
           ],
           typography: {
             xs: {

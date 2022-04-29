@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
-
+import {Styles} from '../styles';
 import {actionCreators} from '../state/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTranslation} from 'react-i18next';
@@ -112,7 +112,9 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   navigation.goBack();
                 }
               }}>
-              <Text style={{color: 'white'}}>{t('common:save')}</Text>
+              <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                {t('common:save')}
+              </Text>
             </Button>
           </Box>
           <Box w="90%">
@@ -123,7 +125,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   placeholder={t('common:addActivity')}
                   variant="underlined"
                   size="2xl"
-                  selectionColor={'white'}
+                  selectionColor={Styles.globalStyles.textPrimaryColor}
                   value={formData.title}
                   onChangeText={text => {
                     setFormData({
@@ -143,7 +145,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                       <Text
                         style={{
                           alignSelf: 'flex-start',
-                          color: 'white',
+                          color: Styles.globalStyles.textPrimaryColor,
                         }}>
                         {t('common:date')}
                       </Text>
@@ -177,7 +179,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                         style={{
                           alignSelf: 'flex-start',
                           marginHorizontal: 'auto',
-                          color: 'white',
+                          color: Styles.globalStyles.textPrimaryColor,
                         }}>
                         {t('common:startTime')}
                       </Text>
@@ -206,7 +208,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                       <Text
                         style={{
                           alignSelf: 'flex-start',
-                          color: 'white',
+                          color: Styles.globalStyles.textPrimaryColor,
                         }}>
                         {t('common:endTime')}
                       </Text>
@@ -234,13 +236,15 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
               </VStack>
               <Box mx="4" marginTop={5}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>{t('common:location')}</Text>
+                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                    {t('common:location')}
+                  </Text>
                 </FormControl.Label>
                 <Input
                   // defaultValue="12345"
                   color="white"
                   placeholder={t('common:location')}
-                  selectionColor={'white'}
+                  selectionColor={Styles.globalStyles.textPrimaryColor}
                   variant="unstyled"
                   onChangeText={text => {
                     setFormData({
@@ -256,7 +260,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
               </Box>
               <Stack mx="4" style={{marginVertical: 5}}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>
+                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
                     {t('common:description')}
                   </Text>
                 </FormControl.Label>
@@ -264,9 +268,9 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 <TextArea
                   h={20}
                   color="white"
-                  style={{color: 'white'}}
+                  style={{color: Styles.globalStyles.textPrimaryColor}}
                   placeholder={t('common:descriptionPlaceholder')}
-                  selectionColor={'white'}
+                  selectionColor={Styles.globalStyles.textPrimaryColor}
                   fontFamily={'Roboto'}
                   w="100%"
                   maxW="300"

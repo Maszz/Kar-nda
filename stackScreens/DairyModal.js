@@ -109,7 +109,7 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
             }}>
             <Button
               variant="unstyled"
-              color="white"
+              color={Styles.globalStyles.textPrimaryColor}
               style={{marginTop: 10}}
               onPress={() => {
                 navigation.goBack();
@@ -129,7 +129,7 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
             }}>
             <Button
               variant="unstyled"
-              color="white"
+              color={Styles.globalStyles.textPrimaryColor}
               style={{marginTop: 10, marginRight: 10}}
               onPress={() => {
                 navigationState.navigation.goBack();
@@ -157,7 +157,9 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
           }}
           showsVerticalScrollIndicator={false}>
           <Box style={{alignItems: 'center'}}>
-            <Text color="white">{dairy.title}</Text>
+            <Text color={Styles.globalStyles.textPrimaryColor}>
+              {dairy.title}
+            </Text>
             <Divider width="60%" style={{marginTop: 10}} />
 
             <Box style={{marginBottom: 10, marginTop: 10}}>

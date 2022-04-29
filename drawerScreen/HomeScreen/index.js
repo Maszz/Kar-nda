@@ -94,7 +94,7 @@ const HomeScreen = ({navigation}) => {
           tabBarIndicatorStyle: {backgroundColor: '#4AA9FF', height: 3},
           tabBarStyle: {backgroundColor: '#1F2937'},
           tabBarInactiveTintColor: '#6B7280',
-          tabBarActiveTintColor: '#ffff',
+          tabBarActiveTintColor: Styles.globalStyles.textPrimaryColor,
           lazy: true,
           lazyPlaceholder: () => {
             return (

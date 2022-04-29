@@ -6,7 +6,7 @@ import {useSelector, connect} from 'react-redux';
 import ActionButton from '../../components/ActionButton';
 import moment from 'moment-timezone';
 import * as RNLocalize from 'react-native-localize';
-
+import {Styles} from '../../styles';
 const YearScreen = ({navigation, events}) => {
   // const events = useSelector(state => state.events);
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   actionButtonIcon: {
     fontSize: 20,
     height: 22,
-    color: 'white',
+    color: Styles.globalStyles.textPrimaryColor,
   },
 });
 

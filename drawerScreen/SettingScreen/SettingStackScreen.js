@@ -21,6 +21,7 @@ import {useSelector, connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
+import {Styles} from '../../styles';
 const SettingStackScreen = ({notification, eventsState, navigation}) => {
   const {t} = useTranslation();
   // const notification = useSelector(state => state.notifications.notification);
@@ -32,14 +33,6 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
     actionCreators.notificationsActionCreator,
     dispatch,
   );
-  const handleNotification = () => {
-    PushNotification.localNotification({
-      channelId: 'test-channel',
-      title: 'Clicked',
-      message: 'payload',
-      userInfo: {Test: 'TEst'},
-    });
-  };
 
   const scheduleNotifications = (title, message, date) => {
     PushNotification.localNotificationSchedule({
@@ -56,9 +49,7 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
     console.log(eventsState);
     if (notification) {
       console.log('True');
-      // PushNotification.getScheduledLocalNotifications(v => {
-      //   console.log(v);
-      // });
+
       for (const event of eventsState) {
         if (new Date(event.start).getTime() > Date.now()) {
           scheduleNotifications(
@@ -74,8 +65,6 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
     }
   }, [notification]);
   useEffect(() => {
-    // createChannels();
-    // console.log('create channel');
     notificationsCallbacks();
   }, [notificationsCallbacks]);
 
@@ -89,29 +78,6 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
-        {/* <TouchableOpacity onPress={() => navigation.navigate('Language')}>
-          <Box
-            style={{marginTop: 3, marginBottom: 3}}
-            w={
-              Dimensions.get('window').width -
-              (10 / 100) * Dimensions.get('window').width
-            }
-            py={2}
-            px={3}
-            bgColor={'rgba(147, 147, 147, 0.3)'}
-            rounded="lg">
-            <HStack space={4} justifyContent="space-between">
-              <Icon name="language-sharp" size={30} color="#ecfeff" />
-              <VStack justifyContent="center">
-                <Text color="#e5e5e5" bold>
-                  {t('common:languageSetting')}
-                </Text>
-              </VStack>
-              <Spacer />
-              <Icon name="chevron-forward-outline" size={30} color="#525252" />
-            </HStack>
-          </Box>
-        </TouchableOpacity> */}
         <Box
           style={{marginTop: 10, marginBottom: 3}}
           w={
@@ -125,12 +91,7 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
           <HStack space={4} justifyContent="space-between">
             <Icon name="notifications" size={30} color="#ecfeff" />
             <VStack justifyContent="center">
-              <Text
-                _dark={{
-                  color: 'warmGray.50',
-                }}
-                color="#e5e5e5"
-                bold>
+              <Text color={Styles.globalStyles.textPrimaryColor} bold>
                 {t('common:notifications')}
               </Text>
             </VStack>
@@ -145,14 +106,6 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
             />
           </HStack>
         </Box>
-        {/* <Button
-          onPress={e => {
-            PushNotification.getScheduledLocalNotifications(e => {
-              console.log(e);
-            });
-          }}>
-          asdsda
-        </Button> */}
       </Box>
     </View>
   );
