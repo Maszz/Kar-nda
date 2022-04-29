@@ -89,7 +89,7 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Language')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Language')}>
           <Box
             style={{marginTop: 3, marginBottom: 3}}
             w={
@@ -111,7 +111,7 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
               <Icon name="chevron-forward-outline" size={30} color="#525252" />
             </HStack>
           </Box>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Box
           style={{marginTop: 10, marginBottom: 3}}
           w={

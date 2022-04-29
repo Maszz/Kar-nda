@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   Box,
@@ -13,47 +13,39 @@ import {
   useDisclose,
   Spacer,
 } from 'native-base';
-import { TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import {TouchableOpacity, Dimensions, ScrollView} from 'react-native';
 import ListComp from '../../components/listComponent';
-import { ListBox, Line, ListItem } from '../../components/customList';
+import {ListBox, Line, ListItem} from '../../components/customList';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { settingScreenItem } from '../../Constant/index';
 import PushNotification from 'react-native-push-notification';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state/index';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actionCreators} from '../../state/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { eventsForCalendar } from '../../eventsManager/event'
 
-
-const EventNotes = (props) => {
+const EventNotes = props => {
   return (
-    <View style={{ marginTop: 3 }}>
-      <Text style={{ fontSize: 10, color: 'black' }}>
-        {props.subHeader}{' '}
-      </Text>
-      <Text style={{ fontSize: 10, color: 'black' }}>
-        {' '}
-        {props.description}{' '}
-      </Text>
+    <View style={{marginTop: 3}}>
+      <Text style={{fontSize: 10, color: 'black'}}>{props.subHeader} </Text>
+      <Text style={{fontSize: 10, color: 'black'}}> {props.description} </Text>
     </View>
-  )
+  );
 };
 const eventsForCalendar = [
   {
     title: 'Meeting',
     start: new Date(2022, 1, 11, 10, 0).toISOString(),
     end: new Date(2022, 1, 11, 10, 30).toISOString(),
-    description: ' is simply dummy text of the printing and typesetting'
+    description: ' is simply dummy text of the printing and typesetting',
   },
   {
     title: 'Coffee break',
     start: new Date(2022, 1, 14, 15, 45).toISOString(),
     end: new Date(2022, 1, 14, 16, 30).toISOString(),
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
   // {
   //   title: "Doctor's ",
@@ -68,37 +60,32 @@ const eventsForCalendar = [
     start: new Date(2022, 1, 13, 15, 45).toISOString(),
     end: new Date(2022, 1, 13, 16, 45).toISOString(),
     children: <EventNotes subHeader="subHeader" description="descripotion" />,
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
   {
     title: "Doctor's ",
     start: new Date(2022, 1, 20, 15, 45).toISOString(),
     end: new Date(2022, 1, 20, 16, 45).toISOString(),
     children: <EventNotes subHeader="subHeader" description="descripotion" />,
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
   {
     title: 'Meeting',
     start: new Date(2022, 0, 11, 10, 0).toISOString(),
     end: new Date(2022, 0, 11, 10, 30).toISOString(),
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
   {
     title: 'Coffee break',
     start: new Date(2022, 0, 14, 15, 45).toISOString(),
     end: new Date(2022, 0, 14, 16, 30).toISOString(),
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
   {
     title: 'Coffee break',
     start: new Date(2022, 1, 22, 15, 45).toISOString(),
     end: new Date(2022, 1, 22, 16, 30).toISOString(),
-    description: ' is simply dummy text of the printing and typesetting'
-
+    description: ' is simply dummy text of the printing and typesetting',
   },
 ];
 
@@ -108,43 +95,40 @@ const SettingStackScreen = props => {
 
   const dispatch = useDispatch();
 
-  const { addEvent, removeEvent, resetEventList } = bindActionCreators(
+  const {addEvent, removeEvent, resetEventList} = bindActionCreators(
     actionCreators.eventsActionCreator,
     dispatch,
   );
 
   const mapaddfordebugonly = () => {
     eventsForCalendar.map(x => {
-      addEvent(x)
-    })
-  }
-  const { isOpen, onOpen, onClose } = useDisclose();
+      addEvent(x);
+    });
+  };
+  const {isOpen, onOpen, onClose} = useDisclose();
   const [touchY, setTouchY] = useState(0);
   const windowHeight = Dimensions.get('window').height;
-  const { t } = useTranslation();
-  const { setViewedOnboard } = bindActionCreators(
+  const {t} = useTranslation();
+  const {setViewedOnboard} = bindActionCreators(
     actionCreators.onBoardActionCreator,
     dispatch,
   );
-  const formatDate = (e) => {
-
-    let temp = {}
+  const formatDate = e => {
+    let temp = {};
     for (const event of e.events) {
-
       // console.log(event.start.toISOString())
-      if (typeof event.start == "string") {
-        let tempKey = event.start.split('T')[0]
-        temp[tempKey] = { marked: true }
-      }
-      else {
-        let tempKey = event.start.toISOString().split('T')[0]
-        temp[tempKey] = { marked: true }
+      if (typeof event.start == 'string') {
+        let tempKey = event.start.split('T')[0];
+        temp[tempKey] = {marked: true};
+      } else {
+        let tempKey = event.start.toISOString().split('T')[0];
+        temp[tempKey] = {marked: true};
       }
     }
 
     // e.events.toISOString().split('T')[0]
-    return temp
-  }
+    return temp;
+  };
 
   const createChannels = () => {
     PushNotification.createChannel({
@@ -157,7 +141,7 @@ const SettingStackScreen = props => {
       channelId: 'test-channel',
       title: 'Clicked',
       message: 'payload',
-      userInfo: { Test: 'TEst' },
+      userInfo: {Test: 'TEst'},
     });
   };
 
@@ -190,16 +174,16 @@ const SettingStackScreen = props => {
         }
       }}>
       <VStack space={4} alignItems="center">
-        <View style={{ marginTop: 40 }}>
+        <View style={{marginTop: 40}}>
           <Button
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
               props.navigation.navigate('Language');
             }}>
             {t('common:languageSetting')}
           </Button>
           <Button
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
               handleNotification();
               console.log('wow');
@@ -207,7 +191,7 @@ const SettingStackScreen = props => {
             Notification
           </Button>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
               scheduleNotifications();
             }}>
@@ -221,10 +205,10 @@ const SettingStackScreen = props => {
             </Center>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
-              addEvent()
-              console.log("click")
+              addEvent();
+              console.log('click');
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -236,11 +220,11 @@ const SettingStackScreen = props => {
             </Center>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
-              console.log(events)
-              console.log(events.events.length)
-              console.log(onBoard)
+              console.log(events);
+              console.log(events.events.length);
+              console.log(onBoard);
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -252,11 +236,11 @@ const SettingStackScreen = props => {
             </Center>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
-              resetEventList()
-              console.log("reset")
-              console.log(events)
+              resetEventList();
+              console.log('reset');
+              console.log(events);
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -268,11 +252,11 @@ const SettingStackScreen = props => {
             </Center>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
-              resetEventList()
-              mapaddfordebugonly()
-              console.log(events)
+              resetEventList();
+              mapaddfordebugonly();
+              console.log(events);
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -284,10 +268,10 @@ const SettingStackScreen = props => {
             </Center>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
-              removeEvent("events.events[0]")
-              console.log(events)
+              removeEvent('events.events[0]');
+              console.log(events);
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -300,7 +284,7 @@ const SettingStackScreen = props => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ marginTop: 20 }}
+            style={{marginTop: 20}}
             onPress={() => {
               // console.log(events.events[0].start.toISOString().split('T')[0])
               // console.log(formatDate(events))
@@ -311,8 +295,8 @@ const SettingStackScreen = props => {
               // minDate.setDate(minDate.getDate() - toDay + 1)
               // let day = new Date(2022, 1, 13)
               // console.log(day > minDate && day < maxdates)
-              setViewedOnboard("false");
-              console.log("setOnboard false")
+              setViewedOnboard('false');
+              console.log('setOnboard false');
             }}>
             <Center
               w={Dimensions.get('window').width - 20}
@@ -323,7 +307,7 @@ const SettingStackScreen = props => {
               <Text> reset onBoard </Text>
             </Center>
           </TouchableOpacity>
-          <TouchableOpacity style={{ marginTop: 20 }} onPress={onOpen}>
+          <TouchableOpacity style={{marginTop: 20}} onPress={onOpen}>
             <Center
               w={Dimensions.get('window').width - 20}
               h="10"
@@ -333,7 +317,6 @@ const SettingStackScreen = props => {
               <Text>Action Sheet</Text>
             </Center>
           </TouchableOpacity>
-
 
           <Actionsheet isOpen={isOpen} onClose={onClose}>
             <Actionsheet.Content>
