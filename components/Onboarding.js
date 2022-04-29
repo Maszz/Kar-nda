@@ -4,26 +4,22 @@ import {View, Text, StyleSheet, StatusBar, Image} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../assets/colors/colors';
+import {Styles} from '../styles';
 
 const data = [
   {
-    title: 'Save time by tracking your studies',
-    text: 'Schedule your classes, assignments, quizzes and more',
+    title: 'Save time by tracking your day',
+    text: 'Schedule your time, achivements and more.',
     image: require('../assets/images/Onboard1.png'),
   },
   {
-    title: 'Stay on top of your education',
+    title: 'Stay on top of your day',
     text: 'Reduce your stress, increase your productivity',
     image: require('../assets/images/Onboard2.png'),
   },
   {
     title: 'Spend more time doing the things you love',
-    text: 'Get started within five minutes',
-    image: require('../assets/images/Onboard3.png'),
-  },
-  {
-    title: 'Spend more time doing the things you love wowza',
-    text: 'Get started within five minutes',
+    text: 'Get started within less minute.',
     image: require('../assets/images/Onboard3.png'),
   },
 ];
@@ -54,8 +50,8 @@ const Onboarding = props => {
   const renderDoneButton = () => {
     return (
       <LinearGradient
-        colors={['#A5C8FF', '#23286B']}
-        style={styles.linearGradient}
+        colors={[Styles.globalStyles.cardColor, Styles.globalStyles.cardColor]}
+        style={[styles.linearGradient, styles.doneButtonWrapper]}
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 0.5}}
         // style={styles.doneButtonWrapper}
@@ -89,7 +85,14 @@ const Onboarding = props => {
 
   return (
     <View style={{flex: 1}}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar
+        translucent
+        animated={true}
+        barStyle={'light-content'}
+        networkActivityIndicatorVisible={true}
+        backgroundColor="transparent"
+        showHideTransition="slide"
+      />
       <AppIntroSlider
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -113,21 +116,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: Styles.globalStyles.primaryColor,
   },
   image: {
     marginVertical: 60,
   },
   title: {
     fontSize: 24,
-    color: colors.black,
+    color: Styles.globalStyles.cardColor,
     textAlign: 'center',
     fontFamily: 'OpenSans-Bold',
     marginHorizontal: 60,
   },
   text: {
     fontSize: 14,
-    color: colors.gray,
+    color: '#fff',
     textAlign: 'center',
     fontFamily: 'OpenSans-SemiBold',
     marginHorizontal: 60,
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blueFaded,
   },
   activeDotStyle: {
-    backgroundColor: colors.blue,
+    backgroundColor: Styles.globalStyles.cardColor,
   },
   rightTextWrapper: {
     width: 40,
@@ -148,7 +151,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   rightText: {
-    color: colors.blue,
+    color: '#fff',
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 14,
   },
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   leftText: {
-    color: colors.blue,
+    color: '#fff',
     fontFamily: 'OpenSans-SemiBold',
     fontSize: 14,
   },

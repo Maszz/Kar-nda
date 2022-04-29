@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from 'react';
 
-import Icon from 'react-native-vector-icons/dist/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ActionButton from 'react-native-action-button';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import AddEventModal from './AddEventModal';
 import {Container, Box} from 'native-base';
 import {useDispatch, useSelector, connect} from 'react-redux';
+import moment from 'moment';
+import * as RNLocalize from 'react-native-localize';
+import {useTranslation} from 'react-i18next';
 const ActionButtonComponent = ({navigationState}) => {
   // const navigationState = useSelector(state => state.StackNavigation);
+  const {t, i18n} = useTranslation();
 
   const [showModal, setShowModal] = useState(false);
   const closeModal = () => {
@@ -19,28 +23,72 @@ const ActionButtonComponent = ({navigationState}) => {
   };
   return (
     <>
-      <ActionButton buttonColor="#7CC2FF" style={{marginBottom: 10}}>
+      <ActionButton
+        buttonColor="#7CC2FF"
+        style={{marginBottom: 10}}
+        bgColor="rgba(0,0,0,0.5)">
         <ActionButton.Item
-          buttonColor="#9b59b6"
+          buttonColor="#64748B"
           title="To do Task"
+          textContainerStyle={{
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+          }}
+          textStyle={{
+            color: '#fff',
+            fontSize: 13,
+            letterSpacing: 1,
+          }}
           onPress={() => openModal()}>
-          <Icon name="create-outline" style={styles.actionButtonIcon} />
+          <Image
+            source={require('../assets/icons/format-list-checks.png')}
+            style={{width: 30, height: 30}}
+          />
         </ActionButton.Item>
         <ActionButton.Item
-          buttonColor="#3498db"
-          title="Dairy"
+          buttonColor="#64748B"
+          title={t('common:diary')}
+          textContainerStyle={{
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+          }}
+          textStyle={{
+            color: '#fff',
+            fontSize: 13,
+            letterSpacing: 1,
+          }}
           onPress={() => {
-            navigationState.navigation.navigate('DairyScreen');
+            navigationState.navigation.navigate('DairyScreen', {
+              date: moment(new Date(Date.now()))
+                .tz(RNLocalize.getTimeZone())
+                .format()
+                .split('T')[0],
+            });
           }}>
-          <Icon name="notifications-outline" style={styles.actionButtonIcon} />
+          <Image
+            source={require('../assets/icons/book-open-page-variant-outline.png')}
+            style={{width: 30, height: 30}}
+          />
         </ActionButton.Item>
         <ActionButton.Item
-          buttonColor="#1abc9c"
-          title="All Events"
+          buttonColor="#64748B"
+          title={t('common:events')}
+          textContainerStyle={{
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+          }}
+          textStyle={{
+            color: '#fff',
+            fontSize: 13,
+            letterSpacing: 1,
+          }}
           onPress={() => {
             navigationState.navigation.navigate('AddEventScreen');
           }}>
-          <Icon name="checkmark-done-outline" style={styles.actionButtonIcon} />
+          <Image
+            source={require('../assets/icons/draw-pen.png')}
+            style={{width: 30, height: 30}}
+          />
         </ActionButton.Item>
       </ActionButton>
       <AddEventModal showModal={showModal} closeModal={closeModal} />

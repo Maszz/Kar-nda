@@ -13,17 +13,84 @@ import {
   Button,
   Input,
 } from 'native-base';
+import {actionCreators} from '../state/';
+import {bindActionCreators} from 'redux';
 
+import {useDispatch, useSelector} from 'react-redux';
+import {Styles} from '../styles';
 const AddEventModal = ({showModal, closeModal, setShowModal}) => {
+  const [list, setList] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState('');
+  const selectedDateState = useSelector(
+    state => state.selectedDate.selectedDateState,
+  );
+  const todoListItems = useSelector(state => state.todoList);
+  const dispatch = useDispatch();
+  const {setTodoList} = bindActionCreators(
+    actionCreators.todoListActionCreator,
+    dispatch,
+  );
+  const addItem = todoTitle => {
+    const temp = [
+      ...list,
+      {
+        todoTitle: todoTitle,
+        ischecked: false,
+      },
+    ];
+    // console.log({
+    //   date: selectedDateState.format().split('T')[0],
+    //   todoItem: temp,
+    // });
+    setTodoList({
+      date: selectedDateState.format().split('T')[0],
+      todoItem: temp,
+    });
+  };
+  useEffect(() => {
+    const currentDate = selectedDateState.format().split('T')[0];
+
+    const todolistDays = Object.keys(todoListItems.todoItem);
+    console.log(todolistDays);
+    setList([]);
+
+    for (const key of todolistDays) {
+      if (key == currentDate) {
+        setList(todoListItems.todoItem[key]);
+        console.log('incase');
+        break;
+      }
+    }
+  }, [selectedDateState, todoListItems]);
+
   return (
     <Center>
-      <Modal isOpen={showModal} onClose={() => closeModal()} size="xl">
-        <Modal.Content height="lg">
+      <Modal
+        isOpen={showModal}
+        onClose={() => closeModal()}
+        size="xs"
+        bgColor={'rgba(0,0,0,0.5)'}>
+        <Modal.Content
+          minHeight={150}
+          bgColor={Styles.globalStyles.primaryColor}>
           {/* <Modal.CloseButton /> */}
-          <Modal.Header>Contact Us</Modal.Header>
-          <Modal.Body>Body</Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
+          <Modal.Body syyle={{paddingTop: 5}}>
+            <Text style={{color: '#fff', alignSelf: 'center'}}>
+              Add Todo list
+            </Text>
+            <FormControl style={{marginTop: 10}}>
+              {/* <FormControl.Label>Todo Task</FormControl.Label> */}
+              <Input
+                flex={1}
+                onChangeText={v => setInputValue(v)}
+                value={inputValue}
+                color={'#fff'}
+                placeholder="Add Task"
+              />
+            </FormControl>
+            <Button.Group
+              space={2}
+              style={{alignSelf: 'flex-end', marginTop: 15}}>
               <Button
                 variant="ghost"
                 colorScheme="blueGray"
@@ -34,12 +101,14 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
               </Button>
               <Button
                 onPress={() => {
+                  addItem(inputValue);
+                  setInputValue('');
                   closeModal();
                 }}>
                 Save
               </Button>
             </Button.Group>
-          </Modal.Footer>
+          </Modal.Body>
         </Modal.Content>
       </Modal>
     </Center>

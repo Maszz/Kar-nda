@@ -1,18 +1,9 @@
 import CalendarComponent from '../../components/Carendar';
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import {
-  useDisclose,
-  Center,
-  Box,
-  IconButton,
-  HStack,
-  Stagger,
-  ZStack,
-  Button,
-} from 'native-base';
+import {Spinner, Heading} from 'native-base';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -20,7 +11,7 @@ import MonthScreen from './MonthScreen';
 import YearScreen from './YearScreen';
 import {useTranslation} from 'react-i18next';
 import DayScreen from './DayScreen';
-import Agendar from './Agendar';
+import Agendar from './WeekScreen';
 import Diary from '../../stackScreens/Diary';
 import AddEventScreen from '../../stackScreens/AddEventsScreen';
 import DairyModal from '../../stackScreens/DairyModal';
@@ -30,16 +21,10 @@ import {actionCreators} from '../../state/index';
 import ActionButton from '../../components/ActionButton';
 import EventModal from '../../stackScreens/eventModal';
 import AnimatedLoader from 'react-native-animated-loader';
-
+import WeekSummaryScreen from '../../stackScreens/weekSummaryScreen';
+import {Styles} from '../../styles';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
-const styles = StyleSheet.create({
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
-  },
-});
 
 const StackScreen = () => {
   return (
@@ -49,7 +34,7 @@ const StackScreen = () => {
         name="DairyScreen"
         component={Diary}
         options={{
-          presentation: 'modal',
+          presentation: 'fullScreenModal',
           headerShown: false,
         }}
       />
@@ -72,6 +57,14 @@ const StackScreen = () => {
       <Stack.Screen
         name="EventModal"
         component={EventModal}
+        options={{
+          presentation: 'modal',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="WeekSummary"
+        component={WeekSummaryScreen}
         options={{
           presentation: 'modal',
           headerShown: false,
@@ -102,6 +95,24 @@ const HomeScreen = ({navigation}) => {
           tabBarStyle: {backgroundColor: '#1F2937'},
           tabBarInactiveTintColor: '#6B7280',
           tabBarActiveTintColor: '#ffff',
+          lazy: true,
+          lazyPlaceholder: () => {
+            return (
+              <View
+                space={2}
+                alignItems="center"
+                justifyContent="center"
+                style={{
+                  flex: 1,
+                  backgroundColor: Styles.globalStyles.primaryColor,
+                }}>
+                <Spinner accessibilityLabel="Loading posts" />
+                <Heading color="primary.500" fontSize="md">
+                  Loading
+                </Heading>
+              </View>
+            );
+          },
         }}
         initialRouteName="MonthScreen">
         <Tab.Group>

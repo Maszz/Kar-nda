@@ -1,41 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  actions,
-  getContentCSS,
-  RichEditor,
-  RichToolbar,
-} from 'react-native-pell-rich-editor';
-import {
-  Button,
-  Box,
-  FormControl,
-  Stack,
-  View,
-  Text,
-  Input,
-  WarningOutlineIcon,
-  TextArea,
-  HStack,
-  Container,
-  VStack,
-  Spacer,
-  Divider,
-} from 'native-base';
-import {
-  Alert,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-  Image,
-} from 'react-native';
+
+import {Button, Box, View, Text, HStack, VStack, Spacer} from 'native-base';
+import {Alert} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import moment from 'moment';
 import {useDispatch, useSelector, connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
 
-const EventModal = ({navigation, route, eventsState}) => {
+const EventModal = ({
+  navigation,
+  route,
+  eventsState,
+  navigationState,
+  removeEvent,
+}) => {
   const timeZone = RNLocalize.getTimeZone();
   const [selectedEvent, setSelectedEvent] = useState({
     start: moment(new Date()).tz(RNLocalize.getTimeZone()),
@@ -48,6 +27,7 @@ const EventModal = ({navigation, route, eventsState}) => {
   selectedEvent.start.minute();
   const {date, index} = route.params;
   const [forMattedDate, setFormattedDate] = useState();
+
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'Jan',
@@ -96,21 +76,36 @@ const EventModal = ({navigation, route, eventsState}) => {
   }, [date, index]);
   return (
     <View style={{backgroundColor: '#1F2937'}} height="100%">
+      <Box
+        style={{
+          alignSelf: 'flex-end',
+          paddingHorizontal: 25,
+          paddingTop: 25,
+        }}>
+        <Button
+          variant="unstyled"
+          color="white"
+          onPress={() => {
+            Alert.alert('Delete Event', 'Did you want to delete the event?', [
+              {
+                text: 'Cancel',
+                // onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {
+                text: 'Yes',
+                onPress: () => {
+                  removeEvent(selectedEvent);
+                  navigation.goBack();
+                },
+                style: 'default',
+              },
+            ]);
+          }}>
+          <Text style={{color: 'white'}}>Delete</Text>
+        </Button>
+      </Box>
       <VStack style={{paddingHorizontal: 50}}>
-        <Box style={{alignSelf: 'flex-start', padding: 15}}>
-          <Button
-            variant="unstyled"
-            color="white"
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            <Image
-              source={require('../assets/backbutton2.png')}
-              style={{width: 25, height: 25, tintColor: 'white'}}
-            />
-            <Text style={{color: 'white'}}>Back</Text>
-          </Button>
-        </Box>
         <Box
           style={{
             alignItems: 'flex-start',
@@ -170,7 +165,11 @@ const EventModal = ({navigation, route, eventsState}) => {
 const mapStateToProps = function (state) {
   return {
     eventsState: state.events,
+    navigationState: state.StackNavigation,
   };
 };
+const mapDispatchToProps = {
+  removeEvent: actionCreators.eventsActionCreator.removeEvent,
+};
 
-export default connect(mapStateToProps)(EventModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EventModal);

@@ -20,6 +20,9 @@ import {actionCreators} from './state/index';
 import {SSRProvider} from '@react-aria/ssr';
 import analytics from '@react-native-firebase/analytics';
 import LogRocket from '@logrocket/react-native';
+// import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
+import {useFlipper} from '@react-navigation/devtools';
+import {useReduxDevToolsExtension} from '@react-navigation/devtools';
 
 /**
  * the Main screen of app Wrapped from navigation container.
@@ -29,6 +32,11 @@ const App = () => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef();
 
+  // debug section remove it on production.
+  // if (__DEV__) {
+  //   useFlipper(navigationRef);
+  //   useReduxDevToolsExtension(navigationRef);
+  // }
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -81,6 +89,7 @@ const ReactWrapper = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+        {/* <FlipperAsyncStorage /> */}
         <SSRProvider>
           <NativeBaseProvider>
             <RootScreen />

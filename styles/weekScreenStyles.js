@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 
 export const AgendarStylesProps = StyleSheet.create({
   item: {
-    backgroundColor: 'white',
+    backgroundColor: globalStyles.cardColor,
     flex: 1,
     borderRadius: 5,
     padding: 10,

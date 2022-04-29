@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Dimensions} from 'react-native';
 import {Calendar} from 'react-native-big-calendar';
 import {
@@ -10,7 +10,6 @@ import {
 import Modal from '../../components/Modal';
 import MonthNameComponent from '../../components/MonthName';
 import {useDispatch, useSelector, connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {actionCreators} from '../../state/index';
 
 import {Center, View, Text, Box} from 'native-base';
@@ -20,6 +19,9 @@ import * as RNLocalize from 'react-native-localize';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Styles} from '../../styles';
+import {useTranslation} from 'react-i18next';
+import 'dayjs/locale/th';
+
 const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   const [currentDate, setCurrentDate] = useState(new Date(Date.now()));
   // const monthCalendarState = useSelector(state => state.monthCalendar);
@@ -30,49 +32,50 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
   // );
   // const {events} = useSelector(state => state.events);
   const [passingEvent, setPassingEvent] = useState([]);
-  const monthNames = [
-    'January',
-    'Febuary',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const [touchY, setTouchY] = useState(0);
-  const windowHeight = Dimensions.get('window').height;
-  const [viewHeight, setViewHeight] = useState(0);
-  useEffect(() => {
+  const {t, i18n} = useTranslation();
+  const eventStateCallback = useCallback(() => {
     let tempList = [];
     const timeZone = RNLocalize.getTimeZone();
     console.log(events);
 
     for (const event of events) {
-      if (typeof event.start == 'string') {
-        let tempObj = {};
-        Object.assign(tempObj, event);
-        tempObj['start'] = new Date(event.start);
-        tempObj['end'] = new Date(event.end);
-        tempList.push(tempObj);
-      } else {
-        console.log('IN else');
-        tempList.push(event);
-      }
+      let tempObj = {};
+      tempObj['title'] = event.title;
+      tempObj['start'] = new Date(event.start);
+      tempObj['end'] = new Date(event.start);
+      tempList.push(tempObj);
     }
-    console.log('final templist', tempList);
-    setPassingEvent(tempList);
-    console.log('This is Passing Event', passingEvent);
+    const sortedArr = tempList.sort(
+      (a, b) => moment(a.start).unix() - moment(b.start).unix(),
+    );
+    console.log('final templist', sortedArr);
+    setPassingEvent(sortedArr);
+  }, [events, currentDate]);
+  const monthNames = [
+    t('month:january'),
+    t('month:february'),
+    t('month:march'),
+    t('month:april'),
+    t('month:may'),
+    t('month:june'),
+    t('month:july'),
+    t('month:august'),
+    t('month:september'),
+    t('month:october'),
+    t('month:november'),
+    t('month:december'),
+  ];
 
+  const [touchY, setTouchY] = useState(0);
+  const windowHeight = Dimensions.get('window').height;
+  const [viewHeight, setViewHeight] = useState(0);
+  useEffect(() => {
+    eventStateCallback();
     onSwipeMonthChange(
       monthNames[currentDate.getMonth()],
       currentDate.getFullYear(),
     );
-  }, [events, currentDate]);
+  }, [eventStateCallback, currentDate]);
 
   return (
     <View
@@ -107,10 +110,19 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
         </Text>
       </Center>
       <Calendar
+        locale={i18n.language == 'th' ? 'th' : undefined}
         events={passingEvent}
         height={Dimensions.get('window').height - 300}
         onPressEvent={e => {
           console.log('click event', e);
+          // console.log(
+          //   'IN Modal',
+          //   selectedDateLocal.format().split('T')[0],
+          // );
+          // navigationState.navigation.navigate('EventModal', {
+          //   date: selectedDateLocal.format().split('T')[0],
+          //   index: i,
+          // });
         }}
         // activeDate={new Date()}
         date={currentDate}
@@ -131,9 +143,57 @@ const MonthScreen = ({onSwipeMonthChange, monthCalendarState, events}) => {
           console.log('press date header', a);
         }}
         headerContainerStyle={Styles.monthScreenStyles.headerContainerStyle}
-        bodyContainerStyle={Styles.monthScreenStyles.bodyContainerStyle}
+        bodyContainerStyle={[
+          Styles.monthScreenStyles.bodyContainerStyle,
+          {color: 'white'},
+        ]}
+        // moreLabel={'{moreCount}asd'}
         calendarCellTextStyle={Styles.monthScreenStyles.calendarCellTextStyle}
         calendarCellStyle={Styles.monthScreenStyles.calendarCellStyle}
+        calendarContainerStyle={{color: 'white'}}
+        theme={{
+          isRTL: false,
+          palette: {
+            primary: {
+              main: 'rgb(66, 133, 244)',
+              contrastText: '#fff',
+            },
+            nowIndicator: 'red',
+            gray: {
+              // 50: '#fafafa',
+              100: '#f5f5f5',
+              200: '#eeeeee',
+              300: '#e0e0e0',
+              // 400: '#bdbdbd',
+              500: '#9e9e9e',
+              // 600: '#757575',
+              // 700: '#616161',
+              800: '#424242',
+              // 900: '#212121',
+            },
+            moreLabel: '#fff',
+          },
+          eventCellOverlappings: [
+            {main: '#E26245', contrastText: '#fff'},
+            {main: '#4AC001', contrastText: '#fff'},
+            {main: '#5934C7', contrastText: '#fff'}, // purple
+          ],
+          typography: {
+            xs: {
+              fontSize: 10,
+            },
+            sm: {
+              fontSize: 12,
+            },
+            xl: {
+              fontSize: 22,
+            },
+            moreLabel: {
+              fontSize: 11,
+              fontWeight: 'bold',
+            },
+          },
+        }}
         // dayHeaderHighlightColor="#ffff"
         // weekDayHeaderHighlightColor="#ffff"
       />

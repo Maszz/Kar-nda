@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Box,
@@ -7,20 +7,19 @@ import {
   View,
   Text,
   Input,
-  WarningOutlineIcon,
   TextArea,
   HStack,
-  Container,
   VStack,
   Spacer,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {bindActionCreators} from 'redux';
+
 import {actionCreators} from '../state/index';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ScrollView} from 'react-native-gesture-handler';
+import {useTranslation} from 'react-i18next';
+
+import PushNotification from 'react-native-push-notification';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -32,9 +31,8 @@ const DissmissKeyboard = ({children}) => {
     </TouchableWithoutFeedback>
   );
 };
-import CalendarPicker from 'react-native-calendar-picker';
-import DateSelector from '../components/dateSelector';
-const AddtitleScreen = ({navigation, addEvent, events}) => {
+
+const AddEventScreen = ({navigation, addEvent, events, notification}) => {
   // const events = useSelector(state => state.events);
   // const dispatch = useDispatch();
 
@@ -42,6 +40,8 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
   //   actionCreators.eventsActionCreator,
   //   dispatch,
   // );
+  const {t} = useTranslation();
+  const [spinner, setSpinner] = useState(false);
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -50,6 +50,15 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
     description: '',
     location: '',
   });
+  const scheduleNotifications = (title, message, date) => {
+    PushNotification.localNotificationSchedule({
+      title: title,
+      message: message,
+      date: date,
+      allowWhileIdle: true,
+      id: title + '-' + date.toISOString(),
+    });
+  };
   const submitEvent = () => {
     console.log(formData.start.getTime(), formData.end.getTime());
 
@@ -58,6 +67,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
     const formmatedEndTime = formData.end.toISOString().split('T')[1];
     const formattedStart = `${formmatedDate}T${formmatedStartTime}`;
     const formattedend = `${formmatedDate}T${formmatedEndTime}`;
+    console.log('add section');
     console.log(formattedStart, formattedend);
     const state = {
       title: formData.title,
@@ -66,8 +76,17 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
       end: formattedend,
       location: formData.location,
     };
-    addEvent(state);
+    console.log('Notification :', notification);
+    if (notification) {
+      scheduleNotifications(
+        formData.title,
+        formData.description,
+        new Date(formattedStart),
+      );
+    }
+    addEvent(state, notification);
   };
+
   return (
     <DissmissKeyboard>
       <View
@@ -93,7 +112,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                   navigation.goBack();
                 }
               }}>
-              <Text style={{color: 'white'}}>Save</Text>
+              <Text style={{color: 'white'}}>{t('common:save')}</Text>
             </Button>
           </Box>
           <Box w="90%">
@@ -101,7 +120,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               <VStack mx="4">
                 <Input
                   color="white"
-                  placeholder="Add Activity"
+                  placeholder={t('common:addActivity')}
                   variant="underlined"
                   size="2xl"
                   selectionColor={'white'}
@@ -126,10 +145,10 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           alignSelf: 'flex-start',
                           color: 'white',
                         }}>
-                        Date
+                        {t('common:date')}
                       </Text>
                       <Spacer />
-                      <Box style={{width: 125, alignSelf: 'flex-end'}}>
+                      <Box style={{width: 150, alignSelf: 'flex-end'}}>
                         <DateTimePicker
                           display="default"
                           mode="date"
@@ -160,7 +179,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           marginHorizontal: 'auto',
                           color: 'white',
                         }}>
-                        Start Time
+                        {t('common:startTime')}
                       </Text>
                       <Spacer />
                       <Box style={{width: 100, alignSelf: 'flex-end'}}>
@@ -169,7 +188,6 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           mode="time"
                           value={formData.start}
                           onChange={(e, d) => {
-                            console.log(d.toISOString().split('T')[1]);
                             setFormData({
                               start: d,
                               end: formData.end,
@@ -190,7 +208,7 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           alignSelf: 'flex-start',
                           color: 'white',
                         }}>
-                        End Time
+                        {t('common:endTime')}
                       </Text>
                       <Spacer />
                       <Box style={{width: 100, alignSelf: 'flex-end'}}>
@@ -199,7 +217,6 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
                           mode="time"
                           value={formData.end}
                           onChange={(e, d) => {
-                            console.log(d.toISOString().split('T')[1]);
                             setFormData({
                               start: formData.start,
                               end: d,
@@ -217,12 +234,12 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               </VStack>
               <Box mx="4" marginTop={5}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>Location</Text>
+                  <Text style={{color: 'white'}}>{t('common:location')}</Text>
                 </FormControl.Label>
                 <Input
                   // defaultValue="12345"
                   color="white"
-                  placeholder="Location"
+                  placeholder={t('common:location')}
                   selectionColor={'white'}
                   variant="unstyled"
                   onChangeText={text => {
@@ -239,14 +256,16 @@ const AddtitleScreen = ({navigation, addEvent, events}) => {
               </Box>
               <Stack mx="4" style={{marginVertical: 5}}>
                 <FormControl.Label>
-                  <Text style={{color: 'white'}}>Description</Text>
+                  <Text style={{color: 'white'}}>
+                    {t('common:description')}
+                  </Text>
                 </FormControl.Label>
 
                 <TextArea
                   h={20}
                   color="white"
                   style={{color: 'white'}}
-                  placeholder="Desicribe your title."
+                  placeholder={t('common:descriptionPlaceholder')}
                   selectionColor={'white'}
                   fontFamily={'Roboto'}
                   w="100%"
@@ -297,9 +316,10 @@ const mapStateToProps = function (state) {
   return {
     events: state.events,
     navigationState: state.StackNavigation,
+    notification: state.notifications.notification,
   };
 };
 const mapDispatchToProps = {
   addEvent: actionCreators.eventsActionCreator.addEvent,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(AddtitleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AddEventScreen);

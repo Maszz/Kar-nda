@@ -13,6 +13,8 @@ import {background} from 'native-base/lib/typescript/theme/styled-system';
 import moment from 'moment';
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
+import {TabActions} from '@react-navigation/native';
+
 const calendarComponent = ({markedDates, tabNavi}) => {
   const [globalMarkedDates, setGlobalMarkedDates] = useState(markedDates);
   const [calendarSelector, setcalendarSelector] = useState('a');
@@ -81,8 +83,10 @@ const calendarComponent = ({markedDates, tabNavi}) => {
           );
           console.log('Year :', date);
           setSelectedDate(date);
+          const jumpToAction = TabActions.jumpTo('DayScreen');
+          tabNavi.dispatch(jumpToAction);
 
-          tabNavi.navigate('DayScreen');
+          // tabNavi.navigate('DayScreen');
           if (prevSelected != calendarSelector) {
             onChangeSelectedDate(day);
           }

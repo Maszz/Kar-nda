@@ -1,12 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
 import moment from 'moment';
 import * as RNLocalize from 'react-native-localize';
-const initialState = {dairy: {}, todo: []};
+const initialState = {dairy: {}};
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('onSubmitDairyForm', (state, action) => {
       const timeZone = RNLocalize.getTimeZone();
-      const date = moment(new Date(Date.now()).toISOString())
+      const date = moment(new Date(action.payload.date).toISOString())
         .tz(timeZone)
         .format()
         .split('T')[0];
