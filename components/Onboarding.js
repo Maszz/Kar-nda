@@ -9,7 +9,7 @@ import {Styles} from '../styles';
 const data = [
   {
     title: 'Save time by tracking your day',
-    text: 'Schedule your time, achivemnets and more',
+    text: 'Schedule your time, achivements and more.',
     image: require('../assets/images/Onboard1.png'),
   },
   {
@@ -19,7 +19,7 @@ const data = [
   },
   {
     title: 'Spend more time doing the things you love',
-    text: 'Get started within less minute',
+    text: 'Get started within less minute.',
     image: require('../assets/images/Onboard3.png'),
   },
 ];

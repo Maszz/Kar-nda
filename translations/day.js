@@ -40,4 +40,4 @@ const locale = {
 
 dayjs.locale(locale, null, true);
 
-export default locale;
+// export default locale;
