@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import ActionButton from 'react-native-action-button';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
-import AddEventModal from './AddEventModal';
+import AddEventModal from './AddTodoModal';
 import {Container, Box} from 'native-base';
 import {useDispatch, useSelector, connect} from 'react-redux';
 import moment from 'moment';
 import * as RNLocalize from 'react-native-localize';
 import {useTranslation} from 'react-i18next';
+import {Styles} from '../styles';
+
 const ActionButtonComponent = ({navigationState}) => {
   // const navigationState = useSelector(state => state.StackNavigation);
   const {t, i18n} = useTranslation();
@@ -35,7 +35,7 @@ const ActionButtonComponent = ({navigationState}) => {
             borderColor: 'transparent',
           }}
           textStyle={{
-            color: '#fff',
+            color: Styles.globalStyles.textPrimaryColor,
             fontSize: 13,
             letterSpacing: 1,
           }}
@@ -53,7 +53,7 @@ const ActionButtonComponent = ({navigationState}) => {
             borderColor: 'transparent',
           }}
           textStyle={{
-            color: '#fff',
+            color: Styles.globalStyles.textPrimaryColor,
             fontSize: 13,
             letterSpacing: 1,
           }}
@@ -78,7 +78,7 @@ const ActionButtonComponent = ({navigationState}) => {
             borderColor: 'transparent',
           }}
           textStyle={{
-            color: '#fff',
+            color: Styles.globalStyles.textPrimaryColor,
             fontSize: 13,
             letterSpacing: 1,
           }}
