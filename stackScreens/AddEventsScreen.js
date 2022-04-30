@@ -12,6 +12,8 @@ import {
   VStack,
   Spacer,
   AlertDialog,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
@@ -55,7 +57,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
     );
   };
   const {t} = useTranslation();
-  const [spinner, setSpinner] = useState(false);
+  const [notificationTime, setNotificationTime] = useState(30);
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -98,17 +100,30 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
         formData.description,
         new Date(formattedStart),
       );
+      const notifyBeforeEventTime = Date.now() - 1000 * 60 * notificationTime;
+      scheduleNotifications(
+        `${notificationTime} minute before, ${formData.title}`,
+        formData.description,
+        new Date(notifyBeforeEventTime),
+      );
     }
     addEvent(state, notification);
   };
 
   return (
     <DissmissKeyboard>
-      <View
+      <ScrollView
         style={{backgroundColor: '#1F2937', height: '100%'}}
         showsHorizontalScrollIndicator={false}>
+        <KeyboardAvoidingView></KeyboardAvoidingView>
+
         <VStack width="100%" style={{alignItems: 'center'}}>
-          <Box style={{alignSelf: 'flex-end', padding: 15}}>
+          <Box
+            style={{
+              alignSelf: 'flex-end',
+              paddingHorizontal: 15,
+              paddingTop: 15,
+            }}>
             <Button
               variant="unstyled"
               onPress={() => {
@@ -334,9 +349,44 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 }}
               />
             </Stack>
+            <Box mx={4} marginTop={3} paddingBottom={20}>
+              <HStack alignItems="center">
+                <Ionicons
+                  name="notifications"
+                  size={14}
+                  color="#fff"
+                  style={{marginRight: 4}}
+                />
+                <Box>
+                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                    Notifications before events
+                  </Text>
+                </Box>
+                <Box w={'20%'}>
+                  <Input
+                    color={'#fff'}
+                    variant="underlined"
+                    size="12"
+                    keyboardType={'decimal-pad'}
+                    textAlign={'center'}
+                    value={notificationTime}
+                    onChangeText={value => {
+                      setNotificationTime(value);
+                      console.log(value);
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                    minute.
+                  </Text>
+                </Box>
+                <KeyboardAvoidingView />
+              </HStack>
+            </Box>
           </Box>
         </VStack>
-      </View>
+      </ScrollView>
     </DissmissKeyboard>
   );
 };
