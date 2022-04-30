@@ -390,10 +390,7 @@ const DayScreen = ({
                   height={75}
                   border="1"
                   borderRadius={5}
-                  style={[
-                    Styles.globalStyles.cardContainer.cardBgcolor,
-                    {marginBottom: 15},
-                  ]}>
+                  style={[{marginBottom: 15, backgroundColor: item.tagColor}]}>
                   <VStack style={{padding: 10}}>
                     <Text
                       numberOfLines={1}

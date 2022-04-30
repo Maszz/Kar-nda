@@ -23,6 +23,8 @@ import PushNotification from 'react-native-push-notification';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ColorPicker from 'react-native-color-picker-ios';
+
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -42,6 +44,15 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
   //   actionCreators.eventsActionCreator,
   //   dispatch,
   // );
+  const [tagColor, setTagColor] = useState('#4AA9FF');
+  const colorPress = () => {
+    ColorPicker.showColorPicker(
+      {supportsAlpha: false, initialColor: 'cyan'},
+      color => {
+        setTagColor(color);
+      },
+    );
+  };
   const {t} = useTranslation();
   const [spinner, setSpinner] = useState(false);
   const [formData, setFormData] = useState({
@@ -77,6 +88,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
       start: formattedStart,
       end: formattedend,
       location: formData.location,
+      tagColor: tagColor,
     };
     console.log('Notification :', notification);
     if (notification) {
@@ -122,13 +134,14 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
           <Box w="90%">
             <HStack alignItems="center" marginRight={4}>
               <TouchableOpacity
-                onpress={() => {
+                onPress={() => {
+                  colorPress();
                   console.log('Press');
                 }}>
                 <Box
                   w={21}
                   h={21}
-                  bgColor={'#ffff'}
+                  bgColor={tagColor}
                   rounded="md"
                   marginRight={4}
                 />
@@ -193,7 +206,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 <Box style={{marginVertical: 5}}>
                   <HStack
                     style={{
-                      alignItems: 'space-between',
+                      alignItems: 'center',
                       justifyContent: 'center',
                     }}>
                     <Text
