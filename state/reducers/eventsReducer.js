@@ -24,7 +24,6 @@ const reducer = createReducer(initialState, builder => {
             .format()
             .split('T')[0],
       );
-      console.log(filtered);
       const found = filtered.find(
         event => event.title === action.payload.title,
       );
@@ -34,11 +33,17 @@ const reducer = createReducer(initialState, builder => {
         const index = state.events.indexOf(found);
         console.log(index);
         const temp = state.events[index];
+        const startTime = new Date(temp.start).getTime();
+        const notificationOffsetTime = temp.notificationBeforeEvent * 1000 * 60;
+        PushNotification.cancelLocalNotification(
+          `${temp.notificationBeforeEvent} minute before, ${temp.title}` +
+            '-' +
+            new Date(startTime - notificationOffsetTime).toISOString(),
+        );
         PushNotification.cancelLocalNotification(temp.title + '-' + temp.start);
 
         state.events.splice(index, 1);
       }
-      console.log('Original:', state.events);
     })
     .addCase('resetEventList', (state, action) => {
       state.events = [];

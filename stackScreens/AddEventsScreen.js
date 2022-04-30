@@ -57,7 +57,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
     );
   };
   const {t} = useTranslation();
-  const [notificationTime, setNotificationTime] = useState(0);
+  const [notificationTime, setNotificationTime] = useState('0');
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
