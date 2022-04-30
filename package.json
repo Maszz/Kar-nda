@@ -57,6 +57,7 @@
     "react-native-calendar-slider-carousel": "^1.1.0",
     "react-native-calendar-strip": "^2.2.5",
     "react-native-calendars": "^1.1276.0",
+    "react-native-color-palette": "^2.2.0",
     "react-native-color-picker-ios": "^0.1.2",
     "react-native-elements": "^3.4.2",
     "react-native-events-calendar": "^1.0.8",

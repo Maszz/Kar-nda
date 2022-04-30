@@ -23,7 +23,15 @@ const AgendaComponents = ({eventsState, navigationState}) => {
   const renderItem = (reservation, isFirst) => {
     return (
       <TouchableOpacity
-        style={[Styles.weekScreenStyles.AgendarStylesProps.item, {height: 70}]}
+        style={{
+          height: 70,
+          backgroundColor: reservation.tagColor,
+          flex: 1,
+          borderRadius: 5,
+          padding: 10,
+          marginRight: 10,
+          marginTop: 17,
+        }}
         onPress={() => {
           navigationState.navigation.navigate('EventModal', {
             date: selectedDate,
@@ -117,6 +125,7 @@ const AgendaComponents = ({eventsState, navigationState}) => {
         description: item.description,
         start: moment(new Date(item.start)).tz(timeZone),
         end: moment(new Date(item.end)).tz(timeZone),
+        tagColor: item.tagColor,
       };
       if (day == localeTime) {
         // tempObj[day] = [tempdata];

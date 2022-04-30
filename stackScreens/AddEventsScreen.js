@@ -11,6 +11,7 @@ import {
   HStack,
   VStack,
   Spacer,
+  AlertDialog,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
@@ -334,28 +335,6 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
               />
             </Stack>
           </Box>
-          {/* <Text>Hello world</Text>
-          <Button
-            onPress={() => {
-              navigation.goBack();
-            }}>
-            Go back
-          </Button>
-          <Button
-            onPress={async () => {
-              if (formData.start.getTime() > formData.end.getTime()) {
-                console.log('error date');
-                Alert.alert('InvalidDate', 'Please Insert collect date.');
-              } else if (formData.title === '' || formData.description === '') {
-                console.log('Invalid', 'Event empty');
-                Alert.alert('Empty Field', `Don't let field be empty.`);
-              } else {
-                submitEvent();
-                await navigation.goBack();
-              }
-            }}>
-            Submit
-          </Button> */}
         </VStack>
       </View>
     </DissmissKeyboard>

@@ -30,6 +30,7 @@ import {Styles} from '../../styles';
 import {useTranslation} from 'react-i18next';
 import {calendarStripLocaleTh} from '../../translations/calendarStrip';
 import TodoList from '../../components/todolist';
+
 const DayScreen = ({
   navigation,
   route,
