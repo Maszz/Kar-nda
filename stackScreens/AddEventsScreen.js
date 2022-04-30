@@ -57,7 +57,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
     );
   };
   const {t} = useTranslation();
-  const [notificationTime, setNotificationTime] = useState(30);
+  const [notificationTime, setNotificationTime] = useState(0);
   const [formData, setFormData] = useState({
     date: new Date(),
     start: new Date(),
@@ -92,6 +92,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
       end: formattedend,
       location: formData.location,
       tagColor: tagColor,
+      notificationBeforeEvent: notificationTime,
     };
     console.log('Notification :', notification);
     if (notification) {
@@ -100,14 +101,14 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
         formData.description,
         new Date(formattedStart),
       );
-      const notifyBeforeEventTime = Date.now() - 1000 * 60 * notificationTime;
+      const notifyBeforeEventTime = parseInt(notificationTime) * 1000 * 60;
       scheduleNotifications(
         `${notificationTime} minute before, ${formData.title}`,
         formData.description,
-        new Date(notifyBeforeEventTime),
+        new Date(new Date(formattedStart).getTime() - notifyBeforeEventTime),
       );
     }
-    addEvent(state, notification);
+    addEvent(state);
   };
 
   return (

@@ -9,12 +9,7 @@ const initialState = {events: []};
 const reducer = createReducer(initialState, builder => {
   builder
     .addCase('addEvent', (state, action) => {
-      const data = action.payload;
-      console.log(data);
-      const event = data.event;
-      const isNotifiaction = data.isNotification;
-      console.log('isNotifiaction instate :', isNotifiaction);
-
+      const event = action.payload.event;
       state.events.push(event);
     })
     .addCase('removeEvent', (state, action) => {

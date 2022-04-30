@@ -71,6 +71,7 @@ const EventModal = ({
       title: event.title,
       description: event.description,
       location: event.location,
+      notificationBeforeEvent: event.notificationBeforeEvent,
     };
     setSelectedEvent(selectedEventDTO);
   }, [date, index]);
@@ -154,6 +155,18 @@ const EventModal = ({
           <Box>
             <Text style={{color: 'white'}}>
               {selectedEvent.location || 'no Location set'}
+            </Text>
+          </Box>
+        </Box>
+        <Box>
+          <Box style={{marginTop: 20}}>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Notification</Box>
+          </Box>
+
+          <Box>
+            <Text style={{color: 'white'}}>
+              Before Event {selectedEvent.notificationBeforeEvent || '0'}{' '}
+              minutes.
             </Text>
           </Box>
         </Box>

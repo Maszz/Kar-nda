@@ -1,8 +1,8 @@
-export const addEvent = (event, isNotifiaction) => {
+export const addEvent = event => {
   return dispatch => {
     dispatch({
       type: 'addEvent',
-      payload: {event: event, isNotification: isNotifiaction},
+      payload: {event: event},
     });
   };
 };
