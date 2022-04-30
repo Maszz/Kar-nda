@@ -24,8 +24,6 @@ import {actionCreators} from '../../state/index';
 import {Styles} from '../../styles';
 const SettingStackScreen = ({notification, eventsState, navigation}) => {
   const {t} = useTranslation();
-  // const notification = useSelector(state => state.notifications.notification);
-  // const eventsState = useSelector(state => state.events.events);
   const [localNotificationState, setLocalNotificationState] =
     useState(notification);
   const dispatch = useDispatch();
@@ -78,6 +76,29 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
         backgroundColor: '#1F2937',
       }}>
       <Box style={{marginTop: 30}}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Language')}>
+          <Box
+            style={{marginTop: 3, marginBottom: 3}}
+            w={
+              Dimensions.get('window').width -
+              (10 / 100) * Dimensions.get('window').width
+            }
+            py={2}
+            px={3}
+            bgColor={'rgba(147, 147, 147, 0.3)'}
+            rounded="lg">
+            <HStack space={4} justifyContent="space-between">
+              <Icon name="language-sharp" size={30} color="#ecfeff" />
+              <VStack justifyContent="center">
+                <Text color="#e5e5e5" bold>
+                  {t('common:languageSetting')}
+                </Text>
+              </VStack>
+              <Spacer />
+              <Icon name="chevron-forward-outline" size={30} color="#525252" />
+            </HStack>
+          </Box>
+        </TouchableOpacity> */}
         <Box
           style={{marginTop: 10, marginBottom: 3}}
           w={
@@ -91,7 +112,12 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
           <HStack space={4} justifyContent="space-between">
             <Icon name="notifications" size={30} color="#ecfeff" />
             <VStack justifyContent="center">
-              <Text color={Styles.globalStyles.textPrimaryColor} bold>
+              <Text
+                _dark={{
+                  color: 'warmGray.50',
+                }}
+                color="#e5e5e5"
+                bold>
                 {t('common:notifications')}
               </Text>
             </VStack>

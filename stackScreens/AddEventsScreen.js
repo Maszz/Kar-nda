@@ -20,7 +20,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {useTranslation} from 'react-i18next';
 
 import PushNotification from 'react-native-push-notification';
-
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -118,176 +120,206 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
             </Button>
           </Box>
           <Box w="90%">
-            <FormControl>
-              <VStack mx="4">
-                <Input
-                  color="white"
-                  placeholder={t('common:addActivity')}
-                  variant="underlined"
-                  size="2xl"
-                  selectionColor={Styles.globalStyles.textPrimaryColor}
-                  value={formData.title}
-                  onChangeText={text => {
-                    setFormData({
-                      start: formData.start,
-                      end: formData.end,
-                      date: formData.date,
-                      title: text,
-                      description: formData.description,
-                      location: formData.location,
-                    });
-                  }}
+            <HStack alignItems="center" marginRight={4}>
+              <TouchableOpacity
+                onpress={() => {
+                  console.log('Press');
+                }}>
+                <Box
+                  w={21}
+                  h={21}
+                  bgColor={'#ffff'}
+                  rounded="md"
+                  marginRight={4}
                 />
+              </TouchableOpacity>
 
-                <VStack style={{marginTop: 20}}>
-                  <Box style={{marginVertical: 5}}>
-                    <HStack style={{alignItems: 'space-between'}}>
-                      <Text
-                        style={{
-                          alignSelf: 'flex-start',
-                          color: Styles.globalStyles.textPrimaryColor,
-                        }}>
-                        {t('common:date')}
-                      </Text>
-                      <Spacer />
-                      <Box style={{width: 150, alignSelf: 'flex-end'}}>
-                        <DateTimePicker
-                          display="default"
-                          mode="date"
-                          value={formData.date}
-                          onChange={(e, d) => {
-                            setFormData({
-                              start: formData.start,
-                              end: formData.end,
-                              date: d,
-                              title: formData.title,
-                              description: formData.description,
-                              location: formData.location,
-                            });
-                          }}
-                        />
-                      </Box>
-                    </HStack>
-                  </Box>
-                  <Box style={{marginVertical: 5}}>
-                    <HStack
+              <Input
+                color="white"
+                placeholder={t('common:addActivity')}
+                variant="underlined"
+                size="2xl"
+                width={'90%'}
+                selectionColor={Styles.globalStyles.textPrimaryColor}
+                value={formData.title}
+                onChangeText={text => {
+                  setFormData({
+                    start: formData.start,
+                    end: formData.end,
+                    date: formData.date,
+                    title: text,
+                    description: formData.description,
+                    location: formData.location,
+                  });
+                }}
+              />
+            </HStack>
+            <VStack mx="4">
+              <VStack style={{marginTop: 20}}>
+                <Box style={{marginVertical: 5}}>
+                  <HStack style={{alignItems: 'center'}}>
+                    <Ionicons
+                      name="ios-today"
+                      size={14}
+                      color="#fff"
+                      style={{marginRight: 4}}
+                    />
+                    <Text
                       style={{
-                        alignItems: 'space-between',
-                        justifyContent: 'center',
+                        color: Styles.globalStyles.textPrimaryColor,
                       }}>
-                      <Text
-                        style={{
-                          alignSelf: 'flex-start',
-                          marginHorizontal: 'auto',
-                          color: Styles.globalStyles.textPrimaryColor,
-                        }}>
-                        {t('common:startTime')}
-                      </Text>
-                      <Spacer />
-                      <Box style={{width: 100, alignSelf: 'flex-end'}}>
-                        <DateTimePicker
-                          display="default"
-                          mode="time"
-                          value={formData.start}
-                          onChange={(e, d) => {
-                            setFormData({
-                              start: d,
-                              end: formData.end,
-                              date: formData.date,
-                              title: formData.title,
-                              description: formData.description,
-                              location: formData.location,
-                            });
-                          }}
-                        />
-                      </Box>
-                    </HStack>
-                  </Box>
-                  <Box style={{marginVertical: 5}}>
-                    <HStack style={{alignItems: 'space-between'}}>
-                      <Text
-                        style={{
-                          alignSelf: 'flex-start',
-                          color: Styles.globalStyles.textPrimaryColor,
-                        }}>
-                        {t('common:endTime')}
-                      </Text>
-                      <Spacer />
-                      <Box style={{width: 100, alignSelf: 'flex-end'}}>
-                        <DateTimePicker
-                          display="default"
-                          mode="time"
-                          value={formData.end}
-                          onChange={(e, d) => {
-                            setFormData({
-                              start: formData.start,
-                              end: d,
-                              date: formData.date,
-                              title: formData.title,
-                              description: formData.description,
-                              location: formData.location,
-                            });
-                          }}
-                        />
-                      </Box>
-                    </HStack>
-                  </Box>
-                </VStack>
+                      {t('common:date')}
+                    </Text>
+                    <Spacer />
+                    <Box style={{width: 150, alignSelf: 'flex-end'}}>
+                      <DateTimePicker
+                        display="default"
+                        mode="date"
+                        value={formData.date}
+                        onChange={(e, d) => {
+                          setFormData({
+                            start: formData.start,
+                            end: formData.end,
+                            date: d,
+                            title: formData.title,
+                            description: formData.description,
+                            location: formData.location,
+                          });
+                        }}
+                      />
+                    </Box>
+                  </HStack>
+                </Box>
+                <Box style={{marginVertical: 5}}>
+                  <HStack
+                    style={{
+                      alignItems: 'space-between',
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        alignSelf: 'flex-start',
+                        marginHorizontal: 'auto',
+                        color: Styles.globalStyles.textPrimaryColor,
+                      }}>
+                      {t('common:startTime')}
+                    </Text>
+                    <Spacer />
+                    <Box style={{width: 100, alignSelf: 'flex-end'}}>
+                      <DateTimePicker
+                        display="default"
+                        mode="time"
+                        value={formData.start}
+                        onChange={(e, d) => {
+                          setFormData({
+                            start: d,
+                            end: formData.end,
+                            date: formData.date,
+                            title: formData.title,
+                            description: formData.description,
+                            location: formData.location,
+                          });
+                        }}
+                      />
+                    </Box>
+                  </HStack>
+                </Box>
+                <Box style={{marginVertical: 5}}>
+                  <HStack style={{alignItems: 'center'}}>
+                    <Text
+                      style={{
+                        color: Styles.globalStyles.textPrimaryColor,
+                      }}>
+                      {t('common:endTime')}
+                    </Text>
+                    <Spacer />
+                    <Box style={{width: 100, alignSelf: 'flex-end'}}>
+                      <DateTimePicker
+                        display="default"
+                        mode="time"
+                        value={formData.end}
+                        onChange={(e, d) => {
+                          setFormData({
+                            start: formData.start,
+                            end: d,
+                            date: formData.date,
+                            title: formData.title,
+                            description: formData.description,
+                            location: formData.location,
+                          });
+                        }}
+                      />
+                    </Box>
+                  </HStack>
+                </Box>
               </VStack>
-              <Box mx="4" marginTop={5}>
-                <FormControl.Label>
-                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                    {t('common:location')}
-                  </Text>
-                </FormControl.Label>
-                <Input
-                  // defaultValue="12345"
-                  color="white"
-                  placeholder={t('common:location')}
-                  selectionColor={Styles.globalStyles.textPrimaryColor}
-                  variant="unstyled"
-                  onChangeText={text => {
-                    setFormData({
-                      start: formData.start,
-                      end: formData.end,
-                      date: formData.date,
-                      title: formData.title,
-                      description: formData.description,
-                      location: text,
-                    });
-                  }}
+            </VStack>
+            <Box mx="4" marginTop={5}>
+              <HStack alignItems="center">
+                <EntypoIcon
+                  name="map"
+                  size={14}
+                  color="#fff"
+                  style={{marginRight: 4}}
                 />
-              </Box>
-              <Stack mx="4" style={{marginVertical: 5}}>
-                <FormControl.Label>
-                  <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                    {t('common:description')}
-                  </Text>
-                </FormControl.Label>
+                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                  {t('common:location')}
+                </Text>
+              </HStack>
 
-                <TextArea
-                  h={20}
-                  color="white"
-                  style={{color: Styles.globalStyles.textPrimaryColor}}
-                  placeholder={t('common:descriptionPlaceholder')}
-                  selectionColor={Styles.globalStyles.textPrimaryColor}
-                  fontFamily={'Roboto'}
-                  w="100%"
-                  maxW="300"
-                  onChangeText={text => {
-                    setFormData({
-                      start: formData.start,
-                      end: formData.end,
-                      date: formData.date,
-                      title: formData.title,
-                      description: text,
-                      location: formData.location,
-                    });
-                    console.log(formData);
-                  }}
+              <Input
+                // defaultValue="12345"
+                color="white"
+                placeholder={t('common:location')}
+                selectionColor={Styles.globalStyles.textPrimaryColor}
+                variant="unstyled"
+                onChangeText={text => {
+                  setFormData({
+                    start: formData.start,
+                    end: formData.end,
+                    date: formData.date,
+                    title: formData.title,
+                    description: formData.description,
+                    location: text,
+                  });
+                }}
+              />
+            </Box>
+            <Stack mx="4" style={{marginVertical: 5}}>
+              <HStack alignItems="center" mb={4}>
+                <EntypoIcon
+                  name="text"
+                  size={14}
+                  color="#fff"
+                  style={{marginRight: 4}}
                 />
-              </Stack>
-            </FormControl>
+                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                  {t('common:description')}
+                </Text>
+              </HStack>
+
+              <TextArea
+                h={20}
+                color="white"
+                style={{color: Styles.globalStyles.textPrimaryColor}}
+                placeholder={t('common:descriptionPlaceholder')}
+                selectionColor={Styles.globalStyles.textPrimaryColor}
+                fontFamily={'Roboto'}
+                w="100%"
+                maxW="300"
+                onChangeText={text => {
+                  setFormData({
+                    start: formData.start,
+                    end: formData.end,
+                    date: formData.date,
+                    title: formData.title,
+                    description: text,
+                    location: formData.location,
+                  });
+                  console.log(formData);
+                }}
+              />
+            </Stack>
           </Box>
           {/* <Text>Hello world</Text>
           <Button
