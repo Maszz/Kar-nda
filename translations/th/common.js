@@ -42,4 +42,5 @@ export default {
   sat: 'เสาร์ ที่',
   cancel: 'ยกเลิก',
   delete: 'ลบ',
+  noLocation: 'ไม่ได้ระบุสถานที่',
 };

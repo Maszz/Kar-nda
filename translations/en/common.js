@@ -42,4 +42,5 @@ export default {
   sat: 'Sat',
   cancel: 'Cancel',
   delete: 'Delete',
+  noLocation: 'No location.',
 };

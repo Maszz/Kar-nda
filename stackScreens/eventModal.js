@@ -167,14 +167,16 @@ const EventModal = ({
 
           <Box>
             <Text style={{color: 'white'}}>
-              {selectedEvent.location || 'no Location set'}
+              {selectedEvent.location == ''
+                ? t('common:noLocation')
+                : selectedEvent.location}
             </Text>
           </Box>
         </Box>
         <Box>
           <Box style={{marginTop: 20}}>
             <Box _text={{color: '#ffff', fontSize: 'xl'}}>
-              {t('common:notification')}
+              {t('common:notifications')}
             </Box>
           </Box>
 
