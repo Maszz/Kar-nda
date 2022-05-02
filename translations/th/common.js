@@ -41,4 +41,5 @@ export default {
   fri: 'ศุกร์ ที่',
   sat: 'เสาร์ ที่',
   cancel: 'ยกเลิก',
+  delete: 'ลบ',
 };

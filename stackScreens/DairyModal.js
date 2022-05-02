@@ -22,6 +22,7 @@ import {useDispatch, useSelector, connect} from 'react-redux';
 
 import * as RNLocalize from 'react-native-localize';
 import {Styles} from '../styles';
+import {useTranslation} from 'react-i18next';
 
 function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
   const [dairy, setDairy] = useState({
@@ -30,26 +31,37 @@ function DiaryModal({navigation, route, dayUserMemoState, navigationState}) {
     date: '',
     image: undefined,
   });
+  const {t} = useTranslation();
 
   const {date} = route.params;
   const [dateToDay, setDateToDay] = useState(new Date(date));
   const [shouldHideEditButton, setShouldHideEditButton] = useState(false);
   const richText = useRef();
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+  const days = [
+    t('common:sun'),
+    t('common:mon'),
+    t('common:tue'),
+    t('common:wed'),
+    t('common:thu'),
+    t('common:fri'),
+    t('common:sat'),
   ];
+
+  const months = [
+    t('month:january'),
+    t('month:february'),
+    t('month:march'),
+    t('month:april'),
+    t('month:may'),
+    t('month:june'),
+    t('month:july'),
+    t('month:august'),
+    t('month:september'),
+    t('month:october'),
+    t('month:november'),
+    t('month:december'),
+  ];
+
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     if (!isMounted) {

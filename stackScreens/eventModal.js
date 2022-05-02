@@ -7,6 +7,7 @@ import moment from 'moment';
 import {useDispatch, useSelector, connect} from 'react-redux';
 import {actionCreators} from '../state/index';
 import * as RNLocalize from 'react-native-localize';
+import {useTranslation} from 'react-i18next';
 
 const EventModal = ({
   navigation,
@@ -15,6 +16,7 @@ const EventModal = ({
   navigationState,
   removeEvent,
 }) => {
+  const {t} = useTranslation();
   const timeZone = RNLocalize.getTimeZone();
   const [selectedEvent, setSelectedEvent] = useState({
     start: moment(new Date()).tz(RNLocalize.getTimeZone()),
@@ -26,22 +28,29 @@ const EventModal = ({
   selectedEvent.start.hour();
   selectedEvent.start.minute();
   const {date, index} = route.params;
-  const [forMattedDate, setFormattedDate] = useState();
+  const days = [
+    t('common:sun'),
+    t('common:mon'),
+    t('common:tue'),
+    t('common:wed'),
+    t('common:thu'),
+    t('common:fri'),
+    t('common:sat'),
+  ];
 
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    t('month:january'),
+    t('month:february'),
+    t('month:march'),
+    t('month:april'),
+    t('month:may'),
+    t('month:june'),
+    t('month:july'),
+    t('month:august'),
+    t('month:september'),
+    t('month:october'),
+    t('month:november'),
+    t('month:december'),
   ];
   const timeFormatter = date => {
     return date.format('h:mm a');
@@ -103,7 +112,7 @@ const EventModal = ({
               },
             ]);
           }}>
-          <Text style={{color: 'white'}}>Delete</Text>
+          <Text style={{color: 'white'}}>{t('common:delete')}</Text>
         </Button>
       </Box>
       <VStack style={{paddingHorizontal: 50}}>
@@ -140,7 +149,9 @@ const EventModal = ({
         </Box>
         <Box>
           <Box style={{marginTop: 20}}>
-            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Description</Box>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>
+              {t('common:description')}
+            </Box>
           </Box>
 
           <Box>
@@ -149,7 +160,9 @@ const EventModal = ({
         </Box>
         <Box>
           <Box style={{marginTop: 20}}>
-            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Location</Box>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>
+              {t('common:location')}
+            </Box>
           </Box>
 
           <Box>
@@ -160,13 +173,16 @@ const EventModal = ({
         </Box>
         <Box>
           <Box style={{marginTop: 20}}>
-            <Box _text={{color: '#ffff', fontSize: 'xl'}}>Notification</Box>
+            <Box _text={{color: '#ffff', fontSize: 'xl'}}>
+              {t('common:notification')}
+            </Box>
           </Box>
 
           <Box>
             <Text style={{color: 'white'}}>
-              Before Event {selectedEvent.notificationBeforeEvent || '0'}{' '}
-              minutes.
+              {t('common:notificationEveventModal')}{' '}
+              {selectedEvent.notificationBeforeEvent || '0'}{' '}
+              {t('common:minute')}.
             </Text>
           </Box>
         </Box>

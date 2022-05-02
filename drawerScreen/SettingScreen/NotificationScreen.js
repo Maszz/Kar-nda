@@ -1,14 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Box, Switch, Spacer, Text, HStack, VStack} from 'native-base';
 import {Dimensions} from 'react-native';
 import IoniCons from 'react-native-vector-icons/Ionicons';
 import {useTranslation} from 'react-i18next';
 import {useSelector, connect} from 'react-redux';
 import {Styles} from '../../styles';
-const NotificationScreen = ({notificationState, eventsState}) => {
+import {actionCreators} from '../../state/index';
+
+const NotificationScreen = ({notificationState, setNotification}) => {
   const {t} = useTranslation();
-  const [localNotificationState, setLocalNotificationState] =
-    useState(notificationState);
+  const [localNotificationState, setLocalNotificationState] = useState(true);
+
+  useEffect(() => {
+    setLocalNotificationState(notificationState);
+  }, []);
   return (
     <View
       style={{
@@ -63,4 +68,8 @@ const mapStateToProps = function (state) {
   };
 };
 
-export default connect(mapStateToProps)(NotificationScreen);
+const mapDispatchToProps = {
+  setNotification: actionCreators.notificationsActionCreator.setNotification,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationScreen);

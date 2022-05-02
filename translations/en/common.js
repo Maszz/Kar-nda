@@ -41,4 +41,5 @@ export default {
   fri: 'Fri',
   sat: 'Sat',
   cancel: 'Cancel',
+  delete: 'Delete',
 };

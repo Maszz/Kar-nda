@@ -23,6 +23,7 @@ import LogRocket from '@logrocket/react-native';
 // import FlipperAsyncStorage from 'rn-flipper-async-storage-advanced';
 import {useFlipper} from '@react-navigation/devtools';
 import {useReduxDevToolsExtension} from '@react-navigation/devtools';
+import DeviceInfo from 'react-native-device-info';
 
 /**
  * the Main screen of app Wrapped from navigation container.
@@ -37,6 +38,7 @@ const App = () => {
   //   useFlipper(navigationRef);
   //   useReduxDevToolsExtension(navigationRef);
   // }
+  // end debug section
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -79,11 +81,16 @@ const ReactWrapper = () => {
         eventAction: sessionURL,
       });
     });
-    LogRocket.identify('TestUUid', {
-      name: 'Debug Mobile',
-      email: 'Debuggg',
-      // Add your own custom user variables here, ie:
-      subscriptionType: 'Debug',
+    let dName = 'Emulator';
+    let dToken = 'test token';
+    let uniqueId = DeviceInfo.getUniqueId();
+
+    DeviceInfo.getDeviceName().then(deviceName => {
+      dName = deviceName;
+      LogRocket.identify(`${uniqueId}`, {
+        name: dName == 'Emulator' ? 'Emulator' : dName,
+        // Add your own custom user variables here, ie:
+      });
     });
   }, []);
   return (

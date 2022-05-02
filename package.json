@@ -59,6 +59,7 @@
     "react-native-calendars": "^1.1276.0",
     "react-native-color-palette": "^2.2.0",
     "react-native-color-picker-ios": "^0.1.2",
+    "react-native-device-info": "^8.7.1",
     "react-native-elements": "^3.4.2",
     "react-native-events-calendar": "^1.0.8",
     "react-native-flipper": "^0.142.0",
