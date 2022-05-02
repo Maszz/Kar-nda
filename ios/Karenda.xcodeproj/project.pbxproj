@@ -658,7 +658,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RW8M8G36X6;
+				DEVELOPMENT_TEAM = 5NVDLSN7SK;
 				ENABLE_BITCODE = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = Karenda/Info.plist;
@@ -672,7 +672,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Karendax;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.calendarApp.Karenda;
 				PRODUCT_NAME = Karenda;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Karenda-Bridging-Header.h";
@@ -692,7 +692,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RW8M8G36X6;
+				DEVELOPMENT_TEAM = 5NVDLSN7SK;
 				ENABLE_BITCODE = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				INFOPLIST_FILE = Karenda/Info.plist;
@@ -706,7 +706,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Karendax;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.calendarApp.Karenda;
 				PRODUCT_NAME = Karenda;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Karenda-Bridging-Header.h";

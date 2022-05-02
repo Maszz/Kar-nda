@@ -3,6 +3,7 @@
  */
 import 'moment';
 import 'moment/locale/th';
+import './translations/calendarLocale';
 
 import {LogBox} from 'react-native';
 import {AppRegistry} from 'react-native';
@@ -11,7 +12,6 @@ import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
 import PushNotification from 'react-native-push-notification';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import './translations/calendarLocale';
 import './translations/day';
 
 GoogleSignin.configure({
