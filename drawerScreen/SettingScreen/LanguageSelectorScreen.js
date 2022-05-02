@@ -68,7 +68,7 @@ const Selector = () => {
         <Text
           style={{
             color: Styles.globalStyles.textPrimaryColor,
-            fontSize: 25,
+            // fontSize: 25,
             fontWeight: 'bold',
             letterSpacing: 1,
           }}>
@@ -80,7 +80,7 @@ const Selector = () => {
           name="ios-language-outline"
         />
       </HStack>
-      <Box style={{marginTop: 5, alignItems: 'center'}}>
+      <Box style={{alignItems: 'center'}}>
         {LANGUAGES.map(language => {
           const selectedLanguage = language.code === selectedLanguageCode;
 
