@@ -14,22 +14,87 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {ZStack} from 'native-base';
+import {Divider, ZStack} from 'native-base';
 import DebugScreen from './DebugScreen';
 import {useTranslation} from 'react-i18next';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Box, Button} from 'native-base';
+import {Box, Button, HStack, VStack} from 'native-base';
 import {useDispatch, useSelector, connect} from 'react-redux';
 import {Styles} from '../styles';
-
+import IonicIcons from 'react-native-vector-icons/Ionicons';
+import Selector from './SettingScreen/LanguageSelectorScreen';
+import NotificationScreen from './SettingScreen/NotificationScreen';
 const CustomDrawerContent = props => {
+  const {t} = useTranslation();
+
   return (
     <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+      {/* <DrawerItemList {...props} /> */}
+      <DrawerItem
+        label={`${t('common:calendar')}`}
+        labelStyle={{color: Styles.globalStyles.textPrimaryColor}}
+        onPress={() => {
+          props.navigation.navigate('Calendar');
+        }}
+      />
+      <Box>
+        <VStack>
+          <Box>
+            <Divider mb={2} />
+            <HStack alignItems="center" ml={3}>
+              <IonicIcons
+                name="settings-sharp"
+                size={14}
+                color="#fff"
+                style={{marginRight: 10}}
+              />
+              <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                {`${t('common:setting')}`}
+              </Text>
+            </HStack>
+            <Divider mt={2} />
+          </Box>
+          <Box>
+            <HStack alignItems="center" ml={10} mt={5}>
+              <IonicIcons
+                name="settings-sharp"
+                size={14}
+                color="#fff"
+                style={{marginRight: 10}}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('Language');
+                }}>
+                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                  {t('common:languageSettings')}
+                </Text>
+              </TouchableOpacity>
+            </HStack>
+          </Box>
+          <Box>
+            <HStack alignItems="center" ml={10} mt={5}>
+              <IonicIcons
+                name="settings-sharp"
+                size={14}
+                color="#fff"
+                style={{marginRight: 10}}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate('Notification');
+                }}>
+                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                  {t('common:notifications')}
+                </Text>
+              </TouchableOpacity>
+            </HStack>
+          </Box>
+        </VStack>
+      </Box>
     </DrawerContentScrollView>
   );
 };
@@ -73,7 +138,7 @@ const DrawerScreenComponent = ({navigationState}) => {
         showHideTransition="slide"
       />
       <Drawer.Navigator
-        // drawerContent={props => <CustomDrawerContent {...props} />}
+        drawerContent={props => <CustomDrawerContent {...props} />}
         screenOptions={{
           drawerStyle: {
             backgroundColor: '#334155',
@@ -138,11 +203,33 @@ const DrawerScreenComponent = ({navigationState}) => {
           }}
         /> */}
         <Drawer.Screen
+          name="Language"
+          component={Selector}
+          options={{
+            title: t('common:language'),
+            headerStyle: {
+              backgroundColor: '#1F2937',
+            },
+            headerTitleStyle: {color: Styles.globalStyles.textPrimaryColor},
+          }}
+        />
+        <Drawer.Screen
           name="Setting"
           component={SettingScreen}
           options={{
             headerShown: false,
             title: `${t('common:setting')}`,
+            drawerLabelStyle: {color: Styles.globalStyles.textPrimaryColor},
+          }}
+        />
+        <Drawer.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={{
+            headerShown: true,
+            // title: `${t('common:setting')}`,
+            title: 'Notifications',
+            headerTitleStyle: {color: Styles.globalStyles.textPrimaryColor},
             drawerLabelStyle: {color: Styles.globalStyles.textPrimaryColor},
           }}
         />

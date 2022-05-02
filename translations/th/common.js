@@ -7,7 +7,7 @@ export default {
   allEvent: 'กิจกรรมทั้งหมด',
   allTodoList: 'สิ่งที่ต้องทำทั้งหมด',
   timer: 'จับเวลา',
-  languageSetting: 'ตั้งค่าภาษา',
+  languageSettings: 'เปลี่ยนภาษา',
   day: 'วัน',
   week: 'สัปดาห์',
   month: 'เดือน',

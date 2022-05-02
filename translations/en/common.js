@@ -7,7 +7,7 @@ export default {
   allEvent: 'All Event',
   allTodoList: 'All to do list',
   timer: 'Timer',
-  languageSettings: 'Language Settings',
+  languageSettings: 'Language',
   day: 'Day',
   week: 'Week',
   month: 'Month',

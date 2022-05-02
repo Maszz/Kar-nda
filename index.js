@@ -1,6 +1,9 @@
 /**
  * @format
  */
+import 'moment';
+import 'moment/locale/th';
+
 import {LogBox} from 'react-native';
 import {AppRegistry} from 'react-native';
 import App from './App';
