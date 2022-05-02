@@ -406,7 +406,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 />
                 <Box>
                   <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                    Notifications before events
+                    {t('common:notificationEveventModal')}
                   </Text>
                 </Box>
                 <Box w={'20%'}>
@@ -425,7 +425,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                 </Box>
                 <Box>
                   <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                    minute.
+                    {t('common:minute')}.
                   </Text>
                 </Box>
                 <KeyboardAvoidingView />

@@ -27,6 +27,8 @@ import {Styles} from '../styles';
 import IonicIcons from 'react-native-vector-icons/Ionicons';
 import Selector from './SettingScreen/LanguageSelectorScreen';
 import NotificationScreen from './SettingScreen/NotificationScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 const CustomDrawerContent = props => {
   const {t} = useTranslation();
 
@@ -57,42 +59,39 @@ const CustomDrawerContent = props => {
             </HStack>
             <Divider mt={2} />
           </Box>
-          <Box>
-            <HStack alignItems="center" ml={10} mt={5}>
-              <IonicIcons
-                name="settings-sharp"
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('Language');
+            }}>
+            <HStack alignItems="center" ml={10} mt={3} mb={2}>
+              <MaterialCommunityIcons
+                name="translate"
                 size={14}
                 color="#fff"
                 style={{marginRight: 10}}
               />
-              <TouchableOpacity
-                onPress={() => {
-                  props.navigation.navigate('Language');
-                }}>
-                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                  {t('common:languageSettings')}
-                </Text>
-              </TouchableOpacity>
+
+              <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                {t('common:languageSettings')}
+              </Text>
             </HStack>
-          </Box>
-          <Box>
-            <HStack alignItems="center" ml={10} mt={5}>
-              <IonicIcons
-                name="settings-sharp"
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation.navigate('Notification');
+            }}>
+            <HStack alignItems="center" ml={10} mt={3} mb={2}>
+              <EntypoIcon
+                name="notification"
                 size={14}
                 color="#fff"
                 style={{marginRight: 10}}
               />
-              <TouchableOpacity
-                onPress={() => {
-                  props.navigation.navigate('Notification');
-                }}>
-                <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
-                  {t('common:notifications')}
-                </Text>
-              </TouchableOpacity>
+              <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
+                {t('common:notifications')}
+              </Text>
             </HStack>
-          </Box>
+          </TouchableOpacity>
         </VStack>
       </Box>
     </DrawerContentScrollView>

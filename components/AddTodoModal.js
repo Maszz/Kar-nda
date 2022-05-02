@@ -15,15 +15,19 @@ import {
 } from 'native-base';
 import {actionCreators} from '../state';
 import {bindActionCreators} from 'redux';
+import {useTranslation} from 'react-i18next';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {Styles} from '../styles';
 const AddEventModal = ({showModal, closeModal, setShowModal}) => {
   const [list, setList] = React.useState([]);
+
   const [inputValue, setInputValue] = React.useState('');
   const selectedDateState = useSelector(
     state => state.selectedDate.selectedDateState,
   );
+  const {t} = useTranslation();
+
   const todoListItems = useSelector(state => state.todoList);
   const dispatch = useDispatch();
   const {setTodoList} = bindActionCreators(
@@ -76,7 +80,7 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
           {/* <Modal.CloseButton /> */}
           <Modal.Body syyle={{paddingTop: 5}}>
             <Text style={{color: '#fff', alignSelf: 'center'}}>
-              Add Todo list
+              {t('common:addTodoTasks')}
             </Text>
             <FormControl style={{marginTop: 10}}>
               {/* <FormControl.Label>Todo Task</FormControl.Label> */}
@@ -85,7 +89,7 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
                 onChangeText={v => setInputValue(v)}
                 value={inputValue}
                 color={'#fff'}
-                placeholder="Add Task"
+                placeholder={t('common:addTodoTasks')}
               />
             </FormControl>
             <Button.Group
@@ -97,7 +101,7 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
                 onPress={() => {
                   closeModal();
                 }}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button
                 onPress={() => {
@@ -105,7 +109,7 @@ const AddEventModal = ({showModal, closeModal, setShowModal}) => {
                   setInputValue('');
                   closeModal();
                 }}>
-                Save
+                {t('common:save')}
               </Button>
             </Button.Group>
           </Modal.Body>

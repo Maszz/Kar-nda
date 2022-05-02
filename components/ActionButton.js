@@ -29,7 +29,7 @@ const ActionButtonComponent = ({navigationState}) => {
         bgColor="rgba(0,0,0,0.5)">
         <ActionButton.Item
           buttonColor="#64748B"
-          title="To do Task"
+          title={t('common:todoTask')}
           textContainerStyle={{
             backgroundColor: 'transparent',
             borderColor: 'transparent',
