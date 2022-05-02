@@ -14,6 +14,7 @@ import {
   AlertDialog,
   ScrollView,
   KeyboardAvoidingView,
+  WarningOutlineIcon,
 } from 'native-base';
 import {Alert, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {useSelector, connect} from 'react-redux';
@@ -27,6 +28,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ColorPicker from 'react-native-color-picker-ios';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const DissmissKeyboard = ({children}) => {
   return (
@@ -56,6 +58,10 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
       },
     );
   };
+  const [isInputInValid, setIsInputInValid] = useState({
+    title: false,
+    time: false,
+  });
   const {t} = useTranslation();
   const [notificationTime, setNotificationTime] = useState('0');
   const [formData, setFormData] = useState({
@@ -101,12 +107,14 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
         formData.description,
         new Date(formattedStart),
       );
-      const notifyBeforeEventTime = parseInt(notificationTime) * 1000 * 60;
-      scheduleNotifications(
-        `${notificationTime} minute before, ${formData.title}`,
-        formData.description,
-        new Date(new Date(formattedStart).getTime() - notifyBeforeEventTime),
-      );
+      if (parseInt(notificationTime) > 0) {
+        const notifyBeforeEventTime = parseInt(notificationTime) * 1000 * 60;
+        scheduleNotifications(
+          `${notificationTime} minute before, ${formData.title}`,
+          formData.description,
+          new Date(new Date(formattedStart).getTime() - notifyBeforeEventTime),
+        );
+      }
     }
     addEvent(state);
   };
@@ -128,17 +136,39 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
             <Button
               variant="unstyled"
               onPress={() => {
-                console.log('Save');
+                // if (formData.start.getTime() > formData.end.getTime()) {
+                //   console.log('error date');
+                //   Alert.alert('InvalidDate', 'Please Insert collect date.');
+                //   setIsInputInValid({title: falsem, time: true});
+                // } else if (
+                //   formData.title === '' ||
+                //   formData.description === ''
+                // ) {
+                //   console.log('Invalid', 'Event empty');
+                //   Alert.alert('Empty Field', `Don't let field be empty.`);
+                // } else {
+                //   submitEvent();
+                //   navigation.goBack();
+                // }
+                const state = {title: false, time: false};
+                let shouldSubmit = true;
                 if (formData.start.getTime() > formData.end.getTime()) {
-                  console.log('error date');
-                  Alert.alert('InvalidDate', 'Please Insert collect date.');
-                } else if (
-                  formData.title === '' ||
-                  formData.description === ''
-                ) {
-                  console.log('Invalid', 'Event empty');
-                  Alert.alert('Empty Field', `Don't let field be empty.`);
-                } else {
+                  state.time = true;
+                  console.log('Incase');
+                  shouldSubmit = false;
+                }
+                if (formData.title === '') {
+                  state.title = true;
+                  shouldSubmit = false;
+                  console.log('......');
+
+                  PushNotificationIOS.getPendingNotificationRequests(v => {
+                    console.log(v);
+                  });
+                }
+                setIsInputInValid(state);
+                if (shouldSubmit) {
+                  console.log('Save');
                   submitEvent();
                   navigation.goBack();
                 }
@@ -149,41 +179,51 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
             </Button>
           </Box>
           <Box w="90%">
-            <HStack alignItems="center" marginRight={4}>
-              <TouchableOpacity
-                onPress={() => {
-                  colorPress();
-                  console.log('Press');
-                }}>
-                <Box
-                  w={21}
-                  h={21}
-                  bgColor={tagColor}
-                  rounded="md"
-                  marginRight={4}
-                />
-              </TouchableOpacity>
+            <FormControl isInvalid={isInputInValid.title}>
+              <HStack alignItems="center" marginRight={4}>
+                <TouchableOpacity
+                  onPress={() => {
+                    colorPress();
+                    console.log('Press');
+                  }}>
+                  <Box
+                    w={21}
+                    h={21}
+                    bgColor={tagColor}
+                    rounded="md"
+                    marginRight={4}
+                  />
+                </TouchableOpacity>
 
-              <Input
-                color="white"
-                placeholder={t('common:addActivity')}
-                variant="underlined"
-                size="2xl"
-                width={'90%'}
-                selectionColor={Styles.globalStyles.textPrimaryColor}
-                value={formData.title}
-                onChangeText={text => {
-                  setFormData({
-                    start: formData.start,
-                    end: formData.end,
-                    date: formData.date,
-                    title: text,
-                    description: formData.description,
-                    location: formData.location,
-                  });
-                }}
-              />
-            </HStack>
+                <Input
+                  color="white"
+                  placeholder={t('common:addActivity')}
+                  variant="underlined"
+                  size="2xl"
+                  width={'90%'}
+                  selectionColor={Styles.globalStyles.textPrimaryColor}
+                  value={formData.title}
+                  onChangeText={text => {
+                    setFormData({
+                      start: formData.start,
+                      end: formData.end,
+                      date: formData.date,
+                      title: text,
+                      description: formData.description,
+                      location: formData.location,
+                    });
+                  }}
+                />
+              </HStack>
+              <HStack>
+                <Box w="10%" />
+                <FormControl.ErrorMessage
+                  leftIcon={<WarningOutlineIcon size="xs" />}>
+                  Events: Not to be empty.
+                </FormControl.ErrorMessage>
+              </HStack>
+            </FormControl>
+
             <VStack mx="4">
               <VStack style={{marginTop: 20}}>
                 <Box style={{marginVertical: 5}}>
@@ -192,7 +232,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                       name="ios-today"
                       size={14}
                       color="#fff"
-                      style={{marginRight: 4}}
+                      style={{marginRight: 10}}
                     />
                     <Text
                       style={{
@@ -255,32 +295,38 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   </HStack>
                 </Box>
                 <Box style={{marginVertical: 5}}>
-                  <HStack style={{alignItems: 'center'}}>
-                    <Text
-                      style={{
-                        color: Styles.globalStyles.textPrimaryColor,
-                      }}>
-                      {t('common:endTime')}
-                    </Text>
-                    <Spacer />
-                    <Box style={{width: 100, alignSelf: 'flex-end'}}>
-                      <DateTimePicker
-                        display="default"
-                        mode="time"
-                        value={formData.end}
-                        onChange={(e, d) => {
-                          setFormData({
-                            start: formData.start,
-                            end: d,
-                            date: formData.date,
-                            title: formData.title,
-                            description: formData.description,
-                            location: formData.location,
-                          });
-                        }}
-                      />
-                    </Box>
-                  </HStack>
+                  <FormControl isInvalid={isInputInValid.time}>
+                    <HStack style={{alignItems: 'center'}}>
+                      <Text
+                        style={{
+                          color: Styles.globalStyles.textPrimaryColor,
+                        }}>
+                        {t('common:endTime')}
+                      </Text>
+                      <Spacer />
+                      <Box style={{width: 100, alignSelf: 'flex-end'}}>
+                        <DateTimePicker
+                          display="default"
+                          mode="time"
+                          value={formData.end}
+                          onChange={(e, d) => {
+                            setFormData({
+                              start: formData.start,
+                              end: d,
+                              date: formData.date,
+                              title: formData.title,
+                              description: formData.description,
+                              location: formData.location,
+                            });
+                          }}
+                        />
+                      </Box>
+                    </HStack>
+                    <FormControl.ErrorMessage
+                      leftIcon={<WarningOutlineIcon size="xs" />}>
+                      Error : Invalid time Input.
+                    </FormControl.ErrorMessage>
+                  </FormControl>
                 </Box>
               </VStack>
             </VStack>
@@ -290,7 +336,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   name="map"
                   size={14}
                   color="#fff"
-                  style={{marginRight: 4}}
+                  style={{marginRight: 10}}
                 />
                 <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
                   {t('common:location')}
@@ -299,7 +345,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
 
               <Input
                 // defaultValue="12345"
-                color="white"
+                color={Styles.globalStyles.textPrimaryColor}
                 placeholder={t('common:location')}
                 selectionColor={Styles.globalStyles.textPrimaryColor}
                 variant="unstyled"
@@ -321,7 +367,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   name="text"
                   size={14}
                   color="#fff"
-                  style={{marginRight: 4}}
+                  style={{marginRight: 10}}
                 />
                 <Text style={{color: Styles.globalStyles.textPrimaryColor}}>
                   {t('common:description')}
@@ -356,7 +402,7 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                   name="notifications"
                   size={14}
                   color="#fff"
-                  style={{marginRight: 4}}
+                  style={{marginRight: 10}}
                 />
                 <Box>
                   <Text style={{color: Styles.globalStyles.textPrimaryColor}}>

@@ -55,6 +55,16 @@ const SettingStackScreen = ({notification, eventsState, navigation}) => {
             event.description,
             new Date(event.start),
           );
+
+          if (parseInt(event.notificationBeforeEvent) > 0) {
+            const notifyBeforeEventTime =
+              parseInt(event.notificationBeforeEvent) * 1000 * 60;
+            scheduleNotifications(
+              `${event.notificationBeforeEvent} minute before, ${event.title}`,
+              event.description,
+              new Date(new Date(event.start).getTime() - notifyBeforeEventTime),
+            );
+          }
         }
       }
     } else {
