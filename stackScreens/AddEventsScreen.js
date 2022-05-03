@@ -29,7 +29,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ColorPicker from 'react-native-color-picker-ios';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-
+import * as RNLocalize from 'react-native-localize';
+import moment from 'moment';
 const DissmissKeyboard = ({children}) => {
   return (
     <TouchableWithoutFeedback
@@ -82,37 +83,34 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
     });
   };
   const submitEvent = () => {
-    console.log(formData.start.getTime(), formData.end.getTime());
-
-    const formmatedDate = formData.date.toISOString().split('T')[0];
-    const formmatedStartTime = formData.start.toISOString().split('T')[1];
-    const formmatedEndTime = formData.end.toISOString().split('T')[1];
-    const formattedStart = `${formmatedDate}T${formmatedStartTime}`;
-    const formattedend = `${formmatedDate}T${formmatedEndTime}`;
-    console.log('add section');
-    console.log(formattedStart, formattedend);
+    const today = moment(formData.date)
+      .tz(RNLocalize.getTimeZone())
+      .format()
+      .split('T')[0];
+    const localized = RNLocalize.getTimeZone();
+    const startTime = new Date(
+      today + 'T' + moment(formData.start).tz(localized).format().split('T')[1],
+    );
+    const endTime = new Date(
+      today + 'T' + moment(formData.end).tz(localized).format().split('T')[1],
+    );
     const state = {
       title: formData.title,
       description: formData.description,
-      start: formattedStart,
-      end: formattedend,
+      start: startTime,
+      end: endTime,
       location: formData.location,
       tagColor: tagColor,
       notificationBeforeEvent: notificationTime,
     };
-    console.log('Notification :', notification);
     if (notification) {
-      scheduleNotifications(
-        formData.title,
-        formData.description,
-        new Date(formattedStart),
-      );
+      scheduleNotifications(formData.title, formData.description, startTime);
       if (parseInt(notificationTime) > 0) {
         const notifyBeforeEventTime = parseInt(notificationTime) * 1000 * 60;
         scheduleNotifications(
           `${notificationTime} minute before, ${formData.title}`,
           formData.description,
-          new Date(new Date(formattedStart).getTime() - notifyBeforeEventTime),
+          new Date(startTime.getTime() - notifyBeforeEventTime),
         );
       }
     }
@@ -136,20 +134,6 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
             <Button
               variant="unstyled"
               onPress={() => {
-                // if (formData.start.getTime() > formData.end.getTime()) {
-                //   console.log('error date');
-                //   Alert.alert('InvalidDate', 'Please Insert collect date.');
-                //   setIsInputInValid({title: falsem, time: true});
-                // } else if (
-                //   formData.title === '' ||
-                //   formData.description === ''
-                // ) {
-                //   console.log('Invalid', 'Event empty');
-                //   Alert.alert('Empty Field', `Don't let field be empty.`);
-                // } else {
-                //   submitEvent();
-                //   navigation.goBack();
-                // }
                 const state = {title: false, time: false};
                 let shouldSubmit = true;
                 if (formData.start.getTime() > formData.end.getTime()) {
@@ -392,7 +376,6 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                     description: text,
                     location: formData.location,
                   });
-                  console.log(formData);
                 }}
               />
             </Stack>
@@ -419,7 +402,6 @@ const AddEventScreen = ({navigation, addEvent, events, notification}) => {
                     value={notificationTime}
                     onChangeText={value => {
                       setNotificationTime(value);
-                      console.log(value);
                     }}
                   />
                 </Box>
