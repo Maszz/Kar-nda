@@ -42,30 +42,17 @@ const DayScreen = ({
   todoListItems,
   setTodoListState,
 }) => {
-  // const navigationState = useSelector(state => state.StackNavigation);
   const [eventCard, setEventCard] = useState([]);
   const timeZone = RNLocalize.getTimeZone();
-  // const {selectedDateState} = useSelector(state => state.selectedDate);
-  // const dispatch = useDispatch();
+
   const {t, i18n} = useTranslation();
   const [todoList, setTodoList] = useState([
     {todoTitle: 'fsd', ischecked: true},
     {todoTitle: 'sd', ischecked: false},
   ]);
-  const todolistDto = {
-    '12-34-56': [
-      {todoTitle: 'fsd', ischecked: false},
-      {todoTitle: 'sd', ischecked: false},
-    ],
-  };
 
   const [selectedDateLocal, setSelectedDateLocal] = useState(moment());
-  // const eventsState = useSelector(state => state.events);
-  // const dayUserMemoState = useSelector(state => state.dayUserMemo);
-  // const {setSelectedDate} = bindActionCreators(
-  //   actionCreators.selectedDateActionCreator,
-  //   dispatch,
-  // );
+
   const [selectedDairy, setSelectedDairy] = useState({
     title: '',
     dairyText: '',
@@ -96,72 +83,6 @@ const DayScreen = ({
     t('month:december'),
   ];
 
-  const [inputValue, setInputValue] = React.useState('');
-  const toast = useToast();
-
-  const addItem = todoTitle => {
-    if (todoTitle === '') {
-      toast.show({
-        todoTitle: 'Please Enter Text',
-        status: 'warning',
-      });
-      return;
-    }
-
-    // setList(prevList => {
-    //   return [
-    //     ...prevList,
-    //     {
-    //       todoTitle: todoTitle,
-    //       ischecked: false,
-    //     },
-    //   ];
-    // });
-    const temp = [
-      ...todoList,
-      {
-        todoTitle: todoTitle,
-        ischecked: false,
-      },
-    ];
-
-    setTodoListState({
-      date: selectedDateLocal.format().split('T')[0],
-      todoItem: temp,
-    });
-  };
-
-  const handleDelete = index => {
-    // setList(prevList => {
-    //   const temp = prevList.filter((_, itemI) => itemI !== index);
-    //   return temp;
-    // });
-    const temp2 = todoList.filter((_, itemI) => itemI !== index);
-    console.log(temp2);
-
-    setTodoListState({
-      date: selectedDateLocal.format().split('T')[0],
-      todoItem: temp2,
-    });
-  };
-
-  const handleStatusChange = index => {
-    const newList2 = [...todoList];
-
-    // setList(prevList => {
-    //   const newList = [...prevList];
-    //   newList[index].ischecked = !newList[index].ischecked;
-    //   return newList;
-    // });
-    console.log('NewList:', newList2);
-
-    newList2[index].ischecked = !newList2[index].ischecked;
-    console.log('NewList:', newList2);
-    setTodoListState({
-      date: selectedDateLocal.format().split('T')[0],
-      todoItem: newList2,
-    });
-  };
   const isFocused = useIsFocused();
   if (!isFocused) {
     console.log('Defocus Effect');
