@@ -43,4 +43,9 @@ export default {
   cancel: 'Cancel',
   delete: 'Delete',
   noLocation: 'No location.',
+  deleteEvent: 'Delete Event',
+  deleteEventMsg: 'Did you want to delete the event?',
+  yes: 'Yes',
+  deleteTodoItemMsg: 'Did you want to delete this item?',
+  deleteTodoItem: 'Delete this item?',
 };

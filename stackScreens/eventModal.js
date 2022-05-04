@@ -96,21 +96,25 @@ const EventModal = ({
           variant="unstyled"
           color="white"
           onPress={() => {
-            Alert.alert('Delete Event', 'Did you want to delete the event?', [
-              {
-                text: 'Cancel',
-                // onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {
-                text: 'Yes',
-                onPress: () => {
-                  removeEvent(selectedEvent);
-                  navigation.goBack();
+            Alert.alert(
+              `${t('common:deleteEvent')}`,
+              `${t('common:deleteEventMsg')}`,
+              [
+                {
+                  text: `${t('common:cancel')}`,
+                  // onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
                 },
-                style: 'default',
-              },
-            ]);
+                {
+                  text: `${t('common:yes')}`,
+                  onPress: () => {
+                    removeEvent(selectedEvent);
+                    navigation.goBack();
+                  },
+                  style: 'default',
+                },
+              ],
+            );
           }}>
           <Text style={{color: 'white'}}>{t('common:delete')}</Text>
         </Button>

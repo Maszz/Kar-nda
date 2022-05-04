@@ -43,4 +43,9 @@ export default {
   cancel: 'ยกเลิก',
   delete: 'ลบ',
   noLocation: 'ไม่ได้ระบุสถานที่',
+  deleteEvent: 'ลบกิจกรรม',
+  deleteEventMsg: 'คุณตรงการลบกิจกรรมนี้ออกใช้หรือไม่?',
+  yes: 'ตกลง',
+  deleteTodoItemMsg: 'คุณต้องการลบสิ่งที่ต้องทำนี้หรือไม่?',
+  deleteTodoItem: 'ลบสิ่งที่ต้องทำ',
 };

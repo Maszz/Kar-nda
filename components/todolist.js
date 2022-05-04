@@ -22,6 +22,7 @@ import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {useSelector, connect} from 'react-redux';
 import {actionCreators} from '../state/';
 import {ScrollView} from 'react-native-gesture-handler';
+import {t} from 'i18next';
 
 const Todolist = ({
   setTodoListState,
@@ -136,28 +137,7 @@ const Todolist = ({
   return (
     <Center w="100%">
       <VStack w="100%" px={5}>
-        {/* <Heading mb="2" size="md">
-          Wednesday
-        </Heading> */}
         <VStack space={4}>
-          {/* <HStack space={2}>
-            <Input
-              flex={1}
-              onChangeText={v => setInputValue(v)}
-              value={inputValue}
-              color={'#ffff'}
-              placeholder="Add Task"
-            />
-            <IconButton
-              borderRadius="sm"
-              variant="solid"
-              icon={<EntypoIcon name="plus" size={12} color="#ffff" />}
-              onPress={() => {
-                addItem(inputValue);
-                setInputValue('');
-              }}
-            />
-          </HStack> */}
           <ScrollView space={2} showsVerticalScrollIndicator={false}>
             {list.map((item, itemI) => (
               <HStack
@@ -186,25 +166,27 @@ const Todolist = ({
                   color={'white'}
                   icon={<EntypoIcon name="minus" size={12} color="#fff" />}
                   onPress={() => {
-                    Alert.alert('Delete', 'Did you want to delete this item?', [
-                      {
-                        text: 'Cancel',
-                        onPress: () => {
-                          console.log('cancel');
+                    Alert.alert(
+                      `${t('common:deleteTodoItem')}`,
+                      `${t('common:deleteTodoItemMsg')}`,
+                      [
+                        {
+                          text: t('common:cancel'),
+                          onPress: () => {
+                            console.log('cancel');
+                          },
+                          style: 'cancel',
                         },
-                        style: 'cancel',
-                      },
-                      {
-                        text: 'Yes',
-                        onPress: () => {
-                          console.log('Cancel Pressed');
-                          handleDelete(itemI);
+                        {
+                          text: t('common:yes'),
+                          onPress: () => {
+                            console.log('Cancel Pressed');
+                            handleDelete(itemI);
+                          },
+                          style: 'default',
                         },
-                        style: 'default',
-                      },
-                    ]);
-
-                    // handleDelete(itemI);
+                      ],
+                    );
                   }}
                 />
               </HStack>
@@ -227,4 +209,3 @@ const mapDispatchToProps = {
   setTodoLength: actionCreators.todoListActionCreator.setTodoLength,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Todolist);
-// export default Todolist;
