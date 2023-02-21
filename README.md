@@ -76,7 +76,7 @@ Calendar             |  Quick add | Quick Event
 
 Dairy            | Todo List
 :-------------------------:|:-------------------------:
-![150x300](images/gif4.gif) | ![150x300](images/gif1.gif)
+![150x300](images/gif4.gif) | ![150x300](images/gif5.gif)
 
 
 ## Authors
