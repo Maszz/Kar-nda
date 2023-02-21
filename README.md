@@ -59,11 +59,11 @@
 
 | Path | Description |  
 | ----------- | ----------- |  
-| [`./stackScreen`](./stackScreen) | provide all StackScreen |  
-| [`./drawerScreen`](./drawerScreen) | provide all DrawerScreen |
-| [`./app.js`](./app.js) | Root of the Application provide all context wrapper|
-| [`./index.js`](./index.js) | EntryPoint (Register Component)|
-| [`./translations`](/translations) | Localization Logic and Translation script|
+| [./stackScreen](./stackScreen) | provide all StackScreen |  
+| [./drawerScreen](./drawerScreen) | provide all DrawerScreen |
+| [./app.js](./app.js) | Root of the Application provide all context wrapper|
+| [./index.js](./index.js) | EntryPoint (Register Component)|
+| [./translations](/translations) | Localization Logic and Translation script|
 
 
 ## Demo
